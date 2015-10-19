@@ -63,6 +63,11 @@ body {
 	background-color: #BBB;
 }
 
+img{
+	max-width: 100%;
+    height: auto;
+}
+
 header {
 
 	a {
@@ -170,7 +175,7 @@ section {margin-bottom: $section-magin-or-padding;}
 		}
 		@include span(12);
 
-		text-align: center;
+		text-align: center;	
 	}
 
 	aside {

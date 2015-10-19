@@ -99,6 +99,10 @@ input, select {
 body {
   background-color: #BBB; }
 
+img {
+  max-width: 100%;
+  height: auto; }
+
 header a {
   text-decoration: none;
   color: #FFF; }
