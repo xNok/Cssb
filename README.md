@@ -7,9 +7,13 @@ Base Frontend tools
 The project uses Gulp to run tasks. Thus start by intall gulp with [node.js](https://nodejs.org/en/)
 
 > npm install -g gulp
+
 then install dependencies
+
 > npm install
+
 finally run the gulp application
+
 > gulp
 
 ## Tools
