@@ -98,9 +98,10 @@ input, select {
 footer {
   width: 100%;
   height: 50px;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 10;
   text-align: center;
   line-height: 50px;
   background: black;
@@ -125,14 +126,9 @@ header {
     color: black; }
   header nav {
     padding: 15px 0;
-    max-width: 95%;
+    max-width: 80%;
     margin-left: auto;
-    margin-right: auto;
-    background-image: linear-gradient(to right, transparent 8.33333%, rgba(102, 102, 255, 0.25) 8.33333%, rgba(179, 179, 255, 0.25) 91.66667%, transparent 91.66667%);
-    background-size: 8.33333%;
-    background-origin: content-box;
-    background-clip: content-box;
-    background-position: left top; }
+    margin-right: auto; }
     header nav:after {
       content: " ";
       display: block;
@@ -197,8 +193,75 @@ header {
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-body {
-  background-color: #BBB; }
+body, html {
+  background-color: #BBB;
+  font-size: 14pt;
+  height: 100%; }
+
+#l-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  padding-bottom: 50px; }
+
+.l-warp {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto; }
+  .l-warp:after {
+    content: " ";
+    display: block;
+    clear: both; }
+
+.l-content {
+  padding: 20px;
+  height: 85vh; }
+
+.description {
+  margin-bottom: 50px; }
+  .description h1 {
+    font-size: 3em;
+    padding: 15px 0; }
+  .description p {
+    text-indent: justify;
+    font-weight: bold; }
+
+.images {
+  position: relative;
+  width: 98.61111%;
+  float: left;
+  margin-left: 0.69444%;
+  margin-right: 0.69444%;
+  height: 80%; }
+  .images .image {
+    position: absolute;
+    border: 1px solid red;
+    height: 60%;
+    width: 45%;
+    background-color: black;
+    color: red;
+    text-align: center;
+    font-size: 2em;
+    padding: 10px; }
+    .images .image:hover {
+      transform: scale(1.2);
+      z-index: 2;
+      background-color: #262626; }
+  .images #image1 {
+    top: 27.5%;
+    right: 27.5%;
+    transform: scale(1.1);
+    z-index: 1; }
+  .images #image2 {
+    top: 15%;
+    right: 0;
+    transform: skewY(5deg);
+    background-color: #1a1a1a; }
+  .images #image3 {
+    top: 15%;
+    left: 0;
+    transform: skewY(-5deg);
+    background-color: #1a1a1a; }
 
 #defaultnav {
   width: 60%;
@@ -212,8 +275,3 @@ body {
     text-decoration: underline; }
   #defaultnav li {
     font-size: 1.5em; }
-
-.l-container {
-  min-height: 100%;
-  position: relative;
-  padding-bottom: 50px; }
