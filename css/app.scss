@@ -59,6 +59,7 @@ $color-3: red;
 /* base */
 @import 'base/cssReset';
 /* modules */
+@import 'modules/simpleFooter';
 @import 'modules/simpleHeaderNavbar';
 /* Theme */
 //@import 'themes/threeBoxes';
@@ -86,4 +87,10 @@ body {
 	li{
 		font-size: 1.5em;
 	}
+}
+
+.l-container{
+	min-height: 100%;
+    position: relative;
+    padding-bottom: 50px;
 }
