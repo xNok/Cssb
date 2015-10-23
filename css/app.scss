@@ -1,14 +1,74 @@
-/* nodes_modules*/
+/*----------------------------------------------------------------*\
+        0_Import tools
+\*----------------------------------------------------------------*/
+
 @import "node_modules/susy/sass/susy";
 @import "node_modules/breakpoint-sass/stylesheets/breakpoint";
+
+/*----------------------------------------------------------------*\
+        1_LAYOUT_Susy
+\*----------------------------------------------------------------*/
+
+
+$susy: (
+	/*Layout properties*/
+	container: 95%,
+	columns: 12,
+	/*Gutter properties*/
+	gutters: 1/5,
+	gutter-position: split,
+	//column-width: 100px,
+	/*configuration*/
+	global-box-sizing: border-box,
+	debug: (
+		image: show,
+	)
+);
+
+$mdLayout: (
+	/*Layout properties*/
+	container: 80%,
+	columns: 12,
+	/*Gutter properties*/
+	gutters: 1/5,
+	gutter-position: split,
+	//column-width: 100px,
+	/*configuration*/
+	global-box-sizing: border-box,
+	debug: (
+		//image: show,
+	)
+);
+
+/*----------------------------------------------------------------*\
+        2_Variables
+\*----------------------------------------------------------------*/
+/*breakpoints*/
+$bkp-lg:970px;
+$bkp-md:800px;
+$bkp-sm:600px;
+
+/*color panel*/
+$color-1: white;
+$color-2: black;
+$color-3: red;
+/*----------------------------------------------------------------*\
+        3_Import SCSS
+\*----------------------------------------------------------------*/
+
 /* base */
 @import 'base/cssReset';
+/* modules */
+@import 'modules/simpleHeaderNavbar';
 /* Theme */
-@import 'themes/threeBoxes.scss';
+//@import 'themes/threeBoxes';
 
 
 @include border-box-sizing;
 
+body {
+	background-color: #BBB;
+}
 
 #defaultnav{
 	width: 60%;

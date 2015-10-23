@@ -1,15 +1,6 @@
 /*----------------------------------------------------------------*\
         1_$VARIABLES
 \*----------------------------------------------------------------*/
-/*breakpoints*/
-$bkp-md:800px;
-$bkp-sm:670px;
-
-/*color panel*/
-$color-1: black;
-$color-2: white;
-$color-3: red;
-
 /*size*/
 $icon-height: 50px;
 $warp-margin-top: 50px;
@@ -59,77 +50,9 @@ $mdLayout: (
         3_$DEFINITIONs
 \*----------------------------------------------------------------*/
 
-body {
-	background-color: #BBB;
-}
-
 img{
 	max-width: 100%;
     height: auto;
-}
-
-header {
-
-	a {
-		text-decoration: none;
-		color: #FFF;
-	}
-
-	nav {
-		@include container();
-
-		@include susy-breakpoint($bkp-md, $mdLayout){
-			@include container();			
-		}
-
-		padding-top: 10px;
-		
-		li {
-			@include breakpoint(600px){
-				@include span(2 last);
-			}
-			@include span(12);
-
-			border: solid 1px #FFF;
-			padding: $padding-top-or-bot-inline-item 0;
-			background-color: $color-1;
-
-			&:hover {
-				border: solid 2px $color-3;	
-			}
-
-			a {
-				display: inline-block;
-				width: 100%;
-				height: 100%;
-				text-align: center;
-			}	
-		}
-
-		.icon {
-
-			@include breakpoint(600px){
-				@include span(3);
-			}
-			@include span(12);
-
-			height: $icon-height;
-			background-color: $color-1;
-
-			font-size: 2.5em;
-			line-height: $icon-height;
-
-			a {
-				display: inline-block;
-				width: 100%;
-				text-align: center;
-
-				&:hover{
-					color: $color-3;
-				}
-			}
-		}
-	}
 }
 
 .l-warp {

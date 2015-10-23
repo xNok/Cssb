@@ -37,7 +37,7 @@ gulp.task 'default', ->
 	browserSync
 		server: {basedir: './'}
 	gulp.watch path.refresh, reload
-	gulp.watch "#{path.scss}*.scss", ['sass']
+	gulp.watch "#{path.scss}/**/*.scss", ['sass']
 
 gulp.task 'gh-pages', ->
   return gulp.src "./templates/**/*"
