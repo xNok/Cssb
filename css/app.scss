@@ -62,7 +62,7 @@ $color-3: red;
 @import 'modules/simpleFooter';
 @import 'modules/simpleHeaderNavbar';
 /* Theme */
-//@import 'themes/threeBoxes';
+//@import 'themes/threeImages';
 
 
 @include border-box-sizing;
@@ -72,84 +72,6 @@ body, html {
 	font-size: 14pt;
 	height: 100%;
 }
-
-#l-container{
-	height: 100%;
-	width: 100%;
-    position: relative;
-    padding-bottom: 50px;
-}
-
-.l-warp{
-	@include container();
-}
-
-.l-content{
-	padding: 20px;
-	height: 85vh;
-}
-
-.description{
-	margin-bottom: 50px;
-	h1{
-		font-size: 3em;
-		padding: 15px 0;
-	}
-	p{
-		text-indent: justify;
-		font-weight: bold;
-	}
-}
-
-.images{
-	position: relative;
-	@include span(full);
-	height: 80%;
-
-$img-h: 60%;
-$img-w: 45%;
-
-	.image{
-		position: absolute;
-		border: 1px solid $color-3;
-		height: $img-h;
-		width: $img-w;
-		background-color: $color-2;
-		color: $color-3;
-
-		text-align: center;
-		font-size: 2em;
-		padding: 10px;
-
-		&:hover{
-			transform: scale(1.2);
-			z-index: 2;
-			background-color: lighten($color-2, 15%);
-		}
-	}
-
-	#image1{
-		top: ((100%-$img-h + 15%)/2);
-		right: ((100%-$img-w)/2);
-		transform: scale(1.1);
-		z-index: 1;
-	}
-
-	#image2{
-		top: ((100%-$img-h - 10%)/2);
-		right: 0;
-		transform: skewY(5deg);	
-		background-color: lighten($color-2, 10%);
-	}
-
-	#image3{
-		top: ((100%-$img-h - 10%)/2);
-		left: 0;
-		transform: skewY(-5deg);
-		background-color: lighten($color-2, 10%);	
-	}
-}
-
 
 #defaultnav{
 	width: 60%;

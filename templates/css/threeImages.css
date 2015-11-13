@@ -194,6 +194,81 @@ header {
           color: red; }
 
 /* Theme */
+/*----------------------------------------------------------------*        1_$VARIABLES
+\*----------------------------------------------------------------*/
+/*susy layouts*/
+/*----------------------------------------------------------------*        2_$MIXINS
+\*----------------------------------------------------------------*/
+/*----------------------------------------------------------------*        3_$DEFINITIONs
+\*----------------------------------------------------------------*/
+#l-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  padding-bottom: 50px; }
+
+.l-warp {
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto; }
+  .l-warp:after {
+    content: " ";
+    display: block;
+    clear: both; }
+
+.l-content {
+  padding: 20px;
+  height: 85vh; }
+
+.description {
+  margin-bottom: 50px; }
+  .description h1 {
+    font-size: 3em;
+    padding: 15px 0; }
+  .description p {
+    text-indent: justify;
+    font-weight: bold; }
+
+.images {
+  position: relative;
+  width: 98.61111%;
+  float: left;
+  margin-left: 0.69444%;
+  margin-right: 0.69444%;
+  height: 80%;
+  text-align: center; }
+  .images img {
+    max-width: 100%;
+    border: 1px solid red;
+    background-color: black;
+    color: red;
+    text-align: center;
+    font-size: 2em;
+    padding: 10px; }
+    .images img:hover {
+      transform: scale(1.2);
+      z-index: 2;
+      background-color: #262626; }
+  @media (min-width: 800px) {
+    .images img {
+      position: absolute;
+      height: 60%;
+      width: 45%; }
+    .images #image1 {
+      top: 20%;
+      right: 27.5%;
+      z-index: 1; }
+    .images #image2 {
+      top: 10%;
+      right: 0;
+      transform: skewY(3deg);
+      background-color: #1a1a1a; }
+    .images #image3 {
+      top: 10%;
+      left: 0;
+      transform: skewY(-3deg);
+      background-color: #1a1a1a; } }
+
 *, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;

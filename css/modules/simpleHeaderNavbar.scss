@@ -6,6 +6,7 @@ $SHN-bgc: $color-2;
 
 /*link*/
 $links-col-nb: 1;
+$links-col-nb--md: 3;
 $links-float: right; //right OR left
 $links-mt: 5px;
 
@@ -46,6 +47,9 @@ header {
 		
 		li {
 			@include breakpoint($bkp-sm){
+				@include span($links-col-nb--md if($links-float == "right", last, ""));
+			}
+			@include breakpoint($bkp-md){
 				@include span($links-col-nb if($links-float == "right", last, ""));
 			}
 			@include span(full);
@@ -72,7 +76,7 @@ header {
 
 		.icon {
 
-			@include susy-breakpoint($bkp-sm, $mdLayout){
+			@include susy-breakpoint($bkp-md, $mdLayout){
 				@include span($icon-col-nbr);
 			}
 			@include span(full);

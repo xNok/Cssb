@@ -1,0 +1,127 @@
+/*----------------------------------------------------------------*\
+        1_$VARIABLES
+\*----------------------------------------------------------------*/
+$img-h: 60%;
+$img-w: 45%;
+
+$img-skew: 3deg;
+$img-top-dif: 20%;
+
+/*susy layouts*/
+$susy: (
+	/*Layout properties*/
+	container: 95%,
+	columns: 12,
+	/*Gutter properties*/
+	gutters: 1/5,
+	gutter-position: split,
+	//column-width: 100px,
+	/*configuration*/
+	global-box-sizing: border-box,
+	debug: (
+		//image: show,
+	)
+);
+
+$mdLayout: (
+	/*Layout properties*/
+	container: 80%,
+	columns: 12,
+	/*Gutter properties*/
+	gutters: 1/5,
+	gutter-position: split,
+	//column-width: 100px,
+	/*configuration*/
+	global-box-sizing: border-box,
+	debug: (
+		//image: show,
+	)
+);
+
+/*----------------------------------------------------------------*\
+        2_$MIXINS
+\*----------------------------------------------------------------*/
+
+/*----------------------------------------------------------------*\
+        3_$DEFINITIONs
+\*----------------------------------------------------------------*/
+#l-container{
+	height: 100%;
+	width: 100%;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.l-warp{
+	@include container();
+}
+
+.l-content{
+	padding: 20px;
+	height: 85vh;
+}
+
+.description{
+	margin-bottom: 50px;
+	h1{
+		font-size: 3em;
+		padding: 15px 0;
+	}
+	p{
+		text-indent: justify;
+		font-weight: bold;
+	}
+}
+
+.images{
+	position: relative;
+	@include span(full);
+	height: 80%;
+	text-align: center;
+
+	img{
+		max-width: 100%;
+		border: 1px solid $color-3;
+		background-color: $color-2;
+		color: $color-3;
+
+		text-align: center;
+		font-size: 2em;
+		padding: 10px;	
+
+		&:hover{
+			transform: scale(1.2);
+			z-index: 2;
+			background-color: lighten($color-2, 15%);
+		}
+	}
+
+	@include breakpoint($bkp-md){
+
+		img{
+			position: absolute;
+			height: $img-h;
+			width: $img-w;
+		}
+
+		#image1{
+			top: ((100%-$img-h)/2);
+			right: ((100%-$img-w)/2);
+			z-index: 1;
+		}
+
+		#image2{
+			top: ((100%-$img-h - $img-top-dif)/2);
+			right: 0;
+			transform: skewY($img-skew);	
+			background-color: lighten($color-2, 10%);
+		}
+
+		#image3{
+			top: ((100%-$img-h - $img-top-dif)/2);
+			left: 0;
+			transform: skewY(-$img-skew);
+			background-color: lighten($color-2, 10%);	
+		}
+	}
+}

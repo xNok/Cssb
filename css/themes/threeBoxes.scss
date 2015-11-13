@@ -93,7 +93,7 @@ section {margin-bottom: $section-magin-or-padding;}
 	background-color: $color-1;
 
 	.images{
-		@include breakpoint(600px){
+		@include breakpoint($bkp-sm){
 			@include span(8);
 		}
 		@include span(12);
@@ -102,7 +102,7 @@ section {margin-bottom: $section-magin-or-padding;}
 	}
 
 	aside {
-		@include breakpoint(600px){
+		@include breakpoint($bkp-sm){
 			@include span(4 at 9);
 		}
 		@include span(12);
