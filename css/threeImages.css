@@ -1,0 +1,293 @@
+/*----------------------------------------------------------------*        0_Import tools
+\*----------------------------------------------------------------*/
+/*----------------------------------------------------------------*        1_LAYOUT_Susy
+\*----------------------------------------------------------------*/
+/*----------------------------------------------------------------*        2_Variables
+\*----------------------------------------------------------------*/
+/*breakpoints*/
+/*color panel*/
+/*----------------------------------------------------------------*        3_Import SCSS
+\*----------------------------------------------------------------*/
+/* base */
+/*----------------------------------------------------------------*        1_$VARIABLES
+\*----------------------------------------------------------------*/
+/*----------------------------------------------------------------*        2_$MIXINS
+\*----------------------------------------------------------------*/
+/*----------------------------------------------------------------*        3_$DEFINITIONs
+\*----------------------------------------------------------------*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p,
+blockquote, pre, abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+body {
+  line-height: 1; }
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+nav ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  text-decoration: none; }
+
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none; }
+
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold; }
+
+del {
+  text-decoration: line-through; }
+
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+  padding: 0; }
+
+input, select {
+  vertical-align: middle; }
+
+/* modules */
+footer {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  text-align: center;
+  line-height: 50px;
+  background: black;
+  color: white; }
+  footer a {
+    color: red; }
+
+/*----------------------------------------------------------------*        1_$VARIABLES
+\*----------------------------------------------------------------*/
+/*color*/
+/*link*/
+/*icon*/
+/*size*/
+/*----------------------------------------------------------------*        2_$MIXINS
+\*----------------------------------------------------------------*/
+/*----------------------------------------------------------------*        3_$DEFINITIONs
+\*----------------------------------------------------------------*/
+header {
+  background-color: black; }
+  header a {
+    text-decoration: none;
+    color: black; }
+  header nav {
+    padding: 15px 0;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto; }
+    header nav:after {
+      content: " ";
+      display: block;
+      clear: both; }
+    @media (min-width: 800px) {
+      header nav {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto; }
+        header nav:after {
+          content: " ";
+          display: block;
+          clear: both; } }
+    header nav li {
+      width: 98.61111%;
+      float: left;
+      margin-left: 0.69444%;
+      margin-right: 0.69444%;
+      height: 40px;
+      margin-top: 5px; }
+      @media (min-width: 600px) {
+        header nav li {
+          width: 23.61111%;
+          float: right;
+          margin-left: 0.69444%;
+          margin-right: 0.69444%; } }
+      @media (min-width: 800px) {
+        header nav li {
+          width: 6.94444%;
+          float: right;
+          margin-left: 0.69444%;
+          margin-right: 0.69444%; } }
+      header nav li:hover {
+        border: solid 2px red; }
+      header nav li a {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        border: solid 1px black;
+        text-align: center;
+        line-height: 40px; }
+    header nav .icon {
+      width: 98.61111%;
+      float: left;
+      margin-left: 0.69444%;
+      margin-right: 0.69444%;
+      height: 50px;
+      background-color: white;
+      font-size: 2.5em;
+      line-height: 50px; }
+      @media (min-width: 800px) {
+        header nav .icon {
+          width: 23.61111%;
+          float: left;
+          margin-left: 0.69444%;
+          margin-right: 0.69444%; } }
+      header nav .icon a {
+        display: inline-block;
+        width: 100%;
+        text-align: center; }
+        header nav .icon a:hover {
+          color: red; }
+
+/* Theme */
+/*----------------------------------------------------------------*        1_$VARIABLES
+\*----------------------------------------------------------------*/
+/*susy layouts*/
+/*----------------------------------------------------------------*        2_$MIXINS
+\*----------------------------------------------------------------*/
+/*----------------------------------------------------------------*        3_$DEFINITIONs
+\*----------------------------------------------------------------*/
+#l-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  padding-bottom: 50px; }
+
+.l-warp {
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto; }
+  .l-warp:after {
+    content: " ";
+    display: block;
+    clear: both; }
+
+.l-content {
+  padding: 20px;
+  height: 85vh; }
+
+.description {
+  margin-bottom: 50px; }
+  .description h1 {
+    font-size: 3em;
+    padding: 15px 0; }
+  .description p {
+    text-indent: justify;
+    font-weight: bold; }
+
+.images {
+  position: relative;
+  width: 98.61111%;
+  float: left;
+  margin-left: 0.69444%;
+  margin-right: 0.69444%;
+  height: 80%;
+  text-align: center; }
+  .images img {
+    max-width: 100%;
+    border: 1px solid red;
+    background-color: black;
+    color: red;
+    text-align: center;
+    font-size: 2em;
+    padding: 10px; }
+    .images img:hover {
+      transform: scale(1.2);
+      z-index: 2;
+      background-color: #262626; }
+  @media (min-width: 800px) {
+    .images img {
+      position: absolute;
+      height: 60%;
+      width: 45%; }
+    .images #image1 {
+      top: 20%;
+      right: 27.5%;
+      z-index: 1; }
+    .images #image2 {
+      top: 10%;
+      right: 0;
+      transform: skewY(3deg);
+      background-color: #1a1a1a; }
+    .images #image3 {
+      top: 10%;
+      left: 0;
+      transform: skewY(-3deg);
+      background-color: #1a1a1a; } }
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+body, html {
+  background-color: #BBB;
+  font-size: 14pt;
+  height: 100%; }
+
+#defaultnav {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px solid #000;
+  border-radius: 5px; }
+  #defaultnav h1 {
+    font-size: 2em;
+    padding: 10px;
+    text-decoration: underline; }
+  #defaultnav li {
+    font-size: 1.5em; }
