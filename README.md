@@ -34,3 +34,4 @@ finally run the gulp application
 ## Basics layouts solution
 
 * [three Boxes](http://xnok.github.io/Cssb/threeBoxes)
+* [three Images](http://xnok.github.io/Cssb/threeImages)
