@@ -20,7 +20,7 @@ browser_support = [
 # Require frontend dev
 gulp = require('gulp')
 sass = require('gulp-sass')
-autoprefixer = require('autoprefixer')
+autoprefixer = require('gulp-autoprefixer')
 browserSync = require('browser-sync')
 reload = browserSync.reload
 
@@ -30,6 +30,7 @@ ghPages = require('gulp-gh-pages');
 gulp.task 'sass', ->
   gulp.src "#{path.scss}*.scss"
   .pipe sass().on('error', sass.logError)
+  .pipe autoprefixer(browsers: browser_support)
   .pipe gulp.dest(path.css)
   .pipe reload(stream: true)
 
