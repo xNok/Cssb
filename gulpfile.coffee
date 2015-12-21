@@ -2,7 +2,7 @@
 path =
 	css: 'css/'
 	scss: 'css/'
-	refresh: '*.html'
+	refresh: ["*.html",  "js/*.js"]
 
 # Support
 browser_support = [
