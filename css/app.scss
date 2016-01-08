@@ -1,15 +1,32 @@
+/*
+StyleSheet Name: Cssb
+Description: Used to give basis on web project
+*/
+
+/**
+ * Table of Contents:
+ *
+ * I   - Import tools
+ * II  - LAYOUT_Susy
+ * III - Variables
+ * IV  - Structure
+ * 0.0 - Reset
+ * 1.0 - Body
+ * 2.0 - Typography
+ * 3.0 - Elements/Modules
+ * 4.0 - Themes
+ */
+
 /*----------------------------------------------------------------*\
-        0_Import tools
+        I_Import tools
 \*----------------------------------------------------------------*/
 
 @import "node_modules/susy/sass/susy";
 @import "node_modules/breakpoint-sass/stylesheets/breakpoint";
 
 /*----------------------------------------------------------------*\
-        1_LAYOUT_Susy
+        II_LAYOUT Susy
 \*----------------------------------------------------------------*/
-
-
 $susy: (
 	/*Layout properties*/
 	container: 80%,
@@ -24,24 +41,8 @@ $susy: (
 		//image: show,
 	)
 );
-
-$mdLayout: (
-	/*Layout properties*/
-	container: 80%,
-	columns: 12,
-	/*Gutter properties*/
-	gutters: 1/5,
-	gutter-position: split,
-	//column-width: 100px,
-	/*configuration*/
-	global-box-sizing: border-box,
-	debug: (
-		//image: show,
-	)
-);
-
 /*----------------------------------------------------------------*\
-        2_Variables
+        III_Variables
 \*----------------------------------------------------------------*/
 /*breakpoints*/
 $bkp-lg:970px;
@@ -53,18 +54,17 @@ $color-1: white;
 $color-2: black;
 $color-3: red;
 /*----------------------------------------------------------------*\
-        3_Import SCSS
+        IV_Structure
 \*----------------------------------------------------------------*/
 
-/* base */
+/**
+ * 0.0 - Reset
+ */ 
 @import 'base/cssReset';
-/* modules */
-@import 'modules/simpleFooter';
-@import 'modules/simpleHeaderNavbar';
-/* Theme */
-//@import 'themes/threeImages';
 
-
+/**
+ * 1.0 - Body
+ */ 
 @include border-box-sizing;
 
 body, html {
@@ -73,6 +73,19 @@ body, html {
 	height: 100%;
 }
 
+/**
+ * 2.0 - Typographie
+ */
+
+/**
+ * 3.0 - Elements/Modules
+ */
+@import 'modules/simpleFooter';
+@import 'modules/simpleHeaderNavbar';
+
+/**
+ * 4.0 - Themes
+ */
 #defaultnav{
 	width: 60%;
 	margin: 0 auto;
@@ -90,3 +103,7 @@ body, html {
 		font-size: 1.5em;
 	}
 }
+
+
+
+
