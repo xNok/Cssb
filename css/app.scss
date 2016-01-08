@@ -41,6 +41,22 @@ $susy: (
 		//image: show,
 	)
 );
+
+$mdLayout: (
+	/*Layout properties*/
+	container: 80%,
+	columns: 12,
+	/*Gutter properties*/
+	gutters: 1/5,
+	gutter-position: split,
+	//column-width: 100px,
+	/*configuration*/
+	global-box-sizing: border-box,
+	debug: (
+		//image: show,
+	)
+);
+
 /*----------------------------------------------------------------*\
         III_Variables
 \*----------------------------------------------------------------*/
@@ -76,6 +92,7 @@ body, html {
 /**
  * 2.0 - Typographie
  */
+
 
 /**
  * 3.0 - Elements/Modules

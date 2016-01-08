@@ -1,14 +1,37 @@
-/*----------------------------------------------------------------*        0_Import tools
+/*
+StyleSheet Name: Cssb
+Description: Used to give basis on web project
+*/
+/**
+ * Table of Contents:
+ *
+ * I   - Import tools
+ * II  - LAYOUT_Susy
+ * III - Variables
+ * IV  - Structure
+ * 0.0 - Reset
+ * 1.0 - Body
+ * 2.0 - Typography
+ * 3.0 - Elements/Modules
+ * 4.0 - Themes
+ */
+/*----------------------------------------------------------------*        I_Import tools
 \*----------------------------------------------------------------*/
-/*----------------------------------------------------------------*        1_LAYOUT_Susy
+/*----------------------------------------------------------------*        II_LAYOUT Susy
 \*----------------------------------------------------------------*/
-/*----------------------------------------------------------------*        2_Variables
+/*----------------------------------------------------------------*        III_Variables
 \*----------------------------------------------------------------*/
 /*breakpoints*/
 /*color panel*/
-/*----------------------------------------------------------------*        3_Import SCSS
+/*----------------------------------------------------------------*        IV_Structure
 \*----------------------------------------------------------------*/
-/* base */
+/**
+ * 0.0 - Reset
+ */
+/*
+StyleSheet Name: cssReset
+Reset all css styles given by default
+*/
 /*----------------------------------------------------------------*        1_$VARIABLES
 \*----------------------------------------------------------------*/
 /*----------------------------------------------------------------*        2_$MIXINS
@@ -94,7 +117,27 @@ hr {
 input, select {
   vertical-align: middle; }
 
-/* modules */
+/**
+ * 1.0 - Body
+ */
+*, *:before, *:after {
+  box-sizing: border-box; }
+
+body, html {
+  background-color: #BBB;
+  font-size: 14pt;
+  height: 100%; }
+
+/**
+ * 2.0 - Typographie
+ */
+/**
+ * 3.0 - Elements/Modules
+ */
+/*
+StyleSheet Name: SimpleFooter
+Very simple footer
+*/
 footer {
   width: 100%;
   height: 50px;
@@ -109,6 +152,10 @@ footer {
   footer a {
     color: red; }
 
+/*
+StyleSheet Name: SimpleHeader
+Very simple Header
+*/
 /*----------------------------------------------------------------*        1_$VARIABLES
 \*----------------------------------------------------------------*/
 /*color*/
@@ -193,15 +240,9 @@ header {
         header nav .icon a:hover {
           color: red; }
 
-/* Theme */
-*, *:before, *:after {
-  box-sizing: border-box; }
-
-body, html {
-  background-color: #BBB;
-  font-size: 14pt;
-  height: 100%; }
-
+/**
+ * 4.0 - Themes
+ */
 #defaultnav {
   width: 60%;
   margin: 0 auto;
