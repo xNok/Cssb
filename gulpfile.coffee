@@ -3,8 +3,10 @@ path =
   dist: './dist'
   css: 'dist/css/'
   refresh: ["*.html",  "js/*.js"]
+  js: 'dist/js/'
   scssWatch: 'css/**/*.scss'
   scss: 'css/*.scss'
+  jsWatch: 'js/**/*.js'
   ghpage: './gh-pages/**/*'
   swigWatch: ["partials/*.html",  "pages/*.html"]
   swig: 'pages/*.html'
@@ -28,6 +30,7 @@ gulp = require('gulp')
 sass = require('gulp-sass')
 autoprefixer = require('gulp-autoprefixer')
 swig = require('gulp-swig')
+uglify = require('gulp-uglify')
 browserSync = require('browser-sync')
 reload = browserSync.reload
 
@@ -46,12 +49,19 @@ gulp.task 'swig', ->
   .pipe(swig({defaults: { cache: false }}))
   .pipe(gulp.dest(path.dist))
 
+gulp.task 'uglify', ->
+  gulp.src path.jsWatch
+  .pipe uglify()
+  .pipe gulp.dest(path.js)
+  .pipe reload(stream: true)
+
 gulp.task 'default', ->
   browserSync
     server: {baseDir: path.dist}
   gulp.watch path.scssWatch, ['sass']
   gulp.watch path.swigWatch, ['swig', reload]
   gulp.watch path.refresh, reload
+  gulp.watch path.jsWatch, ['uglify']
 
 gulp.task 'gh-pages', ->
   return gulp.src path.ghpage

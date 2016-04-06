@@ -25,6 +25,7 @@ finally run the gulp application
 * [browser-sync](http://www.browsersync.io/) - Navigator autorelaod
 * [autoprefixer](https://css-tricks.com/autoprefixer/) - Simple navigator compatibiity
 * [swig](https://www.npmjs.com/package/gulp-swig) - html templating engine
+* [gulp-uglify](https://www.npmjs.com/package/gulp-uglify) - Minify JS files
 
 ### Recommended Sass modules 
 
