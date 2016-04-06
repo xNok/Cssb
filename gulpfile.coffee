@@ -25,8 +25,10 @@ browser_support = [
   "bb >= 10"
 ]
 
+# Project tools
+gulp = require('gulp-help')(require('gulp'));
+
 # Require frontend dev
-gulp = require('gulp')
 sass = require('gulp-sass')
 autoprefixer = require('gulp-autoprefixer')
 swig = require('gulp-swig')
@@ -37,25 +39,26 @@ reload = browserSync.reload
 # Require gh-pages
 ghPages = require('gulp-gh-pages');
 
-gulp.task 'sass', ->
+# frontend dev
+gulp.task 'sass', 'Build the css assets', ->
   gulp.src path.scss
   .pipe sass().on('error', sass.logError)
   .pipe autoprefixer(browsers: browser_support)
   .pipe gulp.dest(path.css)
   .pipe reload(stream: true)
 
-gulp.task 'swig', ->
+gulp.task 'swig','Built pages with swig template engine', ->
   gulp.src(path.swig)
   .pipe(swig({defaults: { cache: false }}))
   .pipe(gulp.dest(path.dist))
 
-gulp.task 'uglify', ->
+gulp.task 'uglify', 'Build minified JS files', ->
   gulp.src path.jsWatch
   .pipe uglify()
   .pipe gulp.dest(path.js)
   .pipe reload(stream: true)
 
-gulp.task 'default', ->
+gulp.task 'default','Watch assets and templates for build on change', ->
   browserSync
     server: {baseDir: path.dist}
   gulp.watch path.scssWatch, ['sass']
@@ -63,6 +66,9 @@ gulp.task 'default', ->
   gulp.watch path.refresh, reload
   gulp.watch path.jsWatch, ['uglify']
 
-gulp.task 'gh-pages', ->
+# compile project
+gulp.task 'dist','Build production files', ['swig','sass','uglify']
+
+gulp.task 'gh-pages','Publish gh-pages', ->
   return gulp.src path.ghpage
   .pipe ghPages()
