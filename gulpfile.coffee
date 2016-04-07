@@ -22,11 +22,13 @@ browser_support = [
   "opera >= 23"
   "ios >= 7"
   "android >= 4.4"
-  "bb >= 10"
+  "bb >= 10"plumber = require('gulp-plumber');
 ]
 
 # Project tools
-gulp = require('gulp-help')(require('gulp'));
+gulp = require('gulp-help')(require('gulp'))
+plumber = require('gulp-plumber');
+gutil = require('gulp-util')
 
 # Require frontend dev
 sass = require('gulp-sass')
@@ -54,7 +56,8 @@ gulp.task 'swig','Built pages with swig template engine', ->
 
 gulp.task 'uglify', 'Build minified JS files', ->
   gulp.src path.jsWatch
-  .pipe uglify()
+  .pipe plumber()
+  .pipe uglify().on('error', gutil.log)
   .pipe gulp.dest(path.js)
   .pipe reload(stream: true)
 
