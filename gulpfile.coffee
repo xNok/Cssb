@@ -51,8 +51,9 @@ gulp.task 'sass', 'Build the css assets', ->
 
 gulp.task 'swig','Built pages with swig template engine', ->
   gulp.src(path.swig)
-  .pipe(swig({defaults: { cache: false }}))
-  .pipe(gulp.dest(path.dist))
+  .pipe plumber()
+  .pipe swig({defaults: { cache: false }})
+  .pipe gulp.dest(path.dist)
 
 gulp.task 'uglify', 'Build minified JS files', ->
   gulp.src path.jsWatch
