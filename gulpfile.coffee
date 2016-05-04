@@ -34,12 +34,18 @@ gutil = require('gulp-util')
 sass = require('gulp-sass')
 autoprefixer = require('gulp-autoprefixer')
 swig = require('gulp-swig')
+data = require('gulp-data')
 uglify = require('gulp-uglify')
 browserSync = require('browser-sync')
 reload = browserSync.reload
 
 # Require gh-pages
 ghPages = require('gulp-gh-pages');
+
+#Data
+JsonData = (file) ->
+  require('./data/app.json')
+
 
 # frontend dev
 gulp.task 'sass', 'Build the css assets', ->
@@ -52,6 +58,7 @@ gulp.task 'sass', 'Build the css assets', ->
 gulp.task 'swig','Built pages with swig template engine', ->
   gulp.src(path.swig)
   .pipe plumber()
+  .pipe data(JsonData)
   .pipe swig({defaults: { cache: false }})
   .pipe gulp.dest(path.dist)
 
