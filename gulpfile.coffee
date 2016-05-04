@@ -22,7 +22,7 @@ browser_support = [
   "opera >= 23"
   "ios >= 7"
   "android >= 4.4"
-  "bb >= 10"plumber = require('gulp-plumber');
+  "bb >= 10"
 ]
 
 # Project tools
