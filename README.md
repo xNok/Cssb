@@ -18,6 +18,16 @@ finally run the gulp application
 
 ## Tools
 
+### Tasks
+
+* default: Watch assets and templates for build on change
+* dist: Build production files
+* gh-pages','Publish gh-pages
+
+* sass: Build the css assets
+* swig: Built pages with swig template engine
+* uglify: Build minified JS files
+
 ### Node_modules
 
 * [coffee-script](http://coffeescript.org/) - .coffee interpretation
