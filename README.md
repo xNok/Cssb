@@ -27,6 +27,18 @@ finally run the gulp application
 * [swig](https://www.npmjs.com/package/gulp-swig) - html templating engine
 * [gulp-uglify](https://www.npmjs.com/package/gulp-uglify) - Minify JS files
 
+### Template engine uses
+
+Thanks to the template engine __swig__ you can use json data. So complete the json file located in __./data/app.json__
+
+You can personalise this ine the Data section of __gulpfile.coffee__
+
+```
+#Data
+JsonData = (file) ->
+  require('./data/app.json')
+```
+
 ### Recommended Sass modules 
 
 * [cssReset](http://html5doctor.com/html-5-reset-stylesheet/) - Basic boilerplates for HTML 5

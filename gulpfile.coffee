@@ -1,18 +1,25 @@
-#Configuration
+# Configuration
+
+#- Project definition
+
+project_name = "www"
+
+#- Path configuration
 path =
-  dist: './dist'
-  css: 'dist/css/'
+  dist: '../' + project_name
+  css: '../' + project_name + '/css/'
+  js: '../' + project_name + '/js/'
   refresh: ["*.html",  "js/*.js"]
-  js: 'dist/js/'
   scssWatch: 'css/**/*.scss'
   scss: 'css/*.scss'
   jsWatch: 'js/**/*.js'
   ghpage: './gh-pages/**/*'
   swigWatch: ["partials/*.html",  "pages/*.html"]
   swig: 'pages/*.html'
+  data: './data/app.json'
 
 
-# Support
+#- Support definition
 browser_support = [
   "ie >= 9"
   "ie_mob >= 10"
@@ -25,12 +32,13 @@ browser_support = [
   "bb >= 10"
 ]
 
-# Project tools
+#- Imports
+#-- Project tools
 gulp = require('gulp-help')(require('gulp'))
-plumber = require('gulp-plumber');
+plumber = require('gulp-plumber')
 gutil = require('gulp-util')
 
-# Require frontend dev
+#-- frontend dev
 sass = require('gulp-sass')
 autoprefixer = require('gulp-autoprefixer')
 swig = require('gulp-swig')
@@ -39,15 +47,15 @@ uglify = require('gulp-uglify')
 browserSync = require('browser-sync')
 reload = browserSync.reload
 
-# Require gh-pages
-ghPages = require('gulp-gh-pages');
+#-- Post dev
+ghPages = require('gulp-gh-pages')
 
-#Data
+#- Data definition
 JsonData = (file) ->
-  require('./data/app.json')
+  require(path.data)
 
-
-# frontend dev
+#- Task definition
+#-- frontend dev
 gulp.task 'sass', 'Build the css assets', ->
   gulp.src path.scss
   .pipe sass().on('error', sass.logError)
@@ -77,9 +85,10 @@ gulp.task 'default','Watch assets and templates for build on change', ->
   gulp.watch path.refresh, reload
   gulp.watch path.jsWatch, ['uglify']
 
-# compile project
+#- Compile project
 gulp.task 'dist','Build production files', ['swig','sass','uglify']
 
+#- Publication tools
 gulp.task 'gh-pages','Publish gh-pages', ->
   return gulp.src path.ghpage
   .pipe ghPages()
