@@ -4,13 +4,23 @@ Base Frontend tools
 
 ## Configuration
 
-The project uses Gulp to run tasks. Thus start by intall gulp with [node.js](https://nodejs.org/en/)
+1. The project uses Gulp to run tasks. Thus start by intall gulp with [node.js](https://nodejs.org/en/)
 
 > npm install -g gulp
 
-then install dependencies
+2. then install dependencies
 
 > npm install
+
+3. Define our project dist folder (default: www)
+
+In gulpfile.coffee
+
+``` JS
+#- Project definition
+
+project_name = "www"
+```
 
 finally run the gulp application
 
