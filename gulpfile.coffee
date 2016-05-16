@@ -2,24 +2,29 @@
 
 #- Project definition
 
-project_name = "www"
+project_src = "www"
 
 #- Path configuration
-path =
-  dist: '../' + project_name
-  css: '../' + project_name + '/css/'
-  js: '../' + project_name + '/js/'
-  ghpage: './gh-pages/**/*'
+dist:
+  src: '../' + project_src
+  css: '../' + project_src + '/css/'
+  js:  '../' + project_src + '/js/'
+ghpage: 
+  src: './gh-pages/**/*'
+scss:
+  dev: 'app/css/*.scss'
+  watch: 'app/css/**/*.scss'
+js:
+  watch: 'app/js/**/*.js'
+swig:
+  dev: 'app/pages/*.html'
+  watch: ["app/partials/*.html",  "app/pages/*.html"]
+data:
+  src: './app/data/app.json'
+browser:
   refresh: ["app/*.html",  "app/js/*.js"]
-  scssWatch: 'app/css/**/*.scss'
-  scss: 'app/css/*.scss'
-  jsWatch: 'app/js/**/*.js'
-  swigWatch: ["app/partials/*.html",  "app/pages/*.html"]
-  swig: 'app/pages/*.html'
-  data: './app/data/app.json'
 
-
-#- Support definition
+#- Support definition -
 browser_support = [
   "ie >= 9"
   "ie_mob >= 10"
@@ -32,13 +37,13 @@ browser_support = [
   "bb >= 10"
 ]
 
-#- Imports
-#-- Project tools
+#- Imports -
+#-- Project tools --
 gulp = require('gulp-help')(require('gulp'))
 plumber = require('gulp-plumber')
 gutil = require('gulp-util')
 
-#-- frontend dev
+#-- frontend dev --
 sass = require('gulp-sass')
 autoprefixer = require('gulp-autoprefixer')
 swig = require('gulp-swig')
@@ -47,48 +52,49 @@ uglify = require('gulp-uglify')
 browserSync = require('browser-sync')
 reload = browserSync.reload
 
-#-- Post dev
+#-- Post dev --
 ghPages = require('gulp-gh-pages')
 
-#- Data definition
+#- Data definition -
 JsonData = (file) ->
-  require(path.data)
+  require(data.scr)
 
-#- Task definition
-#-- frontend dev
+#- Task definition -
+#-- frontend dev --
 gulp.task 'sass', 'Build the css assets', ->
-  gulp.src path.scss
+  gulp.src scss.dev
   .pipe sass().on('error', sass.logError)
   .pipe autoprefixer(browsers: browser_support)
-  .pipe gulp.dest(path.css)
+  .pipe gulp.dest(dist.css)
   .pipe reload(stream: true)
 
 gulp.task 'swig','Built pages with swig template engine', ->
-  gulp.src(path.swig)
+  gulp.src(swig.dev)
   .pipe plumber()
   .pipe data(JsonData)
   .pipe swig({defaults: { cache: false }})
-  .pipe gulp.dest(path.dist)
+  .pipe gulp.dest(dist.scr)
 
 gulp.task 'uglify', 'Build minified JS files', ->
-  gulp.src path.jsWatch
+  gulp.src js.watch
   .pipe plumber()
   .pipe uglify().on('error', gutil.log)
-  .pipe gulp.dest(path.js)
+  .pipe gulp.dest(js.dev)
   .pipe reload(stream: true)
 
 gulp.task 'default','Watch assets and templates for build on change', ->
   browserSync
     server: {baseDir: path.dist}
-  gulp.watch path.scssWatch, ['sass']
-  gulp.watch path.swigWatch, ['swig', reload]
-  gulp.watch path.refresh, reload
-  gulp.watch path.jsWatch, ['uglify']
+  gulp.watch scss.watch, ['sass']
+  gulp.watch swig.watch, ['swig', reload]
+  gulp.watch js.watch, ['uglify']
+  gulp.watch browser.refresh, reload
 
-#- Compile project
+
+#- Compile project -
 gulp.task 'dist','Build production files', ['swig','sass','uglify']
 
-#- Publication tools
+#- Publication tools -
 gulp.task 'gh-pages','Publish gh-pages', ->
-  return gulp.src path.ghpage
+  return gulp.src ghpage.src
   .pipe ghPages()
