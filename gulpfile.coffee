@@ -9,14 +9,14 @@ path =
   dist: '../' + project_name
   css: '../' + project_name + '/css/'
   js: '../' + project_name + '/js/'
-  refresh: ["*.html",  "js/*.js"]
-  scssWatch: 'css/**/*.scss'
-  scss: 'css/*.scss'
-  jsWatch: 'js/**/*.js'
   ghpage: './gh-pages/**/*'
-  swigWatch: ["partials/*.html",  "pages/*.html"]
-  swig: 'pages/*.html'
-  data: './data/app.json'
+  refresh: ["app/*.html",  "app/js/*.js"]
+  scssWatch: 'app/css/**/*.scss'
+  scss: 'app/css/*.scss'
+  jsWatch: 'app/js/**/*.js'
+  swigWatch: ["app/partials/*.html",  "app/pages/*.html"]
+  swig: 'app/pages/*.html'
+  data: './app/data/app.json'
 
 
 #- Support definition
