@@ -4,33 +4,37 @@
 #----- Project definition -------
 #--------------------------------
 
-project_src = "www"
+# directory where your developing stuff
+project_dev = "../app"
+# directory where you want to publish the project
+project_src = "../www"
+
 
 #--------------------------------
 #------ Path configuration ------
 #--------------------------------
 path =
   dist:
-    src: '../' + project_src
-    css: '../' + project_src + '/css/'
-    js:  '../' + project_src + '/js/'
-    images: '../' + project_src + '/img/'
+    src:    project_src
+    css:    project_src + '/css/'
+    js:     project_src + '/js/'
+    images: project_src + '/img/'
   ghpage:
-    src: './gh-pages/**/*'
+    src: '../gh-pages/**/*'
   browser:
-    refresh: ["app/*.html",  "app/js/*.js"]
+    refresh: [project_dev + "/*.html",  project_dev + "/js/*.js"]
   scss:
-    dev: 'app/css/*.scss'
-    watch: 'app/css/**/*.scss'
+    dev:    project_dev + '/css/*.scss'
+    watch:  project_dev + '/css/**/*.scss'
   js:
-    watch: 'app/js/**/*.js'
+    watch:  project_dev + '/js/**/*.js'
   swig:
-    dev: 'app/pages/*.html'
-    watch: ["app/partials/*.html",  "app/pages/*.html"]
+    dev:    project_dev + '/pages/*.html'
+    watch: [project_dev + "/partials/*.html",  project_dev + "/pages/*.html"]
   image:
-    dev: 'app/img/*'
+    dev: project_dev + '/img/*'
   data:
-    src: './app/data/app.json'
+    src: project_dev + '/data/app.json'
 
 #--------------------------------
 #------ Support definition ------
