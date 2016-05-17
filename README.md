@@ -46,6 +46,8 @@ finally run the gulp application
 * [autoprefixer](https://css-tricks.com/autoprefixer/) - Simple navigator compatibiity
 * [swig](https://www.npmjs.com/package/gulp-swig) - html templating engine
 * [gulp-uglify](https://www.npmjs.com/package/gulp-uglify) - Minify JS files
+* [gulp-image](https://www.npmjs.com/package/gulp-image) - Optimize PNG, JPG, GIF, SVG images
+* [gulp-babel](https://www.npmjs.com/package/gulp-babel) - Use next generation JavaScript
 
 ### Template engine uses
 

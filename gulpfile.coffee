@@ -61,6 +61,7 @@ autoprefixer = require('gulp-autoprefixer')
 swig = require('gulp-swig')
 data = require('gulp-data')
 uglify = require('gulp-uglify')
+babel = require('gulp-babel')
 browserSync = require('browser-sync')
 reload = browserSync.reload
 
@@ -92,9 +93,12 @@ gulp.task 'swig','Built pages with swig template engine', ->
   .pipe swig({defaults: { cache: false }})
   .pipe gulp.dest(path.dist.src)
 
-gulp.task 'uglify','Build minified JS files', ->
+gulp.task 'uglify','Build minified JS files and addapte ES6', ->
   gulp.src path.js.watch
   .pipe plumber()
+  .pipe babel({
+    presets: ['es2015']
+  })
   .pipe uglify().on('error', gutil.log)
   .pipe gulp.dest(path.dist.js)
   .pipe reload(stream: true)
