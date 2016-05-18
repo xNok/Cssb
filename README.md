@@ -23,7 +23,11 @@ project_dev = "../app"
 project_name = "../www"
 ```
 
-finally run the gulp application
+4. Copy the sample app to your project_dev directory
+
+> gulp init
+
+5. finally run the gulp application
 
 > gulp
 
@@ -63,6 +67,8 @@ You can create easely your own git on the __./__ directory et __./app__ and save
 * sass: Build the css assets
 * swig: Built pages with swig template engine
 * uglify: Build minified JS files
+* babel: Build JS files frome ES6
+* JSvendors: Copy past your vendors without treatment
 
 ### Node_modules
 

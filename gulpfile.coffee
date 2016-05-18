@@ -8,6 +8,8 @@
 project_dev = "../app"
 # directory where you want to publish the project
 project_src = "../www"
+# sample code directory
+project_sample = "./app"
 
 
 #--------------------------------
@@ -28,6 +30,7 @@ path =
     watch:  project_dev + '/css/**/*.scss'
   js:
     watch:  project_dev + '/js/**/*.js'
+    ignore: project_dev + '/js/vendors/**'
   swig:
     dev:    project_dev + '/pages/*.html'
     watch: [project_dev + "/partials/*.html",  project_dev + "/pages/*.html"]
@@ -91,7 +94,7 @@ gulp.task 'sass','Build the css assets', ->
   .pipe changed(path.dist.src)
   .pipe sass().on('error', sass.logError)
   .pipe autoprefixer(browsers: browser_support)
-  .pipe gulp.dest(path.dist.src)
+  .pipe gulp.dest(path.dist.css)
   .pipe stream()
 
 gulp.task 'swig','Built pages with swig template engine', ->
@@ -101,16 +104,26 @@ gulp.task 'swig','Built pages with swig template engine', ->
   .pipe swig({defaults: { cache: false }})
   .pipe gulp.dest(path.dist.src)
 
+gulp.task 'babel', 'Build JS files frome ES6', ->
+  gulp.src [path.js.watch, "!"+path.js.ignore]
+  .pipe changed(path.dist.js)
+  .pipe plumber()
+  .pipe babel({"presets": [es2015]})
+  .pipe gulp.dest(path.dist.js)
+
+gulp.task 'JSvendors','Copy past your vendors without treatment', ->
+  gulp.src path.js.ignore
+  .pipe changed(path.dist.js)
+  .pipe gulp.dest(path.dist.js)
+
+#%%%%% frontend post-dev %%%%%
 gulp.task 'uglify','Build minified JS files and addapte ES6', ->
   gulp.src path.js.watch
   .pipe changed(path.dist.js)
   .pipe plumber()
-  .pipe babel({"presets": [es2015]})
   .pipe uglify().on('error', gutil.log)
   .pipe gulp.dest(path.dist.js)
-  .pipe stream()
 
-#%%%%% frontend post-dev %%%%%
 gulp.task 'image','Optimise images', ->
   gulp.src path.image.dev
   .pipe changed(path.dist.images)
@@ -133,13 +146,13 @@ gulp.task 'default','Watch assets and templates for build on change', ->
     server: {baseDir: path.dist.src}
   gulp.watch path.scss.watch, ['sass']
   gulp.watch path.swig.watch, ['swig', reload]
-  gulp.watch path.js.watch, ['uglify']
+  gulp.watch path.js.watch, ['babel', 'JSvendors']
   gulp.watch path.browser.refresh, reload
 
 #--------------------------------
 #------ Compile project ---------
 #--------------------------------
-gulp.task 'dist','Build production files', ['swig','sass','uglify', 'image']
+gulp.task 'dist','Build production files', ['swig','sass','babel', 'uglify', 'image']
 
 #--------------------------------
 #------ Publication tools -------
@@ -147,3 +160,10 @@ gulp.task 'dist','Build production files', ['swig','sass','uglify', 'image']
 gulp.task 'gh-pages','Publish gh-pages', ->
   return gulp.src path.ghpage.src
   .pipe ghPages()
+
+#--------------------------------
+#------ Starter Config ----------
+#--------------------------------
+gulp.task 'init', 'Copy paste the app folder into the project_dev folder', ->
+  gulp.src project_sample+"/**"
+  .pipe gulp.dest(project_dev+"/")
