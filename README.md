@@ -74,6 +74,7 @@ You can create easely your own git on the __./__ directory et __./app__ and save
 * [gulp-uglify](https://www.npmjs.com/package/gulp-uglify) - Minify JS files
 * [gulp-image](https://www.npmjs.com/package/gulp-image) - Optimize PNG, JPG, GIF, SVG images
 * [gulp-babel](https://www.npmjs.com/package/gulp-babel) - Use next generation JavaScript
+* [gulp-changed](https://www.npmjs.com/package/gulp-changed) - relaod only changed files
 
 ### Template engine uses
 

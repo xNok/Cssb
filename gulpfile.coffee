@@ -58,6 +58,7 @@ browser_support = [
 gulp = require('gulp-help')(require('gulp'))
 plumber = require('gulp-plumber')
 gutil = require('gulp-util')
+changed = require('gulp-changed')
 
 #%%%%% frontend dev %%%%%
 sass = require('gulp-sass')
@@ -69,6 +70,7 @@ babel = require('gulp-babel')
 es2015 = require('babel-preset-es2015')
 browserSync = require('browser-sync')
 reload = browserSync.reload
+stream = browserSync.stream
 
 #%%%%% Post dev %%%%%
 image = require('gulp-image')
@@ -86,10 +88,11 @@ JsonData = (file) ->
 #%%%%% frontend dev %%%%%
 gulp.task 'sass','Build the css assets', ->
   gulp.src path.scss.dev
+  .pipe changed(path.dist.src)
   .pipe sass().on('error', sass.logError)
   .pipe autoprefixer(browsers: browser_support)
   .pipe gulp.dest(path.dist.src)
-  .pipe reload(stream: true)
+  .pipe stream()
 
 gulp.task 'swig','Built pages with swig template engine', ->
   gulp.src path.swig.dev
@@ -100,15 +103,17 @@ gulp.task 'swig','Built pages with swig template engine', ->
 
 gulp.task 'uglify','Build minified JS files and addapte ES6', ->
   gulp.src path.js.watch
+  .pipe changed(path.dist.js)
   .pipe plumber()
   .pipe babel({"presets": [es2015]})
   .pipe uglify().on('error', gutil.log)
   .pipe gulp.dest(path.dist.js)
-  .pipe reload(stream: true)
+  .pipe stream()
 
 #%%%%% frontend post-dev %%%%%
 gulp.task 'image','Optimise images', ->
   gulp.src path.image.dev
+  .pipe changed(path.dist.images)
   .pipe image({
           pngquant: true,
           optipng: false,
@@ -122,6 +127,7 @@ gulp.task 'image','Optimise images', ->
         })
   .pipe gulp.dest(path.dist.images)
 
+#%%%%% frontend watch %%%%%
 gulp.task 'default','Watch assets and templates for build on change', ->
   browserSync
     server: {baseDir: path.dist.src}
