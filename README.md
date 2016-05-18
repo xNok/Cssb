@@ -89,20 +89,6 @@ JsonData = (file) ->
 
 ### Known issues
 
-If you are ussing the defaut configuration with a dev directory in the same level than CSSB folder
-
-```
-+ CSSB
-+ app
-+ www
-```
-
-You must install babel presets into your app directory :
-
-```
-npm install --save-dev babel-preset-es2015
-```
-
 ### Recommended Sass modules 
 
 * [cssReset](http://html5doctor.com/html-5-reset-stylesheet/) - Basic boilerplates for HTML 5
