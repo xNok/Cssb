@@ -32,9 +32,9 @@ path =
     dev:    project_dev + '/pages/*.html'
     watch: [project_dev + "/partials/*.html",  project_dev + "/pages/*.html"]
   image:
-    dev: project_dev + '/img/*'
+    dev:    project_dev + '/img/*'
   data:
-    src: project_dev + '/data/app.json'
+    src:    project_dev + '/data/app.json'
 
 #--------------------------------
 #------ Support definition ------
@@ -100,9 +100,7 @@ gulp.task 'swig','Built pages with swig template engine', ->
 gulp.task 'uglify','Build minified JS files and addapte ES6', ->
   gulp.src path.js.watch
   .pipe plumber()
-  .pipe babel({
-    presets: ['es2015']
-  })
+  .pipe babel({"presets": ["es2015"]})
   .pipe uglify().on('error', gutil.log)
   .pipe gulp.dest(path.dist.js)
   .pipe reload(stream: true)

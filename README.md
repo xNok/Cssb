@@ -12,14 +12,14 @@ Base Frontend tools
 
 > npm install
 
-3. Define our project dist folder (default: www)
+3. Define our project dist folder (default: ../www) & project dev folder (default ../app)
 
 In gulpfile.coffee
 
 ``` JS
 #- Project definition
 
-project_name = "www"
+project_name = "../www"
 ```
 
 finally run the gulp application
@@ -60,6 +60,22 @@ You can personalise this ine the Data section of __gulpfile.coffee__
 JsonData = (file) ->
   require('./data/app.json')
 ```
+
+### Known issues
+
+If you are ussing the defaut configuration with a dev directory in the same level than CSSB folder
+
+``
++ CSSB
++ app
++ www
+``
+
+You must install babel presets into your app directory
+
+``
+npm install --save-dev babel-preset-es2015
+``
 
 ### Recommended Sass modules 
 
