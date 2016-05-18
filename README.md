@@ -19,6 +19,7 @@ In gulpfile.coffee
 ``` JS
 #- Project definition
 
+project_dev = "../app"
 project_name = "../www"
 ```
 
@@ -26,14 +27,39 @@ finally run the gulp application
 
 > gulp
 
+## Dev strategy
+
+I recommend that you use the Cssb project as a submodule :
+
+```
++-- Cssb
+ `+-- app               // Sample code
+  +-- node_modules      // All modules you needed - see Node_modules section
+  +-- gulpifile.coffee  // configuration file
+  +-- package.json      // dependencies
+  +-- README.md         // the documentation entry point
++-- app                 // your dev folder
++-- www                 // your production folder
+```
+
+Thus you can update the cssb project easly. For example to update you Cssb folder
+```
+git fetch origin
+git rebase origin
+```
+
+You can create easely your own git on the __./__ directory et __./app__ and save only the interesting files
+
 ## Tools
 
 ### Tasks
 
+#### Main tasks
 * default: Watch assets and templates for build on change
 * dist: Build production files
-* gh-pages','Publish gh-pages
+* gh-pages: Publish gh-pages
 
+#### Sub tasks
 * sass: Build the css assets
 * swig: Built pages with swig template engine
 * uglify: Build minified JS files
@@ -65,25 +91,23 @@ JsonData = (file) ->
 
 If you are ussing the defaut configuration with a dev directory in the same level than CSSB folder
 
-``
+```
 + CSSB
 + app
 + www
-``
+```
 
-You must install babel presets into your app directory
+You must install babel presets into your app directory :
 
-``
+```
 npm install --save-dev babel-preset-es2015
-``
+```
 
 ### Recommended Sass modules 
 
 * [cssReset](http://html5doctor.com/html-5-reset-stylesheet/) - Basic boilerplates for HTML 5
-
 * [susy](http://susy.oddbird.net/) - Pretty grid system
 * [breackpoint-sass](http://breakpoint-sass.com/) - Writing simple media queries in Sass
-
 * [Foundation 6](http://foundation.zurb.com/sites/docs/)
 
 ### Recommended code Rules
