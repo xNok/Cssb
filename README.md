@@ -1,6 +1,6 @@
 # Cssb
 
-Base Frontend tools 
+Base Frontend tools - Not only Css
 
 ## Configuration
 
@@ -72,15 +72,26 @@ You can create easely your own git on the __./__ directory et __./app__ and save
 
 ### Node_modules
 
+#### Javascript
 * [coffee-script](http://coffeescript.org/) - .coffee interpretation
-* [gulp-sass](http://sass-lang.com/) - .scss compilation
-* [browser-sync](http://www.browsersync.io/) - Navigator autorelaod
-* [autoprefixer](https://css-tricks.com/autoprefixer/) - Simple navigator compatibiity
-* [swig](https://www.npmjs.com/package/gulp-swig) - html templating engine
-* [gulp-uglify](https://www.npmjs.com/package/gulp-uglify) - Minify JS files
-* [gulp-image](https://www.npmjs.com/package/gulp-image) - Optimize PNG, JPG, GIF, SVG images
 * [gulp-babel](https://www.npmjs.com/package/gulp-babel) - Use next generation JavaScript
+* [gulp-uglify](https://www.npmjs.com/package/gulp-uglify) - Minify JS files
+
+#### CSS
+* [gulp-sass](http://sass-lang.com/) - .scss compilation
+* [autoprefixer](https://css-tricks.com/autoprefixer/) - Simple navigator compatibiity
+
+#### HTML
+* [swig](https://www.npmjs.com/package/gulp-swig) - html templating engine
+* [gulp-image](https://www.npmjs.com/package/gulp-image) - Optimize PNG, JPG, GIF, SVG images
+
+#### Developement
+* [browser-sync](http://www.browsersync.io/) - Navigator autorelaod
+
+#### Tools
 * [gulp-changed](https://www.npmjs.com/package/gulp-changed) - relaod only changed files
+* [yards](https://www.npmjs.com/package/yargs) - Allow to add arguments to gulp task
+. [gulp-if](https://www.npmjs.com/package/gulp-if) - Allow condition into tasks
 
 ### Template engine uses
 
