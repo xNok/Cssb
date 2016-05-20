@@ -68,7 +68,6 @@ sass = require('gulp-sass')
 autoprefixer = require('gulp-autoprefixer')
 swig = require('gulp-swig')
 data = require('gulp-data')
-uglify = require('gulp-uglify')
 babel = require('gulp-babel')
 es2015 = require('babel-preset-es2015')
 browserSync = require('browser-sync')
@@ -77,6 +76,7 @@ stream = browserSync.stream
 
 #%%%%% Post dev %%%%%
 image = require('gulp-image')
+uglify = require('gulp-uglify')
 ghPages = require('gulp-gh-pages')
 
 #--------------------------------
@@ -121,6 +121,7 @@ gulp.task 'uglify','Build minified JS files and addapte ES6', ->
   gulp.src path.js.watch
   .pipe changed(path.dist.js)
   .pipe plumber()
+  .pipe babel({"presets": [es2015]})
   .pipe uglify().on('error', gutil.log)
   .pipe gulp.dest(path.dist.js)
 
@@ -152,7 +153,7 @@ gulp.task 'default','Watch assets and templates for build on change', ->
 #--------------------------------
 #------ Compile project ---------
 #--------------------------------
-gulp.task 'dist','Build production files', ['swig','sass','babel', 'uglify', 'image']
+gulp.task 'dist','Build production files', ['swig','sass','uglify', 'image']
 
 #--------------------------------
 #------ Publication tools -------
