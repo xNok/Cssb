@@ -21,6 +21,7 @@ path =
     css:    project_src + '/css/'
     js:     project_src + '/js/'
     images: project_src + '/img/'
+    vendors:project_src + '/vendors'
   ghpage:
     src: '../gh-pages/**/*'
   browser:
@@ -30,7 +31,7 @@ path =
     watch:  project_dev + '/css/**/*.scss'
   js:
     watch:  project_dev + '/js/**/*.js'
-    ignore: project_dev + '/js/vendors/**'
+    ignore: project_dev + '/js/vendors/**/*'
   swig:
     dev:    project_dev + '/pages/*.html'
     watch: [project_dev + "/partials/*.html",  project_dev + "/pages/*.html"]
@@ -38,6 +39,7 @@ path =
     dev:    project_dev + '/img/*'
   data:
     src:    project_dev + '/data/app.json'
+  vendors:  project_dev + '/vendors/**'
 
 #--------------------------------
 #------ Support definition ------
@@ -86,7 +88,7 @@ JsonData = (file) ->
   require(path.data.src)
 
 #--------------------------------
-#------ Task definition ---------
+#------ Tasks definition ---------
 #--------------------------------
 #%%%%% frontend dev %%%%%
 gulp.task 'sass','Build the css assets', ->
@@ -116,6 +118,11 @@ gulp.task 'JSvendors','Copy past your vendors without treatment', ->
   .pipe changed(path.dist.js)
   .pipe gulp.dest(path.dist.js)
 
+gulp.task 'vendors','Copy past your vendors without treatment', ->
+  gulp.src path.vendors
+  .pipe changed(path.dist.vendors)
+  .pipe gulp.dest(path.dist.vendors)
+
 #%%%%% frontend post-dev %%%%%
 gulp.task 'uglify','Build minified JS files and addapte ES6', ->
   gulp.src path.js.watch
@@ -142,17 +149,18 @@ gulp.task 'image','Optimise images', ->
   .pipe gulp.dest(path.dist.images)
 
 #%%%%% frontend watch %%%%%
-gulp.task 'default','Watch assets and templates for build on change', ->
+gulp.task 'watch','Watch assets and templates for build on change', ->
   browserSync
     server: {baseDir: path.dist.src}
-  gulp.watch path.scss.watch, ['sass']
+  gulp.watch path.scss.watch, ['sass', 'vendors']
   gulp.watch path.swig.watch, ['swig', reload]
   gulp.watch path.js.watch, ['babel', 'JSvendors']
   gulp.watch path.browser.refresh, reload
 
 #--------------------------------
-#------ Compile project ---------
+#------ Main tasks --------------
 #--------------------------------
+gulp.task 'default', 'Run dev tasks', ['swig','sass','babel', 'JSvendors' ,'image', 'watch']
 gulp.task 'dist','Build production files', ['swig','sass','uglify', 'image']
 
 #--------------------------------

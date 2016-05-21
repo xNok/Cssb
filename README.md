@@ -59,11 +59,12 @@ You can create easely your own git on the __./__ directory et __./app__ and save
 ### Tasks
 
 #### Main tasks
-* default: Watch assets and templates for build on change
+* default: Run devs tasks
 * dist: Build production files
 * gh-pages: Publish gh-pages
 
 #### Sub tasks
+* watch: Watch assets and templates for build on change
 * sass: Build the css assets
 * swig: Built pages with swig template engine
 * uglify: Build minified JS files
@@ -87,6 +88,7 @@ You can create easely your own git on the __./__ directory et __./app__ and save
 
 #### Developement
 * [browser-sync](http://www.browsersync.io/) - Navigator autorelaod
+* vendors - Copy your project_scr/vendors folder to the project_dist/vendors
 
 #### Tools
 * [gulp-changed](https://www.npmjs.com/package/gulp-changed) - relaod only changed files
