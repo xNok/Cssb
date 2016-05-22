@@ -1,0 +1,62 @@
+/*
+* @Author: Alexandre-COUEDELO
+* @Date:   2016-05-22 14:47:18
+* @Last Modified by:   Alexandre-COUEDELO
+* @Last Modified time: 2016-05-22 14:51:21
+* links:
+*   - http://www.nextbootstrap.com/2016/03/responsive-author-box-code-example.html
+*/
+
+/* USAGE
+<div class="author-box">
+    <div class="image">
+        <img src="images/icon3.png" class="img-responsive" alt="">
+    </div>
+    <div class="info">
+        <p>Quickly add a custom author box to your site with the author box.  It is responsive and making use of Bootstrap 3. HTML processed markup for responsive Bootstrap authorbox. </p>
+        <h6><a href="" title="">Author Name |</a> Address</h6>
+    </div>
+</div>
+*/
+
+$c-author-box_1: #f0f0f0;
+$c-author-box_2: #b09f23;
+
+.author-box {
+margin-top: 60px;
+padding: 40px 0;
+border-bottom: 1px solid $c-author-box_1; 
+border-top: 1px solid $c-author-box_1; 
+}
+
+.author-box .image {
+float: left;
+margin-right: 10px;
+max-width: 80px;
+border: 1px solid $c-author-box_1;
+border-radius: 50%;
+padding: 10px; 
+}
+
+.author-box .info {
+overflow: hidden; 
+}
+
+.author-box .info p {
+color: #666;
+font-weight: 300;
+line-height: 24px; 
+}
+
+.author-box .info h6 {
+font-size: 14px;
+color: #666;
+margin: 0;
+margin-top: 10px;
+padding: 0;
+font-style: italic; 
+}
+
+.author-box .info h6 a {
+color: $c-author-box_2;
+}
