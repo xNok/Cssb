@@ -33,7 +33,7 @@ path =
     watch:  project_dev + '/js/**/*.js'
     ignore: project_dev + '/js/vendors/**/*'
   swig:
-    dev:    project_dev + 'pages/**/*.html'
+    dev:    project_dev + '/pages/**/*.html'
     watch: [project_dev + "/partials/**/*.html",  project_dev + "/pages/**/*.html"]
   image:
     dev:    project_dev + '/img/*'
