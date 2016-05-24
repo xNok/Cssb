@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+{% include "../partials/head.html" %}
+
+<body onresize="onResize()">
+    <div id="l-app">
+        <header id="l-header">
+            My Apache Cordova App
+        </header>
+
+        <main id="l-content">
+
+            <section id="loading" class="panel" v-show="loading">
+                <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                <span class="sr-only">Loading...</span>
+            </section>
+
+            <section id="panel-1" class="scrollerWrap panel" v-bind:class="{ 'center': panel1, 'left': panel2, 'right': panel3 }">
+                <!-- YOUR CONTENT -->
+            </section>
+
+            <section id="panel-2" class="panel center" v-bind:class="{ 'center': panel2, 'left': panel3, 'right': panel1 }">
+                <!-- YOUR CONTENT -->
+            </section>
+
+            <section id="panel-3" class="panel center" v-bind:class="{ 'center': panel3, 'left': panel1, 'right': panel2 }">
+                <!-- YOUR CONTENT -->
+            </section>
+        </main>
+
+        <footer id="l-footer">
+            <nav>
+                <div class="btn-block" v-on:click="home" v-if="btn_right">
+                    <a href="#security">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="btn-block" v-on:click="plus" v-if="btn_plus">
+                    <a href="#security">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="btn-block" v-on:click="minus" v-if="btn_minus">
+                    <a href="#messages">
+                        <i class="fa fa-minus" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="btn-block" v-on:click="home" v-if="btn_left">
+                    <a href="#security">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </nav>
+            <div class="copyright"></div>
+        </footer>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+        <script type="text/javascript" src="js/vue.min.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+    </div>
+</body>
+
+</html>
