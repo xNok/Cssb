@@ -56,6 +56,18 @@ browser_support = [
   "bb >= 10"
 ]
 
+images_config = {
+  pngquant: true,
+  optipng: true,
+  zopflipng: true,
+  advpng: true,
+  jpegRecompress: true,
+  jpegoptim: true,
+  mozjpeg: true,
+  gifsicle: true,
+  svgo: true
+}
+
 #--------------------------------
 #------ Imports -----------------
 #--------------------------------
@@ -79,6 +91,7 @@ stream = browserSync.stream
 #%%%%% Post dev %%%%%
 image = require('gulp-image')
 uglify = require('gulp-uglify')
+cleanCSS = require('gulp-clean-css')
 ghPages = require('gulp-gh-pages')
 
 #--------------------------------
@@ -125,8 +138,7 @@ gulp.task 'vendors','Copy past your vendors without treatment', ->
 
 #%%%%% frontend post-dev %%%%%
 gulp.task 'uglify','Build minified JS files and addapte ES6', ->
-  gulp.src path.js.watch
-  .pipe changed(path.dist.js)
+  gulp.src [path.js.watch, '!'+path.js.ignore]
   .pipe plumber()
   .pipe babel({"presets": [es2015]})
   .pipe uglify().on('error', gutil.log)
@@ -135,18 +147,18 @@ gulp.task 'uglify','Build minified JS files and addapte ES6', ->
 gulp.task 'image','Optimise images', ->
   gulp.src path.image.dev
   .pipe changed(path.dist.images)
-  .pipe image({
-          pngquant: true,
-          optipng: false,
-          zopflipng: true,
-          advpng: true,
-          jpegRecompress: false,
-          jpegoptim: true,
-          mozjpeg: true,
-          gifsicle: true,
-          svgo: true
-        })
+  .pipe image(images_config)
   .pipe gulp.dest(path.dist.images)
+
+gulp.task 'minify-css','Build minified CSS files and addapte SCSS', ->
+  gulp.src path.scss.dev
+  .pipe sass()
+  .pipe autoprefixer(browsers: browser_support)
+  .pipe cleanCSS({debug: true}, (details) ->
+        console.log(details.name + ': ' + details.stats.originalSize)
+        console.log(details.name + ': ' + details.stats.minifiedSize)
+      )
+  .pipe gulp.dest(path.dist.css)
 
 #%%%%% frontend watch %%%%%
 gulp.task 'watch','Watch assets and templates for build on change', ->
@@ -161,7 +173,7 @@ gulp.task 'watch','Watch assets and templates for build on change', ->
 #------ Main tasks --------------
 #--------------------------------
 gulp.task 'default', 'Run dev tasks', ['swig','sass','babel', 'JSvendors' ,'image', 'watch']
-gulp.task 'dist','Build production files', ['swig','sass','uglify', 'image']
+gulp.task 'dist','Build production files', ['swig','minify-css','JSvendors','uglify', 'image']
 
 #--------------------------------
 #------ Publication tools -------

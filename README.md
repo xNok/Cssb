@@ -38,6 +38,7 @@ I recommend that you use the Cssb project as a submodule :
 ```
 +-- Cssb
  `+-- app               // Sample code
+  +-- documentation     // Tricks to develop faster your application
   +-- node_modules      // All modules you needed - see Node_modules section
   +-- gulpifile.coffee  // configuration file
   +-- package.json      // dependencies
@@ -66,6 +67,7 @@ You can create easely your own git on the __./__ directory et __./app__ and save
 #### Sub tasks
 * watch: Watch assets and templates for build on change
 * sass: Build the css assets
+* minify-css: Build minified CSS files and addapte SCSS
 * swig: Built pages with swig template engine
 * uglify: Build minified JS files
 * babel: Build JS files frome ES6
@@ -81,6 +83,7 @@ You can create easely your own git on the __./__ directory et __./app__ and save
 #### CSS
 * [gulp-sass](http://sass-lang.com/) - .scss compilation
 * [autoprefixer](https://css-tricks.com/autoprefixer/) - Simple navigator compatibiity
+* [gulp-clean-css](https://github.com/scniro/gulp-clean-css) - minify css files
 
 #### HTML
 * [swig](https://www.npmjs.com/package/gulp-swig) - html templating engine
