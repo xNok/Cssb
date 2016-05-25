@@ -155,8 +155,8 @@ gulp.task 'minify-css','Build minified CSS files and addapte SCSS', ->
   .pipe sass()
   .pipe autoprefixer(browsers: browser_support)
   .pipe cleanCSS({debug: true}, (details) ->
-        console.log(details.name + ': ' + details.stats.originalSize)
-        console.log(details.name + ': ' + details.stats.minifiedSize)
+        console.log("[INFO]minify-css-> " + details.name + ': ' + details.stats.originalSize)
+        console.log("[INFO]minify-css-> " + details.name + ': ' + details.stats.minifiedSize)
       )
   .pipe gulp.dest(path.dist.css)
 
