@@ -1,6 +1,19 @@
 # Cssb
 
-Base Frontend tools - Not only Css
+Frontend tools, automating your workflow with [gulp](http://gulpjs.com/)
+
+The project provide a set of pre-programmed command. These commandes will help you to simplify and impove your developement process.
+
+The main enchancement that bring this project
+
+1. Never start a project from scratch
+2. Letting you write modular code
+    * css -> [sass|scss](http://sass-lang.com/)
+    * js  -> [ES6](https://babeljs.io/)
+    * html-> [swig](http://paularmstrong.github.io/swig/)
+3. Compiling your modular files whenever it is changed
+4. Refreshing your browser automatically
+5. Warning you whenerer you made errors in your code
 
 ## Configuration
 
