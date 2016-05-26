@@ -1,10 +1,10 @@
 # Cssb
 
-Frontend tools, automating your workflow with [gulp](http://gulpjs.com/)
+Frontend tools, automating your workflow with [gulp](http://gulpjs.com/).
 
-The project provide a set of pre-programmed command. These commandes will help you to simplify and impove your developement process.
+The project provide a set of pre-programmed command. These commandes will help you to simplify and impove your developement process. Use it or [learn how to build your own automated workflow](https://github.com/xNok/Cssb/blob/master/documentation/gulp_automated_workflow.md).
 
-The main enchancement that bring this project
+The main enhancements that bring this project are :
 
 1. Never start a project from scratch
 2. Letting you write modular code
