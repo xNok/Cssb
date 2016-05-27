@@ -60,31 +60,26 @@ I recommend that you use the Cssb project as a submodule :
 +-- www                 // your production folder
 ```
 
-Thus you can update the cssb project easly. For example to update you Cssb folder
-```
-git fetch origin
-git rebase origin
-```
-
-You can create easely your own git on the __./__ directory et __./app__ and save only the interesting files
+Thus you can update the cssb project easly and you can create your own git on the __./__ directory et __./app__ and save only the interesting files.
 
 ## Tools
 
 ### Tasks
 
 #### Main tasks
-* default: Run devs tasks
-* dist: Build production files
-* gh-pages: Publish gh-pages
+* default:      Run devs tasks
+* dist:         Build production files
+* gh-pages:     Publish gh-pages
 
 #### Sub tasks
-* watch: Watch assets and templates for build on change
-* sass: Build the css assets
-* minify-css: Build minified CSS files and addapte SCSS
-* swig: Built pages with swig template engine
-* uglify: Build minified JS files
-* babel: Build JS files frome ES6
-* JSvendors: Copy past your vendors without treatment
+* watch:        Watch assets and templates for build on change
+* sass:         Build css assets
+* minify-css:   Build minified CSS files and addapte SCSS
+* swig:         Build pages with swig template engine
+* uglify:       Build minified JS files
+* babel:        Build JS files frome ES6
+* vendors:      Copy your project_scr/vendors folder to the project_dist/vendors
+* JSvendors:    Copy past your vendors without treatment
 
 ### Node_modules
 
@@ -104,26 +99,23 @@ You can create easely your own git on the __./__ directory et __./app__ and save
 
 #### Developement
 * [browser-sync](http://www.browsersync.io/) - Navigator autorelaod
-* vendors - Copy your project_scr/vendors folder to the project_dist/vendors
 
 #### Tools
 * [gulp-changed](https://www.npmjs.com/package/gulp-changed) - relaod only changed files
 * [yards](https://www.npmjs.com/package/yargs) - Allow to add arguments to gulp task
 . [gulp-if](https://www.npmjs.com/package/gulp-if) - Allow condition into tasks
 
-### Template engine uses
+### Known issues
 
 Thanks to the template engine __swig__ you can use json data. So complete the json file located in __./data/app.json__
 
-You can personalise this ine the Data section of __gulpfile.coffee__
+You can personalise this in the data section of __gulpfile.coffee__
 
 ```
 #Data
 JsonData = (file) ->
   require('./data/app.json')
 ```
-
-### Known issues
 
 ### Recommended Sass modules 
 
