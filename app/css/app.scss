@@ -1,7 +1,13 @@
 /*
-StyleSheet Name: Cssb
-Description: Used to give basis on web project
+* @Author: Alexandre-COUEDELO
+* @Date:   2016-05-27 14:34:07
+* @Last Modified by:   Alexandre-COUEDELO
+* @Last Modified time: 2016-05-30 09:53:34
+* @links:
+*   - https://smacss.com/
+*   - https://en.bem.info/
 */
+
 
 /**
  * Table of Contents:
@@ -47,20 +53,30 @@ $bkp-sm:600px;
 $color-1: white;
 $color-2: black;
 $color-3: red;
+
+/*Size definition*/
+
+
 /*----------------------------------------------------------------*\
         III_Structure
 \*----------------------------------------------------------------*/
 
 /**
- * 0.0 - Reset
+ * 0.0 - Reset/Base
  */ 
 
-//This is a very basic css Reset
+//>This is a very basic css Reset
 //@import 'base/cssReset';
 
 /**
- * 1.0 - Body
- */ 
+ * 1.0 - Layout
+ * Using ID selectors - with l- prefix
+ * Layouts are intended for positioning and placement
+ */
+
+#l-header{}
+#l-content{}
+#l-footer{}
 
 /**
  * 2.0 - Typographie
@@ -69,7 +85,12 @@ $color-3: red;
 
 /**
  * 3.0 - Elements/Modules
+ * Only include a selector that includes semantics
+ * module > module__children
+ * State style includes semantics
+ * module > module-active
  */
+
 
 /**
  * 4.0 - Themes
