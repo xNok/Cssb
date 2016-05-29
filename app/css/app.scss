@@ -20,14 +20,20 @@ Description: Used to give basis on web project
         I_Import tools
 \*----------------------------------------------------------------*/
 
+//------- susy -------
 //> npm install susy
 //@import "node_modules/susy/sass/susy";
 //> npm install breakpoint-sass
 //@import "node_modules/breakpoint-sass/stylesheets/breakpoint";
-//>npm install foundation-sites
-@import 'node_modules/foundation-sites/scss/foundation';
 
-@include foundation-everything();
+//------- Foundation 6 -------
+//>npm install foundation-sites
+//@import 'node_modules/foundation-sites/scss/foundation';
+//@include foundation-everything();
+
+//------- Bootstrap 3 -------
+//>npm install bootstrap-sass
+//@import @import "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap"
 
 /*----------------------------------------------------------------*\
         II_Variables
@@ -49,7 +55,7 @@ $color-3: red;
  * 0.0 - Reset
  */ 
 
-//> This is a very basic css Reset
+//This is a very basic css Reset
 //@import 'base/cssReset';
 
 /**
@@ -64,12 +70,6 @@ $color-3: red;
 /**
  * 3.0 - Elements/Modules
  */
-
-/*
- * require suzy
- */
-//@import 'modules/simpleFooter';
-//@import 'modules/simpleHeaderNavbar';
 
 /**
  * 4.0 - Themes
