@@ -68,6 +68,7 @@ Thus you can update the cssb project easly and you can create your own git on th
 
 #### Main tasks
 * default:      Run devs tasks
+* init          Copy paste the app folder into the project_dev folder
 * dist:         Build production files
 * gh-pages:     Publish gh-pages
 
@@ -103,7 +104,9 @@ Thus you can update the cssb project easly and you can create your own git on th
 #### Tools
 * [gulp-changed](https://www.npmjs.com/package/gulp-changed) - relaod only changed files
 * [yards](https://www.npmjs.com/package/yargs) - Allow to add arguments to gulp task
-. [gulp-if](https://www.npmjs.com/package/gulp-if) - Allow condition into tasks
+* [gulp-if](https://www.npmjs.com/package/gulp-if) - Allow condition into tasks
+* [runSequence](https://www.npmjs.com/package/run-sequence) - Run a series of dependent gulp tasks in order
+* [deleteEmpty](https://www.npmjs.com/package/delete-empty) - Delete recursivly empty folders
 
 ### Known issues
 

@@ -76,6 +76,8 @@ gulp = require('gulp-help')(require('gulp'))
 plumber = require('gulp-plumber')
 gutil = require('gulp-util')
 changed = require('gulp-changed')
+runSequence = require('run-sequence')
+deleteEmpty = require('delete-empty')
 
 #%%%%% frontend dev %%%%%
 sass = require('gulp-sass')
@@ -185,6 +187,22 @@ gulp.task 'gh-pages','Publish gh-pages', ->
 #--------------------------------
 #------ Starter Config ----------
 #--------------------------------
+#%%%%% Init configuration %%%%%
+configPath=
+  init: [
+    project_sample + "/**",
+    "!" + project_sample + "/js/*/**",
+    "!" + project_sample + "/pages/*/**",
+    "!" + project_sample + "/partials/*/**",
+  ]
+
+#%%%%% Init tasks %%%%%
 gulp.task 'init', 'Copy paste the app folder into the project_dev folder', ->
-  gulp.src project_sample+"/**"
-  .pipe gulp.dest(project_dev+"/")
+  runSequence('copy-app-directories','delete-empty-directories')
+
+gulp.task 'copy-app-directories', ->
+  return gulp.src configPath.init
+  .pipe gulp.dest(project_dev + "/")
+
+gulp.task 'delete-empty-directories', ->
+  return deleteEmpty.sync(project_dev + "/", {force: true})
