@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+{% include "../partials/head.html" %}
+
+<body>
+    <div id="l-container">
+        <header id="l-header">
+            {% include "../partials/header.html" %}
+        </header>
+
+        <main id="l-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer id="l-footer">
+            {% include "../partials/footer.html" %}
+        </footer>
+    </div>
+</body>
+
+</html>

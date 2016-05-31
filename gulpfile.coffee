@@ -27,18 +27,18 @@ path =
   browser:
     refresh: [project_dev + "/*.html",  project_dev + "/js/*.js"]
   scss:
-    dev:    project_dev + '/css/*.scss'
-    watch:  project_dev + '/css/**/*.scss'
+    dev:    project_dev + '/assets__css/*.scss'
+    watch:  project_dev + '/assets__css/**/*.scss'
   js:
-    watch:  project_dev + '/js/**/*.js'
-    ignore: project_dev + '/js/vendors/**/*'
+    watch:  project_dev + '/assets__js/**/*.js'
+    ignore: project_dev + '/assets__js/vendors/**/*'
   swig:
     dev:    project_dev + '/pages/**/*.html'
     watch: [project_dev + "/partials/**/*.html",  project_dev + "/pages/**/*.html"]
   image:
-    dev:    project_dev + '/img/*'
+    dev:    project_dev + '/assets__img/*'
   data:
-    src:    project_dev + '/data/app.json'
+    src:    project_dev + '/content/app.json'
   vendors:  project_dev + '/vendors/**'
 
 #--------------------------------
