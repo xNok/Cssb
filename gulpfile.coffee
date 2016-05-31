@@ -128,11 +128,6 @@ gulp.task 'babel', 'Build JS files frome ES6', ->
   .pipe babel({"presets": [es2015]})
   .pipe gulp.dest(path.dist.js)
 
-gulp.task 'JSvendors','Copy past your vendors without treatment', ->
-  gulp.src path.js.ignore
-  .pipe changed(path.dist.js)
-  .pipe gulp.dest(path.dist.js)
-
 gulp.task 'vendors','Copy past your vendors without treatment', ->
   gulp.src path.vendors
   .pipe changed(path.dist.vendors)
@@ -168,14 +163,14 @@ gulp.task 'watch','Watch assets and templates for build on change', ->
     server: {baseDir: path.dist.src}
   gulp.watch path.scss.watch, ['sass', 'vendors']
   gulp.watch path.swig.watch, ['swig', reload]
-  gulp.watch path.js.watch, ['babel', 'JSvendors']
+  gulp.watch path.js.watch, ['babel']
   gulp.watch path.browser.refresh, reload
 
 #--------------------------------
 #------ Main tasks --------------
 #--------------------------------
-gulp.task 'default', 'Run dev tasks', ['swig','sass','babel', 'JSvendors' ,'image', 'watch']
-gulp.task 'dist','Build production files', ['swig','minify-css','JSvendors','uglify', 'image']
+gulp.task 'default', 'Run dev tasks', ['swig','sass','babel', 'vendors' ,'image', 'watch']
+gulp.task 'dist','Build production files', ['swig','minify-css','vendors','uglify', 'image']
 
 #--------------------------------
 #------ Publication tools -------
