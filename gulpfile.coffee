@@ -167,6 +167,7 @@ gulp.task 'watch','Watch assets and templates for build on change', ->
   gulp.watch path.swig.watch, ['swig', reload]
   gulp.watch path.js.watch, ['babel']
   gulp.watch path.data.src, ['swig', reload]
+  gulp.watch path.image.dev, ['image']
   gulp.watch path.browser.refresh, reload
 
 #--------------------------------
