@@ -78,6 +78,7 @@ gutil = require('gulp-util')
 changed = require('gulp-changed')
 runSequence = require('run-sequence')
 deleteEmpty = require('delete-empty')
+fs = require('fs')
 
 #%%%%% frontend dev %%%%%
 sass = require('gulp-sass')
@@ -99,8 +100,7 @@ ghPages = require('gulp-gh-pages')
 #--------------------------------
 #------ Data definition ---------
 #--------------------------------
-JsonData = (file) ->
-  require(path.data.src)
+  
 
 #--------------------------------
 #------ Tasks definition ---------
@@ -117,7 +117,9 @@ gulp.task 'sass','Build the css assets', ->
 gulp.task 'swig','Built pages with swig template engine', ->
   gulp.src path.swig.dev
   .pipe plumber()
-  .pipe data(JsonData)
+  .pipe data((file) ->
+    return JSON.parse(fs.readFileSync(path.data.src))
+  )
   .pipe swig({defaults: { cache: false }})
   .pipe gulp.dest(path.dist.src)
 
@@ -164,6 +166,7 @@ gulp.task 'watch','Watch assets and templates for build on change', ->
   gulp.watch path.scss.watch, ['sass', 'vendors']
   gulp.watch path.swig.watch, ['swig', reload]
   gulp.watch path.js.watch, ['babel']
+  gulp.watch path.data.src, ['swig', reload]
   gulp.watch path.browser.refresh, reload
 
 #--------------------------------
