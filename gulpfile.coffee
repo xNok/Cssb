@@ -129,6 +129,7 @@ gulp.task 'babel', 'Build JS files frome ES6', ->
   .pipe plumber()
   .pipe babel({"presets": [es2015]})
   .pipe gulp.dest(path.dist.js)
+  .pipe stream()
 
 gulp.task 'vendors','Copy past your vendors without treatment', ->
   gulp.src path.vendors
@@ -163,7 +164,7 @@ gulp.task 'minify-css','Build minified CSS files and addapte SCSS', ->
 gulp.task 'watch','Watch assets and templates for build on change', ->
   browserSync
     server: {baseDir: path.dist.src}
-  gulp.watch path.scss.watch, ['sass', 'vendors']
+  gulp.watch path.scss.watch, ['sass']
   gulp.watch path.swig.watch, ['swig', reload]
   gulp.watch path.js.watch, ['babel']
   gulp.watch path.data.src, ['swig', reload]
