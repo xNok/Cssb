@@ -149,6 +149,7 @@ gulp.task 'image','Optimise images', ->
   .pipe changed(path.dist.images)
   .pipe image(images_config)
   .pipe gulp.dest(path.dist.images)
+  .pipe stream()
 
 gulp.task 'minify-css','Build minified CSS files and addapte SCSS', ->
   gulp.src path.scss.dev
