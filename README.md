@@ -17,7 +17,7 @@ The main enhancements that bring this project are :
 
 ## Configuration
 
-1. The project uses Gulp to run tasks. Thus start by intall gulp with [node.js](https://nodejs.org/en/)
+1. The project uses Gulp to run tasks. Thus start by intall gulp with [node.js](https://nodejs.org/en/) (I use v5.6.0)
 
 > npm install -g gulp
 

@@ -9,7 +9,15 @@ The purpose of this documentation is to let you discover few technologies that I
 
 # Get Ready
 
+Before you can start with your automated workflow you need to install some softwares.
 
+Start by intall [node.js](https://nodejs.org/en/). Node.js is a javaScript server, that's simply means it is a server reading/exectuting javaScript language. 
+
+Node.js comes with a wery interesting tool witch is __npm__ a package manager. You will use npm to install, share, distribute code and manage dependencies. Npm it is also an [online platform](https://www.npmjs.com/) where you can find more than 250 000 package to create your workflow.
+
+Lets install your first package with __npm__. You may have already find the name of this package.
+
+> npm install gulp --save-dev
 
 # Gulpfile
 
