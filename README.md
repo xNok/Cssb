@@ -29,7 +29,7 @@ The main enhancements that bring this project are :
 
 In gulpfile.coffee
 
-``` JS
+```javascript
 #- Project definition
 
 project_dev = "../app"
@@ -67,20 +67,34 @@ Thus you can update the cssb project easly and you can create your own git on th
 ### Tasks
 
 #### Main tasks
-* default:      Run devs tasks
-* init          Copy paste the app folder into the project_dev folder
-* dist:         Build production files
-* gh-pages:     Publish gh-pages
+* **init**:      Copy paste the app folder into the project_dev folder
+* **default**:   Run devs tasks
+* **lint**:      Run linters
+* **dist**:      Build production files
+* **gh-pages**:  Publish gh-pages
 
 #### Sub tasks
-* watch:        Watch assets and templates for build on change
-* sass:         Build css assets
-* minify-css:   Build minified CSS files and addapte SCSS
-* swig:         Build pages with swig template engine
-* uglify:       Build minified JS files
-* babel:        Build JS files frome ES6
-* vendors:      Copy your project_scr/vendors folder to the project_dist/vendors
-* JSvendors:    Copy past your vendors without treatment
+
+##### frontend dev
+* **compile:sass**:         Build css assets
+* **compile:swig**:         Build pages with swig template engine
+* **compile:babel**:        Build JS files frome ES6
+* **minify:image**:        Optimise images
+
+##### frontend post-dev
+* **minify:js**:    Build minified ES6/JS files
+* **minify:css**:   Build minified CSS files and addapte SCSS
+* **copy:vendors**:      Copy your project_scr/vendors folder to the project_dist/vendors
+
+##### watch
+* **watch:browserSync**:  Watch assets and templates for build on change
+* **watch:swig**:         Watch html/swig files
+* **watch:babel**:        Watch js/babel files
+* **watch:swig**:         Watch data/content files
+* **watch:image**:        Watch images
+
+##### linting
+* **lint:Json**:    lint JSON files
 
 ### Node_modules
 
@@ -98,43 +112,28 @@ Thus you can update the cssb project easly and you can create your own git on th
 * [swig](https://www.npmjs.com/package/gulp-swig) - html templating engine
 * [gulp-image](https://www.npmjs.com/package/gulp-image) - Optimize PNG, JPG, GIF, SVG images
 
-#### Developement
+#### Developement & Linting
 * [browser-sync](http://www.browsersync.io/) - Navigator autorelaod
+* [gulp-jsonlint](https://www.npmjs.com/package/gulp-jsonlint) - linting JSON files
 
 #### Tools
 * [gulp-changed](https://www.npmjs.com/package/gulp-changed) - relaod only changed files
+* [gulp-yaml](https://www.npmjs.com/package/gulp-yaml) - Convert YAML to JSON
 * [yards](https://www.npmjs.com/package/yargs) - Allow to add arguments to gulp task
 * [gulp-if](https://www.npmjs.com/package/gulp-if) - Allow condition into tasks
 * [runSequence](https://www.npmjs.com/package/run-sequence) - Run a series of dependent gulp tasks in order
 * [deleteEmpty](https://www.npmjs.com/package/delete-empty) - Delete recursivly empty folders
-
-### Known issues
-
-Thanks to the template engine __swig__ you can use json data. So complete the json file located in __./data/app.json__
-
-You can personalise this in the data section of __gulpfile.coffee__
-
-```
-#Data
-JsonData = (file) ->
-  require('./data/app.json')
-```
 
 ### Recommended Sass modules 
 
 * [cssReset](http://html5doctor.com/html-5-reset-stylesheet/) - Basic boilerplates for HTML 5
 * [susy](http://susy.oddbird.net/) - Pretty grid system
 * [breackpoint-sass](http://breakpoint-sass.com/) - Writing simple media queries in Sass
-* [Foundation 6](http://foundation.zurb.com/sites/docs/)
+* [Foundation 6](http://foundation.zurb.com/sites/docs/) - Complete Html/Css framework
 
 ### Recommended code Rules
 
+You will find those advices into the demo *.scss files
+
 * [BEM-Block, Element, Modifier](https://en.bem.info/tutorials/quick-start-static/)
 * [SMACSS-Scalable and modular architecture for CSS](https://smacss.com/)
-
-## Basics layouts solution
-
-### Created with susy
-
-* [three Boxes](http://xnok.github.io/Cssb/threeBoxes)
-* [three Images](http://xnok.github.io/Cssb/threeImages)

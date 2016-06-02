@@ -1,5 +1,3 @@
-# Configuration
-
 #--------------------------------
 #----- Project definition -------
 #--------------------------------
@@ -10,7 +8,6 @@ project_dev = "../app"
 project_src = "../www"
 # sample code directory
 project_sample = "./app"
-
 
 #--------------------------------
 #------ Path configuration ------
@@ -39,6 +36,8 @@ path =
     dev:    project_dev + '/assets__img/*'
   data:
     src:    project_dev + '/content/app.json'
+    json:   project_dev + '/content/**/*.json'
+    yaml:   project_dev + '/content/**/*.yml'
   vendors:  project_dev + '/vendors/**'
 
 #--------------------------------
@@ -56,57 +55,82 @@ browser_support = [
   "bb >= 10"
 ]
 
-images_config = {
-  pngquant: true,
-  optipng: true,
-  zopflipng: true,
-  advpng: true,
-  jpegRecompress: true,
-  jpegoptim: true,
-  mozjpeg: true,
-  gifsicle: true,
-  svgo: true
-}
+images_config = 
+  pngquant:       true
+  optipng:        true
+  zopflipng:      true
+  advpng:         true
+  jpegRecompress: true
+  jpegoptim:      true
+  mozjpeg:        true
+  gifsicle:       true
+  svgo:           true
+
+#--------------------------------
+#------ Task Bundle -------------
+#--------------------------------
+taskBundle =
+  watch: [
+    'watch:browserSync'
+    'watch:sass'
+    'watch:swig'
+    'watch:babel'
+    'watch:swig'
+    'watch:image'
+  ]
+  run: [
+    'compile:swig'
+    'compile:sass'
+    'compile:js'
+    'copy:vendors'
+    'minify:image'
+    'watch'
+  ]
+  lint: ['lint:Json']
+  dist: [
+    'compile:swig'
+    'minify:css'
+    'minify:js'
+    'minify:image'
+  ]
 
 #--------------------------------
 #------ Imports -----------------
 #--------------------------------
 #%%%%% Project tools %%%%%
-gulp = require('gulp-help')(require('gulp'))
-plumber = require('gulp-plumber')
-gutil = require('gulp-util')
-changed = require('gulp-changed')
-runSequence = require('run-sequence')
-deleteEmpty = require('delete-empty')
-fs = require('fs')
+gulp            = require('gulp-help')(require('gulp'))
+plumber         = require('gulp-plumber')
+gutil           = require('gulp-util')
+changed         = require('gulp-changed')
+runSequence     = require('run-sequence')
+deleteEmpty     = require('delete-empty')
+fs              = require('fs')
 
 #%%%%% frontend dev %%%%%
-sass = require('gulp-sass')
-autoprefixer = require('gulp-autoprefixer')
-swig = require('gulp-swig')
-data = require('gulp-data')
-babel = require('gulp-babel')
-es2015 = require('babel-preset-es2015')
-browserSync = require('browser-sync')
-reload = browserSync.reload
-stream = browserSync.stream
+sass            = require('gulp-sass')
+autoprefixer    = require('gulp-autoprefixer')
+swig            = require('gulp-swig')
+data            = require('gulp-data')
+babel           = require('gulp-babel')
+es2015          = require('babel-preset-es2015')
+browserSync     = require('browser-sync')
+reload          = browserSync.reload
+stream          = browserSync.stream
+
+#%%%%% linters %%%%%
+jsonlint        = require("gulp-jsonlint")
 
 #%%%%% Post dev %%%%%
-image = require('gulp-image')
-uglify = require('gulp-uglify')
-cleanCSS = require('gulp-clean-css')
-ghPages = require('gulp-gh-pages')
+image           = require('gulp-image')
+uglify          = require('gulp-uglify')
+ghPages         = require('gulp-gh-pages')
+cleanCSS        = require('gulp-clean-css')
 
 #--------------------------------
-#------ Data definition ---------
-#--------------------------------
-  
-
-#--------------------------------
-#------ Tasks definition ---------
+#------ Tasks definition --------
 #--------------------------------
 #%%%%% frontend dev %%%%%
-gulp.task 'sass','Build the css assets', ->
+gulp.task 'compile:sass','Build the css assets', ->
   gulp.src path.scss.dev
   .pipe changed(path.dist.src)
   .pipe sass().on('error', sass.logError)
@@ -114,7 +138,7 @@ gulp.task 'sass','Build the css assets', ->
   .pipe gulp.dest(path.dist.css)
   .pipe stream()
 
-gulp.task 'swig','Built pages with swig template engine', ->
+gulp.task 'compile:swig','Built pages with swig template engine', ->
   gulp.src path.swig.dev
   .pipe plumber()
   .pipe data((file) ->
@@ -123,7 +147,7 @@ gulp.task 'swig','Built pages with swig template engine', ->
   .pipe swig({defaults: { cache: false }})
   .pipe gulp.dest(path.dist.src)
 
-gulp.task 'babel', 'Build JS files frome ES6', ->
+gulp.task 'compile:js', 'Build JS files from ES6', ->
   gulp.src [path.js.watch, "!"+path.js.ignore]
   .pipe changed(path.dist.js)
   .pipe plumber()
@@ -131,27 +155,24 @@ gulp.task 'babel', 'Build JS files frome ES6', ->
   .pipe gulp.dest(path.dist.js)
   .pipe stream()
 
-gulp.task 'vendors','Copy past your vendors without treatment', ->
-  gulp.src path.vendors
-  .pipe changed(path.dist.vendors)
-  .pipe gulp.dest(path.dist.vendors)
+gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
 
-#%%%%% frontend post-dev %%%%%
-gulp.task 'uglify','Build minified JS files and addapte ES6', ->
-  gulp.src [path.js.watch, '!'+path.js.ignore]
-  .pipe plumber()
-  .pipe babel({"presets": [es2015]})
-  .pipe uglify().on('error', gutil.log)
-  .pipe gulp.dest(path.dist.js)
-
-gulp.task 'image','Optimise images', ->
+gulp.task 'minify:image','Optimise images', ->
   gulp.src path.image.dev
   .pipe changed(path.dist.images)
   .pipe image(images_config)
   .pipe gulp.dest(path.dist.images)
   .pipe stream()
 
-gulp.task 'minify-css','Build minified CSS files and addapte SCSS', ->
+#%%%%% frontend post-dev %%%%%
+gulp.task 'minify:js','Build minified JS files and addapte ES6', ->
+  gulp.src [path.js.watch, '!'+path.js.ignore]
+  .pipe plumber()
+  .pipe babel({"presets": [es2015]})
+  .pipe uglify().on('error', gutil.log)
+  .pipe gulp.dest(path.dist.js)
+
+gulp.task 'minify:css','Build minified CSS files and addapte SCSS', ->
   gulp.src path.scss.dev
   .pipe sass()
   .pipe autoprefixer(browsers: browser_support)
@@ -161,22 +182,43 @@ gulp.task 'minify-css','Build minified CSS files and addapte SCSS', ->
       )
   .pipe gulp.dest(path.dist.css)
 
+gulp.task 'copy:vendors','Copy past your vendors without treatment', ->
+  gulp.src path.vendors
+  .pipe changed(path.dist.vendors)
+  .pipe gulp.dest(path.dist.vendors)
+
 #%%%%% frontend watch %%%%%
-gulp.task 'watch','Watch assets and templates for build on change', ->
-  browserSync
-    server: {baseDir: path.dist.src}
+gulp.task 'watch:browserSync','run browserSync server', ->
+  browserSync server: {baseDir: path.dist.src}
+
+gulp.task 'watch:sass', 'Watch scss files', ->
   gulp.watch path.scss.watch, ['sass']
+
+gulp.task 'watch:swig', 'Watch html/swig files', ->
   gulp.watch path.swig.watch, ['swig', reload]
+
+gulp.task 'watch:babel', 'Watch js/babel files', ->
   gulp.watch path.js.watch, ['babel']
+
+gulp.task 'watch:swig', 'Watch data/content files', ->
   gulp.watch path.data.src, ['swig', reload]
+
+gulp.task 'watch:image', 'Watch images', ->
   gulp.watch path.image.dev, ['image']
-  gulp.watch path.browser.refresh, reload
+  
+#%%%%% Linting Tasks %%%%%
+gulp.task 'lint:Json', 'lint JSON files', ->
+  gulp.src path.data.json
+  .pipe jsonlint()
+  .pipe jsonlint.reporter()
 
 #--------------------------------
 #------ Main tasks --------------
 #--------------------------------
-gulp.task 'default', 'Run dev tasks', ['swig','sass','babel', 'vendors' ,'image', 'watch']
-gulp.task 'dist','Build production files', ['swig','minify-css','vendors','uglify', 'image']
+gulp.task 'watch', "Watch assets and templates for build on change", taskBundle.watch
+gulp.task 'default', 'Run dev tasks', taskBundle.run
+gulp.task 'lint', 'Run linters', taskBundle.lint
+gulp.task 'dist','Build production files', taskBundle.dist
 
 #--------------------------------
 #------ Publication tools -------

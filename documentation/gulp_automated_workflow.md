@@ -25,6 +25,7 @@ Lets install your first package with __npm__. You may have already find the name
 
 ## Gulp.js
 * [Introduction to Gulp.js](http://stefanimhoff.de/2014/gulp-tutorial-1-intro-setup/)
+* [Recipes of the gulpjs repository](https://github.com/gulpjs/gulp/tree/master/docs/recipes)
 * [How to Modularize HTML Using Template Engines and Gulp](http://zellwk.com/blog/nunjucks-with-gulp/)
 * [A delicious blend of gulp tasks combined into a configurable asset pipeline and static site builder](https://github.com/vigetlabs/gulp-starter)
 
