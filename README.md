@@ -25,9 +25,11 @@ The main enhancements that bring this project are :
 
 > npm install
 
-3. Define our project dist folder (default: ../www) & project dev folder (default ../app)
+3. Configure your ptoject
 
-In gulpfile.coffee
+ Define our project dist folder (default: ../www) & project dev folder (default ../app)
+
+In config.coffee
 
 ```javascript
 #- Project definition
