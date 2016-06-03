@@ -91,9 +91,10 @@ Thus you can update the cssb project easly and you can create your own git on th
 
 ##### watch
 * **watch:browserSync**:  Watch assets and templates for build on change
+* **watch:sass**:         Watch scss files
 * **watch:swig**:         Watch html/swig files
-* **watch:babel**:        Watch js/babel files
-* **watch:swig**:         Watch data/content files
+* **watch:js**:           Watch js/babel files
+* **watch:json**:         Watch data/content files
 * **watch:image**:        Watch imagesS
 
 ##### Data/Content management

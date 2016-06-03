@@ -41,7 +41,7 @@ ghPages         = require('gulp-gh-pages')
 cleanCSS        = require('gulp-clean-css')
 
 #--------------------------------
-#------ Function definition -----
+#------ Functions definition ----
 #--------------------------------
 getFolders = (dir) ->
   return fs.readdirSync(dir)
@@ -116,40 +116,39 @@ gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
 
 gulp.task 'merge:json', 'merge Json files under a folder to one json file with the folder name', ->
   folders = getFolders path.data.src
-  console.log folders
   tasks   = folders.map( (folder) ->
-      console.log folder
       return gulp.src filepath.join(path.data.src, folder, '/**/*.json')
+      .pipe plumber()
       .pipe mergeJson(folder + '.json')
       .pipe gulp.dest path.data.src
   )
-
 
 #%%%%% frontend watch %%%%%
 gulp.task 'watch:browserSync','run browserSync server', ->
   browserSync server: {baseDir: path.dist.src}
 
 gulp.task 'watch:sass', 'Watch scss files', ->
-  gulp.watch path.scss.watch, ['sass']
+  gulp.watch path.scss.watch, ['compile:sass']
 
 gulp.task 'watch:swig', 'Watch html/swig files', ->
-  gulp.watch path.swig.watch, ['swig', reload]
+  gulp.watch path.swig.watch, ['compile:swig', reload]
 
-gulp.task 'watch:babel', 'Watch js/babel files', ->
-  gulp.watch path.js.watch, ['babel']
+gulp.task 'watch:js', 'Watch js/babel files', ->
+  gulp.watch path.js.watch, ['compile:js']
 
-gulp.task 'watch:swig', 'Watch data/content files', ->
-  gulp.watch path.data.src, ['swig', reload]
+gulp.task 'watch:json', 'Watch data/content files', ->
+  gulp.watch path.data.json, (event) ->
+    console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+    runSequence('lint:Json','merge:json' ,'compile:swig', reload)
 
 gulp.task 'watch:image', 'Watch images', ->
-  gulp.watch path.image.dev, ['image']
+  gulp.watch path.image.dev, ['minify:image']
   
 #%%%%% Linting Tasks %%%%%
 gulp.task 'lint:Json', 'lint JSON files', ->
   gulp.src path.data.json
   .pipe jsonlint()
   .pipe jsonlint.reporter()
-
 #--------------------------------
 #------ Main tasks --------------
 #--------------------------------
@@ -157,14 +156,12 @@ gulp.task 'watch', "Watch assets and templates for build on change", taskBundle.
 gulp.task 'default', 'Run dev tasks', taskBundle.run
 gulp.task 'lint', 'Run linters', taskBundle.lint
 gulp.task 'dist','Build production files', taskBundle.dist
-
 #--------------------------------
 #------ Publication tools -------
 #--------------------------------
 gulp.task 'gh-pages','Publish gh-pages', ->
   return gulp.src path.ghpage.src
   .pipe ghPages()
-
 #--------------------------------
 #------ Starter Config ----------
 #--------------------------------

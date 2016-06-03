@@ -50,8 +50,8 @@ exports.taskBundle =
     'watch:browserSync'
     'watch:sass'
     'watch:swig'
-    'watch:babel'
-    'watch:swig'
+    'watch:js'
+    'watch:json'
     'watch:image'
   ]
   run: [
