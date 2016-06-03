@@ -68,6 +68,9 @@ gulp.task 'compile:js', 'Build JS files from ES6', ->
   .pipe stream()
 
 gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
+  gulp.src path.data.yaml
+  .pipe yaml({ schema: 'DEFAULT_SAFE_SCHEMA' }))
+  .pipe gulp.dest( path.data.src )
 
 gulp.task 'minify:image','Optimise images', ->
   gulp.src path.image.dev
@@ -142,8 +145,6 @@ gulp.task 'gh-pages','Publish gh-pages', ->
 #--------------------------------
 #------ Starter Config ----------
 #--------------------------------
-
-
 #%%%%% Init tasks %%%%%
 gulp.task 'init', 'Copy paste the app folder into the project_dev folder', ->
   runSequence('copy-app-directories','delete-empty-directories')

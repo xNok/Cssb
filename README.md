@@ -55,7 +55,8 @@ I recommend that you use the Cssb project as a submodule :
  `+-- app               // Sample code
   +-- documentation     // Tricks to develop faster your application
   +-- node_modules      // All modules you needed - see Node_modules section
-  +-- gulpifile.coffee  // configuration file
+  +-- config.coffee     // configuration file
+  +-- gulpfile.coffee   // tasks definition
   +-- package.json      // dependencies
   +-- README.md         // the documentation entry point
 +-- app                 // your dev folder
