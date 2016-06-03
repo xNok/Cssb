@@ -35,7 +35,7 @@ exports.path =
   image:
     dev:    project_dev + '/assets__img/*'
   data:
-    src:    project_dev + '/content/*'
+    src:    project_dev + '/content/'
     app:    project_dev + '/content/app.json'
     json:   project_dev + '/content/**/*.json'
     yaml:   project_dev + '/content/**/*.yml'

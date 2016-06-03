@@ -17,6 +17,7 @@ changed         = require('gulp-changed')
 runSequence     = require('run-sequence')
 deleteEmpty     = require('delete-empty')
 fs              = require('fs')
+filepath        = require('path')
 
 #%%%%% frontend dev %%%%%
 sass            = require('gulp-sass')
@@ -25,6 +26,7 @@ swig            = require('gulp-swig')
 data            = require('gulp-data')
 babel           = require('gulp-babel')
 es2015          = require('babel-preset-es2015')
+mergeJson       = require("gulp-merge-json")
 browserSync     = require('browser-sync')
 reload          = browserSync.reload
 stream          = browserSync.stream
@@ -37,6 +39,15 @@ image           = require('gulp-image')
 uglify          = require('gulp-uglify')
 ghPages         = require('gulp-gh-pages')
 cleanCSS        = require('gulp-clean-css')
+
+#--------------------------------
+#------ Function definition -----
+#--------------------------------
+getFolders = (dir) ->
+  return fs.readdirSync(dir)
+    .filter( (file) ->
+      return fs.statSync(filepath.join(dir, file)).isDirectory()
+    )
 
 #--------------------------------
 #------ Tasks definition --------
@@ -54,7 +65,7 @@ gulp.task 'compile:swig','Built pages with swig template engine', ->
   gulp.src path.swig.dev
   .pipe plumber()
   .pipe data((file) ->
-    return JSON.parse(fs.readFileSync(path.data.src))
+    return JSON.parse(fs.readFileSync(path.data.app))
   )
   .pipe swig({defaults: { cache: false }})
   .pipe gulp.dest(path.dist.src)
@@ -66,11 +77,6 @@ gulp.task 'compile:js', 'Build JS files from ES6', ->
   .pipe babel({"presets": [es2015]})
   .pipe gulp.dest(path.dist.js)
   .pipe stream()
-
-gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
-  gulp.src path.data.yaml
-  .pipe yaml({ schema: 'DEFAULT_SAFE_SCHEMA' }))
-  .pipe gulp.dest( path.data.src )
 
 gulp.task 'minify:image','Optimise images', ->
   gulp.src path.image.dev
@@ -101,6 +107,23 @@ gulp.task 'copy:vendors','Copy past your vendors without treatment', ->
   gulp.src path.vendors
   .pipe changed(path.dist.vendors)
   .pipe gulp.dest(path.dist.vendors)
+
+#%%%%% Content/Data Management %%%%%
+gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
+  gulp.src path.data.yaml
+  .pipe yaml({ schema: 'DEFAULT_SAFE_SCHEMA' })
+  .pipe gulp.dest( path.data.src )
+
+gulp.task 'merge:json', 'merge Json files under a folder to one json file with the folder name', ->
+  folders = getFolders path.data.src
+  console.log folders
+  tasks   = folders.map( (folder) ->
+      console.log folder
+      return gulp.src filepath.join(path.data.src, folder, '/**/*.json')
+      .pipe mergeJson(folder + '.json')
+      .pipe gulp.dest path.data.src
+  )
+
 
 #%%%%% frontend watch %%%%%
 gulp.task 'watch:browserSync','run browserSync server', ->

@@ -79,25 +79,28 @@ Thus you can update the cssb project easly and you can create your own git on th
 #### Sub tasks
 
 ##### frontend dev
-* **compile:sass**:         Build css assets
-* **compile:swig**:         Build pages with swig template engine
-* **compile:babel**:        Build JS files frome ES6
-* **minify:image**:        Optimise images
+* **compile:sass**:       Build css assets
+* **compile:swig**:       Build pages with swig template engine
+* **compile:babel**:      Build JS files frome ES6
+* **minify:image**:       Optimise images
 
 ##### frontend post-dev
-* **minify:js**:    Build minified ES6/JS files
-* **minify:css**:   Build minified CSS files and addapte SCSS
-* **copy:vendors**:      Copy your project_scr/vendors folder to the project_dist/vendors
+* **minify:js**:          Build minified ES6/JS files
+* **minify:css**:         Build minified CSS files and addapte SCSS
+* **copy:vendors**:       Copy your project_scr/vendors folder to the project_dist/vendors
 
 ##### watch
 * **watch:browserSync**:  Watch assets and templates for build on change
 * **watch:swig**:         Watch html/swig files
 * **watch:babel**:        Watch js/babel files
 * **watch:swig**:         Watch data/content files
-* **watch:image**:        Watch images
+* **watch:image**:        Watch imagesS
+
+##### Data/Content management
+* **merge:json**:         merge Json files under a folder to one json file with the folder name
 
 ##### linting
-* **lint:Json**:    lint JSON files
+* **lint:Json**:          lint JSON files
 
 ### Node_modules
 
@@ -118,14 +121,16 @@ Thus you can update the cssb project easly and you can create your own git on th
 #### Developement & Linting
 * [browser-sync](http://www.browsersync.io/) - Navigator autorelaod
 * [gulp-jsonlint](https://www.npmjs.com/package/gulp-jsonlint) - linting JSON files
+* [gulp-yaml](https://www.npmjs.com/package/gulp-yaml) - Convert YAML to JSON
 
 #### Tools
 * [gulp-changed](https://www.npmjs.com/package/gulp-changed) - relaod only changed files
-* [gulp-yaml](https://www.npmjs.com/package/gulp-yaml) - Convert YAML to JSON
-* [yards](https://www.npmjs.com/package/yargs) - Allow to add arguments to gulp task
 * [gulp-if](https://www.npmjs.com/package/gulp-if) - Allow condition into tasks
-* [runSequence](https://www.npmjs.com/package/run-sequence) - Run a series of dependent gulp tasks in order
+* [gulp-merge-json](https://www.npmjs.com/package/gulp-merge-json) - A gulp plugin to merge JSON files into one file
 * [deleteEmpty](https://www.npmjs.com/package/delete-empty) - Delete recursivly empty folders
+* [path](https://www.npmjs.com/package/path) - Manipulate file path
+* [yards](https://www.npmjs.com/package/yargs) - Allow to add arguments to gulp task
+* [runSequence](https://www.npmjs.com/package/run-sequence) - Run a series of dependent gulp tasks in order
 
 ### Recommended Sass modules 
 
