@@ -12,39 +12,16 @@ The main enhancements that bring this project are :
     * js  -> [ES6](https://babeljs.io/)
     * html-> [swig](http://paularmstrong.github.io/swig/)
 3. Compiling your modular files whenever it is changed
-4. Refreshing your browser automatically
+4. Refreshing your browsers (cross browser and responsive programming) automatically
 5. Warning you whenerer you made errors in your code
 
-## Configuration
+## Documentation
 
-1. The project uses Gulp to run tasks. Thus start by intall gulp with [node.js](https://nodejs.org/en/) (I use v5.6.0)
-
-> npm install -g gulp
-
-2. then install dependencies
-
-> npm install
-
-3. Configure your ptoject
-
- Define our project dist folder (default: ../www) & project dev folder (default ../app)
-
-In config.coffee
-
-```javascript
-#- Project definition
-
-project_dev = "../app"
-project_name = "../www"
-```
-
-4. Copy the sample app to your project_dev directory
-
-> gulp init
-
-5. finally run the gulp application
-
-> gulp
+1. [Programming with the automated __Cssb__ workflow](https://github.com/xNok/Cssb/tree/master/documentation/cssb_automated_workflow.md)
+2. [Programming an __Apache Cordova__ hybride mobile application](https://github.com/xNok/Cssb/tree/master/documentation/apache_cordova.md)
+3. [Git and project management workflow](https://github.com/xNok/Cssb/tree/master/documentation/git_workflow.md)
+4. [Create an automate workflow with gulp](https://github.com/xNok/Cssb/tree/master/documentation/gulp_automated_workflow.md)
+5. [Create an automated workflow with npm](https://github.com/xNok/Cssb/tree/master/documentation/npm_automated_workflow.md)
 
 ## Dev strategy
 
@@ -65,7 +42,25 @@ I recommend that you use the Cssb project as a submodule :
 
 Thus you can update the cssb project easly and you can create your own git on the __./__ directory et __./app__ and save only the interesting files.
 
-## Tools
+## Intallation
+
+1. The project uses Gulp to run tasks. Thus start by intall gulp with [node.js](https://nodejs.org/en/) (I use v5.6.0)
+
+> npm install -g gulp
+
+2. then install dependencies
+
+> npm install
+
+3 Copy the sample app to your project_dev directory
+
+> gulp init
+
+4. finally run the gulp application
+
+> gulp
+
+## Technical desription
 
 ### Tasks
 
