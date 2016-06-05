@@ -49,6 +49,12 @@ getFolders = (dir) ->
       return fs.statSync(filepath.join(dir, file)).isDirectory()
     )
 
+getFiles = (dir, filter) ->
+  return fs.readdirSync(dir)
+    .filter( (file)->
+      return file.match(filter)
+    )
+
 #--------------------------------
 #------ Tasks definition --------
 #--------------------------------
@@ -64,8 +70,14 @@ gulp.task 'compile:sass','Build the css assets', ->
 gulp.task 'compile:swig','Built pages with swig template engine', ->
   gulp.src path.swig.dev
   .pipe plumber()
-  .pipe data((file) ->
-    return JSON.parse(fs.readFileSync(path.data.app))
+  .pipe data( (file)->
+    files = getFiles path.data.src, '.json'
+    jsons = {}
+    files.map( (file)->
+      json = JSON.parse(fs.readFileSync(filepath.join(path.data.src, file)))
+      jsons[file.replace(".json","")] = json
+    )
+    return JSON.parse(JSON.stringify(jsons))
   )
   .pipe swig({defaults: { cache: false }})
   .pipe gulp.dest(path.dist.src)
@@ -116,7 +128,7 @@ gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
 
 gulp.task 'merge:json', 'merge Json files under a folder to one json file with the folder name', ->
   folders = getFolders path.data.src
-  tasks   = folders.map( (folder) ->
+  folders.map( (folder) ->
       return gulp.src filepath.join(path.data.src, folder, '/**/*.json')
       .pipe plumber()
       .pipe mergeJson(folder + '.json')
@@ -139,13 +151,13 @@ gulp.task 'watch:js', 'Watch js/babel files', ->
 gulp.task 'watch:json', 'Watch data/content files', ->
   gulp.watch path.data.json, (event) ->
     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-    runSequence('lint:Json','merge:json' ,'compile:swig', reload)
+    runSequence('lint:json','merge:json' ,'compile:swig', reload)
 
 gulp.task 'watch:image', 'Watch images', ->
   gulp.watch path.image.dev, ['minify:image']
   
 #%%%%% Linting Tasks %%%%%
-gulp.task 'lint:Json', 'lint JSON files', ->
+gulp.task 'lint:json', 'lint JSON files', ->
   gulp.src path.data.json
   .pipe jsonlint()
   .pipe jsonlint.reporter()
