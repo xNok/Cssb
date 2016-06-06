@@ -33,7 +33,8 @@ exports.path_IN =
     dev:    project_dev + '/pages/**/*.html'
     watch: [
       project_dev + "/partials/**/*.html",  
-      project_dev + "/pages/**/*.html"
+      project_dev + "/pages/**/*.html",
+      project_dev + "/layout/*.html"
     ]
   image:
     dev:    project_dev + '/assets__img/*'

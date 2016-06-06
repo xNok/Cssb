@@ -23,17 +23,19 @@ I recommend keeping a simple lvl of subdirectory, because it is much simple to n
 ## Personalised the directory structure
 
 First,Open the file *confi.coffee* and define your project structure :
-```
-# directory where your developing stuff
+
+```javascript
+// directory where your developing stuff
 project_dev     = "../app"
-# directory where you want to publish the project
+// directory where you want to publish the project
 project_src     = "../www"
-# sample code directory
+// sample code directory
 project_sample  = "./app"
 ```
 
 Then you can change the output directories via the variable **path__OUT** :
-```
+
+```javascript
 exports.path_OUT =
   dist:
     src:    project_src
