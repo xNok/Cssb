@@ -39,10 +39,10 @@ exports.path_IN =
   image:
     dev:    project_dev + '/assets__img/*'
   data:
-    src:    project_dev + '/content/'
-    app:    project_dev + '/content/app.json'
-    json:   project_dev + '/content/**/*.json'
-    yaml:   project_dev + '/content/**/*.yml'
+    src:    project_dev + '/contents/'
+    app:    project_dev + '/contents/app.json'
+    json:   project_dev + '/contents/**/*.json'
+    yaml:   project_dev + '/contents/**/*.yml'
   vendors:  project_dev + '/vendors/**'
 
 #--------------------------------
