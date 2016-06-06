@@ -3,7 +3,8 @@
 #--------------------------------
 #%%%%% Config Information %%%%%
 config          = require('./config.coffee')
-path            = config.path
+path_OUT        = config.path_OUT
+path_IN         = config.path_IN
 taskBundle      = config.taskBundle
 browser_support = config.browser_support
 images_config   = config.images_config
@@ -60,105 +61,104 @@ getFiles = (dir, filter) ->
 #--------------------------------
 #%%%%% frontend dev %%%%%
 gulp.task 'compile:sass','Build the css assets', ->
-  gulp.src path.scss.dev
+  gulp.src path_IN.scss.dev
   .pipe changed(path.dist.src)
   .pipe sass().on('error', sass.logError)
   .pipe autoprefixer(browsers: browser_support)
-  .pipe gulp.dest(path.dist.css)
+  .pipe gulp.dest(path_OUT.dist.css)
   .pipe stream()
 
 gulp.task 'compile:swig','Built pages with swig template engine', ->
-  gulp.src path.swig.dev
+  gulp.src path_IN.swig.dev
   .pipe plumber()
   .pipe data( (file)->
-    files = getFiles path.data.src, '.json'
+    files = getFiles path_IN.data.src, '.json'
     jsons = {}
     files.map( (file)->
-      json = JSON.parse(fs.readFileSync(filepath.join(path.data.src, file)))
+      json = JSON.parse(fs.readFileSync(filepath.join(path_IN.data.src, file)))
       jsons[file.replace(".json","")] = json
     )
     return JSON.parse(JSON.stringify(jsons))
   )
   .pipe swig({defaults: { cache: false }})
-  .pipe gulp.dest(path.dist.src)
+  .pipe gulp.dest(path_OUT.dist.src)
 
 gulp.task 'compile:js', 'Build JS files from ES6', ->
-  gulp.src [path.js.watch, "!"+path.js.ignore]
-  .pipe changed(path.dist.js)
+  gulp.src [path_IN.js.watch, "!"+path_IN.js.ignore]
+  .pipe changed(path_OUT.dist.js)
   .pipe plumber()
   .pipe babel({"presets": [es2015]})
-  .pipe gulp.dest(path.dist.js)
+  .pipe gulp.dest(path_OUT.dist.js)
   .pipe stream()
 
 gulp.task 'minify:image','Optimise images', ->
-  gulp.src path.image.dev
-  .pipe changed(path.dist.images)
+  gulp.src path_IN.image.dev
+  .pipe changed(path_OUT.dist.images)
   .pipe image(images_config)
-  .pipe gulp.dest(path.dist.images)
+  .pipe gulp.dest(path_OUT.dist.images)
   .pipe stream()
 
 #%%%%% frontend post-dev %%%%%
 gulp.task 'minify:js','Build minified JS files and addapte ES6', ->
-  gulp.src [path.js.watch, '!'+path.js.ignore]
+  gulp.src [path_IN.js.watch, '!'+path_IN.js.ignore]
   .pipe plumber()
   .pipe babel({"presets": [es2015]})
   .pipe uglify().on('error', gutil.log)
-  .pipe gulp.dest(path.dist.js)
+  .pipe gulp.dest(path_OUT.dist.js)
 
 gulp.task 'minify:css','Build minified CSS files and addapte SCSS', ->
-  gulp.src path.scss.dev
+  gulp.src path_IN.scss.dev
   .pipe sass()
   .pipe autoprefixer(browsers: browser_support)
   .pipe cleanCSS({debug: true}, (details) ->
         console.log("[INFO] minify-css-> " + details.name + ': ' + details.stats.originalSize)
         console.log("[INFO] minify-css-> " + details.name + ': ' + details.stats.minifiedSize)
       )
-  .pipe gulp.dest(path.dist.css)
+  .pipe gulp.dest(path_OUT.dist.css)
 
 gulp.task 'copy:vendors','Copy past your vendors without treatment', ->
-  gulp.src path.vendors
-  .pipe changed(path.dist.vendors)
-  .pipe gulp.dest(path.dist.vendors)
+  gulp.src path_IN.vendors
+  .pipe changed(path_OUT.dist.vendors)
+  .pipe gulp.dest(path_OUT.dist.vendors)
 
 #%%%%% Content/Data Management %%%%%
 gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
-  gulp.src path.data.yaml
+  gulp.src path_IN.data.yaml
   .pipe yaml({ schema: 'DEFAULT_SAFE_SCHEMA' })
-  .pipe gulp.dest( path.data.src )
+  .pipe gulp.dest( path_IN.data.src )
 
 gulp.task 'merge:json', 'merge Json files under a folder to one json file with the folder name', ->
   folders = getFolders path.data.src
   folders.map( (folder) ->
-      return gulp.src filepath.join(path.data.src, folder, '/**/*.json')
+      return gulp.src filepath.join(path_IN.data.src, folder, '/**/*.json')
       .pipe plumber()
       .pipe mergeJson(folder + '.json')
-      .pipe gulp.dest path.data.src
+      .pipe gulp.dest path_IN.data.src
   )
 
 #%%%%% frontend watch %%%%%
 gulp.task 'watch:browserSync','run browserSync server', ->
-  browserSync server: {baseDir: path.dist.src}
+  browserSync server: {baseDir: path_OUT.dist.src}
 
 gulp.task 'watch:sass', 'Watch scss files', ->
-  gulp.watch path.scss.watch, ['compile:sass']
+  gulp.watch path_IN.scss.watch, ['compile:sass']
 
 gulp.task 'watch:swig', 'Watch html/swig files', ->
-  gulp.watch path.swig.watch, ['compile:swig', reload]
+  gulp.watch path_IN.swig.watch, ['compile:swig', reload]
 
 gulp.task 'watch:js', 'Watch js/babel files', ->
-  gulp.watch path.js.watch, ['compile:js']
+  gulp.watch path_IN.js.watch, ['compile:js']
 
 gulp.task 'watch:json', 'Watch data/content files', ->
   gulp.watch path.data.json, (event) ->
-    console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
     runSequence('lint:json','merge:json' ,'compile:swig', reload)
 
 gulp.task 'watch:image', 'Watch images', ->
-  gulp.watch path.image.dev, ['minify:image']
+  gulp.watch path_IN.image.dev, ['minify:image']
   
 #%%%%% Linting Tasks %%%%%
 gulp.task 'lint:json', 'lint JSON files', ->
-  gulp.src path.data.json
+  gulp.src path_IN.data.json
   .pipe jsonlint()
   .pipe jsonlint.reporter()
 #--------------------------------

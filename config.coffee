@@ -12,7 +12,7 @@ project_sample  = "./app"
 #--------------------------------
 #------ Path configuration ------
 #--------------------------------
-exports.path =
+exports.path_OUT =
   dist:
     src:    project_src
     css:    project_src + '/css/'
@@ -20,9 +20,9 @@ exports.path =
     images: project_src + '/img/'
     vendors:project_src + '/vendors'
   ghpage:
-    src: '../gh-pages/**/*'
-  browser:
-    refresh: [project_dev + "/*.html",  project_dev + "/js/*.js"]
+    src:    project_src + '/**/*'
+
+exports.path_IN =
   scss:
     dev:    project_dev + '/assets__css/*.scss'
     watch:  project_dev + '/assets__css/**/*.scss'
@@ -31,7 +31,10 @@ exports.path =
     ignore: project_dev + '/assets__js/vendors/**/*'
   swig:
     dev:    project_dev + '/pages/**/*.html'
-    watch: [project_dev + "/partials/**/*.html",  project_dev + "/pages/**/*.html"]
+    watch: [
+      project_dev + "/partials/**/*.html",  
+      project_dev + "/pages/**/*.html"
+    ]
   image:
     dev:    project_dev + '/assets__img/*'
   data:
