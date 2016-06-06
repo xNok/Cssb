@@ -62,7 +62,7 @@ getFiles = (dir, filter) ->
 #%%%%% frontend dev %%%%%
 gulp.task 'compile:sass','Build the css assets', ->
   gulp.src path_IN.scss.dev
-  .pipe changed(path.dist.src)
+  .pipe changed(path_OUT.dist.src)
   .pipe sass().on('error', sass.logError)
   .pipe autoprefixer(browsers: browser_support)
   .pipe gulp.dest(path_OUT.dist.css)
@@ -128,7 +128,7 @@ gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
   .pipe gulp.dest( path_IN.data.src )
 
 gulp.task 'merge:json', 'merge Json files under a folder to one json file with the folder name', ->
-  folders = getFolders path.data.src
+  folders = getFolders path_IN.data.src
   folders.map( (folder) ->
       return gulp.src filepath.join(path_IN.data.src, folder, '/**/*.json')
       .pipe plumber()
@@ -150,7 +150,7 @@ gulp.task 'watch:js', 'Watch js/babel files', ->
   gulp.watch path_IN.js.watch, ['compile:js']
 
 gulp.task 'watch:json', 'Watch data/content files', ->
-  gulp.watch path.data.json, (event) ->
+  gulp.watch path_IN.data.json, (event) ->
     runSequence('lint:json','merge:json' ,'compile:swig', reload)
 
 gulp.task 'watch:image', 'Watch images', ->
@@ -172,7 +172,7 @@ gulp.task 'dist','Build production files', taskBundle.dist
 #------ Publication tools -------
 #--------------------------------
 gulp.task 'gh-pages','Publish gh-pages', ->
-  return gulp.src path.ghpage.src
+  return gulp.src path_OUT.ghpage.src
   .pipe ghPages()
 #--------------------------------
 #------ Starter Config ----------
