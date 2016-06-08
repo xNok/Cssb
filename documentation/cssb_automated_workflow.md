@@ -1,13 +1,32 @@
-Programming with the automated __Cssb__ workflow
+Programming with the automated __CSSB__ work-flow
 ===
 
 # Introduction
 
+  Using a automated work-flow start by running some command lines by definition. I asume that you have install [git](https://git-scm.com/) en [node.js](https://nodejs.org/)
+
+Download the project
+> git clone https://github.com/xNok/Cssb
+
+Install dependencies
+> npm install
+
+Prepare your workspace
+> gulp init
+
 # Directory structure
 
-I recommend that you use following structure, but you can easily changed that conffiguration with the config.coffee file. To simplifies organizing large websites Cssb support by default a single level subdirectory.
+I recommend that you use the Cssb project as a [submodule](https://git-scm.com/docs/git-submodule), and structure your working directory as following :
 
-I recommend keeping a simple lvl of subdirectory, because it is much simple to navigate into your project. This is one reason which made me chose to to the prefix **assets__** rather than using a directory.
+```
++-- Cssb                // CSSB folder
++-- app                 // your dev folder
++-- www                 // your production folder
+```
+
+I recommend that you use following structure inside the __www__ folder, but you can easily changed that configuration with the config.coffee file. To simplifies organizing large websites CSSB support by default a single level subdirectory.
+
+I recommend keeping a simple lvl of subdirectory, because it is much simple to navigate into your project. This is one reason why I choose to prefix assets with **assets__** rather than using a directory.
 
 ```
 +-- assets__css     // CSS, SCSS, SASS resources
@@ -15,14 +34,14 @@ I recommend keeping a simple lvl of subdirectory, because it is much simple to n
 +-- assets__js      // JS resources
 +-- content         // JSON, text, HTML, Markdown blocks that can be edited separately from the page or layout
 +-- layout          // All page scaffolds
-+-- pages           // Webpage
++-- pages           // Web page
 +-- partials        // contain reusable HTML that an be include or used as a macro
-+-- vendors         // external librairies
++-- vendors         // external libraries
 ```
 
 ## Personalised the directory structure
 
-First,Open the file *confi.coffee* and define your project structure :
+First,Open the file *config.coffee* and define your project structure :
 
 ```javascript
 // directory where your developing stuff
@@ -47,12 +66,12 @@ exports.path_OUT =
     src:    project_src + '/**/*'
 ```
 
-Finaly you can define the structure of your dev directory. These variables are use by the gulp task with the following rules :
+Finally you can define the structure of your dev directory. These variables are use by the gulp task with the following rules :
 
 * __src__:      directory definition
-* __dev__:      developement files to compile
-* __watch__:    developement files to watch
-* __ignore__:   developement files to ignore
+* __dev__:      development files to compile
+* __watch__:    development files to watch
+* __ignore__:   development files to ignore
 
 ```
 exports.path_IN =
