@@ -1,11 +1,12 @@
 Create a Gulp Automated workflow
 ===
 
-An automated workflow helps you to save many hour of your time by using pre-programmed commands lines. Creating this tools is a bit like writing a recipes book, containing all the boring task you used to do. From now, we called this recipes book the __gulpfile__.
+An automated workflow helps you to save many hour of your time by using pre-programmed commands lines. Moreover, Creating such tools is a bit like writing a recipes book, containing all the boring task you used to do. From now, we called this recipes book the __gulpfile__.
 
-However creating such a workflow required you to spend some time first to develop it. However creating such a tool is difficult because you have to together a lot of technology and make them work together in the proper way.
+However creating such a workflow required you to spend some time first to develop it. It's still bit difficult to get a complete and an reliable engine, because  you have to together a lot of technology and make them work together in the proper way.
 
-The purpose of this documentation is to let you discover few technologies that I picked and integrated to my workflow and showed altenative choices to each of those technology. So you can understant my project and maybe start to build your own workflow.
+The purpose of this documentation is to let you discover few technologies that I picked and integrated to my workflow
+Every time I will also quotes altenative choices to each of those technology to gives the maximun information to make your choices. So with the documentation you can understant my project and maybe start to build your own workflow.
 
 # Get Ready
 
@@ -25,7 +26,7 @@ Lets install your first package with __npm__. You may have already find the name
 
 ## Gulp.js
 * [Introduction to Gulp.js](http://stefanimhoff.de/2014/gulp-tutorial-1-intro-setup/)
-* [Recipes of the gulpjs repository](https://github.com/gulpjs/gulp/tree/master/docs/recipes)
+* [Recipes of the gulpjs repository](http://gulpjs.org/recipes/automate-release-workflow.html)
 * [How to Modularize HTML Using Template Engines and Gulp](http://zellwk.com/blog/nunjucks-with-gulp/)
 * [A delicious blend of gulp tasks combined into a configurable asset pipeline and static site builder](https://github.com/vigetlabs/gulp-starter)
 

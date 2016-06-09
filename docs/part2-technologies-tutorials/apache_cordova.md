@@ -1,15 +1,14 @@
-Apache Cordova
-===
+# Apache Cordova
 
 This documentation sheet, put together a lot of interesting things about mobile app developement using apache cordova. You can found most of these trick into Cssb.
 
-# Start with apache cordova
+## Start with apache cordova
 
 * [Official website](https://cordova.apache.org/)
 
-# Tricks
+## Tricks
 
-## Interact with the keyboard
+### Interact with the keyboard
 
 One of the most disturbing issue is to let the focused element on screen when the keyboar appear.
 
@@ -36,7 +35,7 @@ function onResize(){
 </body>
 ```
 
-## Plugins
+### Plugins
 
 * [PhoneGap Plugin BarcodeScanner](https://github.com/phonegap/phonegap-plugin-barcodescanner)
 

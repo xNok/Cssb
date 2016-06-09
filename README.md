@@ -123,6 +123,10 @@ Thus you can update the cssb project easly and you can create your own git on th
 * [gulp-jsonlint](https://www.npmjs.com/package/gulp-jsonlint) - linting JSON files
 * [gulp-yaml](https://www.npmjs.com/package/gulp-yaml) - Convert YAML to JSON
 
+### Publishing tools
+* [gulp-gh-pages](https://www.npmjs.com/package/gulp-gh-pages) - gulp plugin to publish contents to Github pages
+* [gitbook](http://toolchain.gitbook.com/) - Creating Books from markdown
+
 ### Tools
 * [gulp-changed](https://www.npmjs.com/package/gulp-changed) - relaod only changed files
 * [gulp-if](https://www.npmjs.com/package/gulp-if) - Allow condition into tasks
@@ -131,6 +135,7 @@ Thus you can update the cssb project easly and you can create your own git on th
 * [path](https://www.npmjs.com/package/path) - Manipulate file path
 * [yards](https://www.npmjs.com/package/yargs) - Allow to add arguments to gulp task
 * [runSequence](https://www.npmjs.com/package/run-sequence) - Run a series of dependent gulp tasks in order
+* [q](https://www.npmjs.com/package/q) - A library for promises
 
 ## Recommendations
 
