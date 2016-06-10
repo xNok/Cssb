@@ -4,10 +4,10 @@
 #%%%%% Config Information %%%%%
 config          = require('./config.coffee')
 # Path
-path_OUT        = config.path_OUT
-path_IN         = config.path_IN
+path_OUT        = config.path_frontdev.out
+path_IN         = config.path_frontdev.in
 path_docs       = config.path_docs
-path_init      = config.path_init
+path_init       = config.path_init
 # module config
 browser_support = config.browser_support
 images_config   = config.images_config
@@ -73,10 +73,10 @@ getFiles = (dir, filter) ->
 #%%%%% frontend dev %%%%%
 gulp.task 'compile:sass','Build the css assets', ->
   gulp.src path_IN.scss.dev
-  .pipe changed(path_OUT.dist.src)
+  .pipe changed(path_OUT.src)
   .pipe sass().on('error', sass.logError)
   .pipe autoprefixer(browsers: browser_support)
-  .pipe gulp.dest(path_OUT.dist.css)
+  .pipe gulp.dest(path_OUT.css)
   .pipe stream()
 
 gulp.task 'compile:swig','Built pages with swig template engine', ->
@@ -92,21 +92,21 @@ gulp.task 'compile:swig','Built pages with swig template engine', ->
     return JSON.parse(JSON.stringify(jsons))
   )
   .pipe swig({defaults: { cache: false }})
-  .pipe gulp.dest(path_OUT.dist.src)
+  .pipe gulp.dest(path_OUT.src)
 
 gulp.task 'compile:js', 'Build JS files from ES6', ->
   gulp.src [path_IN.js.watch, "!"+path_IN.js.ignore]
-  .pipe changed(path_OUT.dist.js)
+  .pipe changed(path_OUT.js)
   .pipe plumber()
   .pipe babel({"presets": [es2015]})
-  .pipe gulp.dest(path_OUT.dist.js)
+  .pipe gulp.dest(path_OUT.js)
   .pipe stream()
 
 gulp.task 'minify:image','Optimise images', ->
   gulp.src path_IN.image.dev
-  .pipe changed(path_OUT.dist.images)
+  .pipe changed(path_OUT.images)
   .pipe image(images_config)
-  .pipe gulp.dest(path_OUT.dist.images)
+  .pipe gulp.dest(path_OUT.images)
   .pipe stream()
 
 #%%%%% frontend post-dev %%%%%
@@ -115,7 +115,7 @@ gulp.task 'minify:js','Build minified JS files and addapte ES6', ->
   .pipe plumber()
   .pipe babel({"presets": [es2015]})
   .pipe uglify().on('error', gutil.log)
-  .pipe gulp.dest(path_OUT.dist.js)
+  .pipe gulp.dest(path_OUT.js)
 
 gulp.task 'minify:css','Build minified CSS files and addapte SCSS', ->
   gulp.src path_IN.scss.dev
@@ -125,12 +125,12 @@ gulp.task 'minify:css','Build minified CSS files and addapte SCSS', ->
         console.log("[INFO] minify-css-> " + details.name + ': ' + details.stats.originalSize)
         console.log("[INFO] minify-css-> " + details.name + ': ' + details.stats.minifiedSize)
       )
-  .pipe gulp.dest(path_OUT.dist.css)
+  .pipe gulp.dest(path_OUT.css)
 
 gulp.task 'copy:vendors','Copy past your vendors without treatment', ->
   gulp.src path_IN.vendors
-  .pipe changed(path_OUT.dist.vendors)
-  .pipe gulp.dest(path_OUT.dist.vendors)
+  .pipe changed(path_OUT.vendors)
+  .pipe gulp.dest(path_OUT.vendors)
 
 #%%%%% Content/Data Management %%%%%
 gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
@@ -149,7 +149,7 @@ gulp.task 'merge:json', 'merge Json files under a folder to one json file with t
 
 #%%%%% frontend watch %%%%%
 gulp.task 'watch:browserSync','run browserSync server', ->
-  browserSync server: {baseDir: path_OUT.dist.src}
+  browserSync server: {baseDir: path_OUT.src}
 
 gulp.task 'watch:sass', 'Watch scss files', ->
   gulp.watch path_IN.scss.watch, ['compile:sass']
@@ -213,7 +213,7 @@ gulp.task 'init', 'Copy paste the app folder into the project_dev folder', ->
 
 gulp.task 'copy-app-directories', ->
   return gulp.src path_init.website
-  .pipe gulp.dest(project_dev + "/")
+  .pipe gulp.dest(path_OUT.src)
 
 gulp.task 'delete-empty-directories', ->
-  return deleteEmpty.sync(project_dev + "/", {force: true})
+  return deleteEmpty.sync(path_OUT.scr, {force: true})

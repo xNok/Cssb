@@ -2,23 +2,27 @@
 #----- Project definition -------
 #--------------------------------
 
-# directory where your developing stuff
-project_dev     = "../frontdev"
 # directory where you want to publish the project
-project_src     = "../www"
+project_src       = "../www"
+# your frontend developement directory
+project_frontdev  = "../frontdev"
+# your project documentation directory
+project_doc       = "../docs"
+
+
 # sample code directory
-project_sample  = "./frontdev"
-# project documentation
-project_doc     = "../docs"
+frontdev_sample   = "./frontdev"
+gitbook_sample    = "./gitbook"
+
 
 #--------------------------------
 #------ Path configuration ------
 #--------------------------------
 
-# define the documentation
+# define the documentation directory stucture
 exports.path_docs =
   in:
-    src:      project_doc + '/'
+    src:      project_doc + '/' 
   out:
     pdf:      project_doc + 'Book/pdf/'
     website:  project_doc + 'Book/web/'
@@ -26,39 +30,51 @@ exports.path_docs =
     mobi:     project_doc + 'Book/mobi/'
 
 # define the frontend Output directory structure
-exports.path_OUT =
-  dist:
+export.path_frontdev =
+  in:
+    src:      project_frontdev + "/"
+    scss:
+      dev:    project_frontdev + '/assets__css/*.scss'
+      watch:  project_frontdev + '/assets__css/**/*.scss'
+    js:
+      watch:  project_frontdev + '/assets__js/**/*.js'
+      ignore: project_frontdev + '/assets__js/vendors/**/*'
+    swig:
+      dev:    project_frontdev + '/pages/**/*.html'
+      watch: [
+        project_frontdev + "/partials/**/*.html",
+        project_frontdev + "/pages/**/*.html",
+        project_frontdev + "/layout/*.html"
+      ]
+    image:
+      dev:    project_frontdev + '/assets__img/*'
+    data:
+      src:    project_frontdev + '/contents/'
+      app:    project_frontdev + '/contents/app.json'
+      json:   project_frontdev + '/contents/**/*.json'
+      yaml:   project_frontdev + '/contents/**/*.yml'
+    vendors:  project_frontdev + '/vendors/**'
+  out:
     src:    project_src
     css:    project_src + '/css/'
     js:     project_src + '/js/'
     images: project_src + '/img/'
-    vendors:project_src + '/vendors'
-  ghpage:
-    src:    project_src + '/**/*'
+    vendors:project_src + '/vendors'  
 
-# define the frontend Input directory structure
-exports.path_IN =
-  scss:
-    dev:    project_dev + '/assets__css/*.scss'
-    watch:  project_dev + '/assets__css/**/*.scss'
-  js:
-    watch:  project_dev + '/assets__js/**/*.js'
-    ignore: project_dev + '/assets__js/vendors/**/*'
-  swig:
-    dev:    project_dev + '/pages/**/*.html'
-    watch: [
-      project_dev + "/partials/**/*.html",
-      project_dev + "/pages/**/*.html",
-      project_dev + "/layout/*.html"
-    ]
-  image:
-    dev:    project_dev + '/assets__img/*'
-  data:
-    src:    project_dev + '/contents/'
-    app:    project_dev + '/contents/app.json'
-    json:   project_dev + '/contents/**/*.json'
-    yaml:   project_dev + '/contents/**/*.yml'
-  vendors:  project_dev + '/vendors/**'
+export.path_ghpage =
+  in: project_src + '/**/*'
+
+#--------------------------------
+#------ Init configuration ------
+#--------------------------------
+exports.path_init =
+  website: [
+    frontdev_sample + "/**",
+    "!" + frontdev_sample + "/js/*/**",
+    "!" + frontdev_sample + "/pages/*/**",
+    "!" + frontdev_sample + "/partials/*/**",
+  ]
+  gitbook: 
 
 #--------------------------------
 #------ Task Bundle -------------
@@ -117,14 +133,3 @@ exports.images_config =
   mozjpeg:        true
   gifsicle:       true
   svgo:           true
-
-#--------------------------------
-#------ Init configuration ------
-#--------------------------------
-exports.path_init =
-  website: [
-    project_sample + "/**",
-    "!" + project_sample + "/js/*/**",
-    "!" + project_sample + "/pages/*/**",
-    "!" + project_sample + "/partials/*/**",
-  ]

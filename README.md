@@ -2,7 +2,7 @@
 
 Frontend tools automating your workflow with [gulp](http://gulpjs.com/).
 
-The project provide a set of pre-programmed command. These commandes will help you to simplify and impove your developement process. Use it or [learn how to build your own automated workflow](https://github.com/xNok/Cssb/blob/master/documentation/gulp_automated_workflow.md).
+The project provide a set of pre-programmed command. These commandes will help you to simplify and impove your developement process. Use it or [learn how to build your own automated workflow](https://github.com/xNok/Cssb/blob/master/docs/part1-automated-workflow/gulp_automated_workflow.md).
 
 The main enhancements that bring this project are :
 
@@ -17,11 +17,15 @@ The main enhancements that bring this project are :
 
 ## Documentation
 
-1. [Programming with the automated __Cssb__ workflow](https://github.com/xNok/Cssb/tree/master/documentation/cssb_automated_workflow.md)
-2. [Programming an __Apache Cordova__ hybride mobile application](https://github.com/xNok/Cssb/tree/master/documentation/apache_cordova.md)
-3. [__Git__ and project management workflows](https://github.com/xNok/Cssb/tree/master/documentation/git_workflow.md)
-4. [Create an automate workflow with __gulp__](https://github.com/xNok/Cssb/tree/master/documentation/gulp_automated_workflow.md)
-5. [Create an automated workflow with __npm__](https://github.com/xNok/Cssb/tree/master/documentation/npm_automated_workflow.md)
+* [Automated work-flows](https://github.com/xNok/Cssb/blob/master/docs/part1-automated-workflow/README.md)
+    * [Programming with __Cssb__ automated work-flow ](https://github.com/xNok/Cssb/blob/master/docs/part1-automated-workflow/cssb_automated_workflow.md)
+    * [Automate work-flow with __gulp__](https://github.com/xNok/Cssb/blob/master/docs/part1-automated-workflow/gulp_automated_workflow.md)
+    * [Automated work-flow with __npm__](https://github.com/xNok/Cssb/blob/master/docs/part1-automated-workflow/npm_automated_workflow.md)
+* [Technology tutorials](https://github.com/xNok/Cssb/blob/master/docs/part2-technologies-tutorials/README.md)
+    * [__Git__ and project management work-flows](https://github.com/xNok/Cssb/blob/master/docs/part2-technologies-tutorials/git_workflow.md)
+    * [Programming an __Apache Cordova__ hybrid mobile application](https://github.com/xNok/Cssb/blob/master/docs/part2-technologies-tutorials/apache_cordova.md)
+
+----
 
 * [Developement strategy](#developement-strategy)
 * [Installation](#installation)
