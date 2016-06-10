@@ -3,12 +3,16 @@
 #--------------------------------
 #%%%%% Config Information %%%%%
 config          = require('./config.coffee')
+# Path
 path_OUT        = config.path_OUT
 path_IN         = config.path_IN
-taskBundle      = config.taskBundle
+path_docs       = config.path_docs
+path_init      = config.path_init
+# module config
 browser_support = config.browser_support
 images_config   = config.images_config
-configPath      = config.configPath
+# task config
+taskBundle      = config.taskBundle
 
 #%%%%% Project tools %%%%%
 gulp            = require('gulp-help')(require('gulp'))
@@ -17,8 +21,12 @@ gutil           = require('gulp-util')
 changed         = require('gulp-changed')
 runSequence     = require('run-sequence')
 deleteEmpty     = require('delete-empty')
+_               = require('lodash')
+Q               = require('q')
 fs              = require('fs')
 filepath        = require('path')
+argv            = require('yargs').argv
+gulpif          = require('gulp-if')
 
 #%%%%% frontend dev %%%%%
 sass            = require('gulp-sass')
@@ -38,8 +46,11 @@ jsonlint        = require("gulp-jsonlint")
 #%%%%% Post dev %%%%%
 image           = require('gulp-image')
 uglify          = require('gulp-uglify')
-ghPages         = require('gulp-gh-pages')
 cleanCSS        = require('gulp-clean-css')
+
+#%%%%% Publishing tools %%%%%
+ghPages         = require('gulp-gh-pages')
+gitbook         = require('gitbook')
 
 #--------------------------------
 #------ Functions definition ----
@@ -155,7 +166,7 @@ gulp.task 'watch:json', 'Watch data/content files', ->
 
 gulp.task 'watch:image', 'Watch images', ->
   gulp.watch path_IN.image.dev, ['minify:image']
-  
+
 #%%%%% Linting Tasks %%%%%
 gulp.task 'lint:json', 'lint JSON files', ->
   gulp.src path_IN.data.json
@@ -174,6 +185,25 @@ gulp.task 'dist','Build production files', taskBundle.dist
 gulp.task 'gh-pages','Publish gh-pages', ->
   return gulp.src path_OUT.ghpage.src
   .pipe ghPages()
+
+gulp.task 'gitbook-init', 'Copy paste gitbook template in the project_doc directory' , ->
+  cmd = _.find(gitbook.commands, (_cmd) ->
+      return _.first(_cmd.name.split(" ")) == "install";
+  )
+  args = ['../docs', '../docsBook']
+  kwargs = {}
+  cmd.exec(args, kwargs)
+
+gulp.task 'gitbook', 'Publish pdf gitbook' , ->
+  cmd = _.find(gitbook.commands, (_cmd) ->
+      return _.first(_cmd.name.split(" ")) == "build";
+  )
+
+  args = ['../docs', '../docsBook']
+  kwargs = { log: 'debug', format: 'website', timing: false }
+
+  cmd.exec(args, kwargs)
+
 #--------------------------------
 #------ Starter Config ----------
 #--------------------------------
@@ -182,7 +212,7 @@ gulp.task 'init', 'Copy paste the app folder into the project_dev folder', ->
   runSequence('copy-app-directories','delete-empty-directories')
 
 gulp.task 'copy-app-directories', ->
-  return gulp.src configPath.init
+  return gulp.src path_init.website
   .pipe gulp.dest(project_dev + "/")
 
 gulp.task 'delete-empty-directories', ->

@@ -8,10 +8,24 @@ project_dev     = "../app"
 project_src     = "../www"
 # sample code directory
 project_sample  = "./app"
+# project documentation
+project_doc     = "../docs"
 
 #--------------------------------
 #------ Path configuration ------
 #--------------------------------
+
+# define the documentation
+exports.path_docs =
+  in:
+    src:      project_doc + '/'
+  out:
+    pdf:      project_doc + 'Book/pdf/'
+    website:  project_doc + 'Book/web/'
+    ePub:     project_doc + 'Book/ePub/'
+    mobi:     project_doc + 'Book/mobi/'
+
+# define the frontend Output directory structure
 exports.path_OUT =
   dist:
     src:    project_src
@@ -22,6 +36,7 @@ exports.path_OUT =
   ghpage:
     src:    project_src + '/**/*'
 
+# define the frontend Input directory structure
 exports.path_IN =
   scss:
     dev:    project_dev + '/assets__css/*.scss'
@@ -32,7 +47,7 @@ exports.path_IN =
   swig:
     dev:    project_dev + '/pages/**/*.html'
     watch: [
-      project_dev + "/partials/**/*.html",  
+      project_dev + "/partials/**/*.html",
       project_dev + "/pages/**/*.html",
       project_dev + "/layout/*.html"
     ]
@@ -77,6 +92,8 @@ exports.taskBundle =
 #--------------------------------
 #------ Support definition ------
 #--------------------------------
+
+# Config for browserSync
 exports.browser_support = [
   "ie >= 9"
   "ie_mob >= 10"
@@ -89,7 +106,8 @@ exports.browser_support = [
   "bb >= 10"
 ]
 
-exports.images_config = 
+# Config for
+exports.images_config =
   pngquant:       true
   optipng:        true
   zopflipng:      true
@@ -103,8 +121,8 @@ exports.images_config =
 #--------------------------------
 #------ Init configuration ------
 #--------------------------------
-exports.configPath =
-  init: [
+exports.path_init =
+  website: [
     project_sample + "/**",
     "!" + project_sample + "/js/*/**",
     "!" + project_sample + "/pages/*/**",

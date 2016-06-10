@@ -1,6 +1,6 @@
 {
   "name": "cssb",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "Frontend tools, automating your workflow with gulp.",
   "main": "index.js",
   "author": "xNok",
@@ -21,7 +21,7 @@
     "dist": "gulp dist"
   },
   "dependencies": {
-    "gitbook": "^3.1.0"
+    "gitbook": "https://github.com/xNok/gitbook.git"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",
@@ -48,6 +48,7 @@
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
     "gulp-yaml": "^1.0.1",
+    "lodash": "^4.13.1",
     "path": "^0.12.7",
     "q": "^1.4.1",
     "run-sequence": "^1.2.1",
