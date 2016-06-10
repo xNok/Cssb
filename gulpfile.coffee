@@ -22,7 +22,6 @@ changed         = require('gulp-changed')
 runSequence     = require('run-sequence')
 deleteEmpty     = require('delete-empty')
 _               = require('lodash')
-Q               = require('q')
 fs              = require('fs')
 filepath        = require('path')
 argv            = require('yargs').argv
