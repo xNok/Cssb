@@ -14,7 +14,6 @@ project_doc       = "../docs"
 frontdev_sample   = "./frontdev"
 gitbook_sample    = "./gitbook"
 
-
 #--------------------------------
 #------ Path configuration ------
 #--------------------------------
@@ -30,7 +29,7 @@ exports.path_docs =
     mobi:     project_doc + 'Book/mobi/'
 
 # define the frontend Output directory structure
-export.path_frontdev =
+exports.path_frontdev =
   in:
     src:      project_frontdev + "/"
     scss:
@@ -55,13 +54,13 @@ export.path_frontdev =
       yaml:   project_frontdev + '/contents/**/*.yml'
     vendors:  project_frontdev + '/vendors/**'
   out:
-    src:    project_src
+    src:    project_src + '/'
     css:    project_src + '/css/'
     js:     project_src + '/js/'
     images: project_src + '/img/'
     vendors:project_src + '/vendors'  
 
-export.path_ghpage =
+exports.path_ghpage =
   in: project_src + '/**/*'
 
 #--------------------------------
@@ -74,7 +73,7 @@ exports.path_init =
     "!" + frontdev_sample + "/pages/*/**",
     "!" + frontdev_sample + "/partials/*/**",
   ]
-  gitbook: 
+  gitbook: gitbook_sample + "/**/**"
 
 #--------------------------------
 #------ Task Bundle -------------

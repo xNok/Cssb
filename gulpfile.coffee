@@ -186,14 +186,6 @@ gulp.task 'gh-pages','Publish gh-pages', ->
   return gulp.src path_OUT.ghpage.src
   .pipe ghPages()
 
-gulp.task 'gitbook-init', 'Copy paste gitbook template in the project_doc directory' , ->
-  cmd = _.find(gitbook.commands, (_cmd) ->
-      return _.first(_cmd.name.split(" ")) == "install";
-  )
-  args = ['../docs', '../docsBook']
-  kwargs = {}
-  cmd.exec(args, kwargs)
-
 gulp.task 'gitbook', 'Publish pdf gitbook' , ->
   cmd = _.find(gitbook.commands, (_cmd) ->
       return _.first(_cmd.name.split(" ")) == "build";
@@ -207,13 +199,23 @@ gulp.task 'gitbook', 'Publish pdf gitbook' , ->
 #--------------------------------
 #------ Starter Config ----------
 #--------------------------------
+#%%%%% Init var %%%%%
+copy_directories_out = "/"
+copy_directories_in = "/"
 #%%%%% Init tasks %%%%%
 gulp.task 'init', 'Copy paste the app folder into the project_dev folder', ->
-  runSequence('copy-app-directories','delete-empty-directories')
+  copy_directories_out = path_OUT.scr
+  copy_directories_in  = path_init.website
+  runSequence('copy-directories','delete-empty-directories')
 
-gulp.task 'copy-app-directories', ->
-  return gulp.src path_init.website
-  .pipe gulp.dest(path_OUT.src)
+gulp.task 'gitbook-init', 'Copy paste gitbook template in the project_doc directory' , ->
+  copy_directories_out = path_docs.in.src
+  copy_directories_in  = path_init.gitbook
+  runSequence('copy-directories','delete-empty-directories')
+
+gulp.task 'copy-directories', ->
+  return gulp.src copy_directories_in
+  .pipe gulp.dest(copy_directories_out)
 
 gulp.task 'delete-empty-directories', ->
-  return deleteEmpty.sync(path_OUT.scr, {force: true})
+  return deleteEmpty.sync(copy_directories_out, {force: true})
