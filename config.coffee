@@ -3,11 +3,11 @@
 #--------------------------------
 
 # directory where your developing stuff
-project_dev     = "../app"
+project_dev     = "../frontdev"
 # directory where you want to publish the project
 project_src     = "../www"
 # sample code directory
-project_sample  = "./app"
+project_sample  = "./frontdev"
 # project documentation
 project_doc     = "../docs"
 
