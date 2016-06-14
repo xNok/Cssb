@@ -1,7 +1,7 @@
-Programming with the automated __CSSB__ work-flow
-===
+# Programming with the automated __CSSB__ work-flow
 
-# Introduction
+
+## Introduction
 
 Using an automated work-flow start by running some command lines. I asume that you have install [git](https://git-scm.com/) and [node.js](https://nodejs.org/)
 
@@ -25,7 +25,7 @@ Using an automated work-flow start by running some command lines. I asume that y
 
   > gulp init
 
-# Directory structure
+## Directory structure
 
 I recommend that you use the Cssb project as a [submodule](https://git-scm.com/docs/git-submodule), and structure your working directory as following :
 
@@ -37,7 +37,7 @@ I recommend that you use the Cssb project as a [submodule](https://git-scm.com/d
 +-- www                 // Published frontdev files
 ```
 
-## Frontdev
+### Frontdev
 
 I recommend that you use following structure inside the __frontdev__ folder, but you can easily changed that configuration with the config.coffee file. To simplifies organizing large websites CSSB support by default a single level subdirectory.
 

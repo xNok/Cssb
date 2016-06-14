@@ -8,3 +8,7 @@
 * [Technology tutorials](part2-technologies-tutorials/README.md)
     * [__Git__ and project management work-flows](part2-technologies-tutorials/git_workflow.md)
     * [Programming an __Apache Cordova__ hybrid mobile application](part2-technologies-tutorials/apache_cordova.md)
+* [Frontend development](part3-frontend-development/README.md)
+    * [STEP 1 : Constructing a web page](part3-frontend-development/step1_constructing_a_web_page.md)
+    * [STEP 2 : Improving your development](part3-frontend-development/step2_improving_your_development.md)
+    * [STEP 3 : Improving the user experience](part3-frontend-development/step3_improving_the_user_experience.md)

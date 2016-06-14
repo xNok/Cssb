@@ -1,11 +1,10 @@
-Create an automated workflow with npm
-===
+# Create an automated workflow with npm
 
-# Get Ready
+## Get Ready
 
-# package.json
+## package.json
 
-# Dependencies Management
+## Dependencies Management
 
-# Scripting
+## Scripting
 

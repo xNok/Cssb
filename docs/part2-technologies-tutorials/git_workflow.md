@@ -1,2 +1,1 @@
-__Git__ and project management work-flows
-===
+# __Git__ work-flows and project management

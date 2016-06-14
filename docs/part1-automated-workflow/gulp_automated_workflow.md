@@ -1,5 +1,4 @@
-Create a Gulp Automated work-flow
-===
+# Create a Gulp Automated work-flow
 
 An automated workflow helps you to save many hour of your time by using pre-programmed commands lines. Moreover, Creating such tools is a bit like writing a recipes book, containing all the boring task you used to do. From now, we called this recipes book the __gulpfile__.
 
@@ -8,7 +7,7 @@ However creating such a work-flow required you to spend some time first to devel
 The purpose of this documentation is to let you discover few technologies that I picked and integrated to my work-flow
 Every time I will also quotes alternative choices to each of those technology to gives the maximum information to make your choices. So with the documentation you can understand my project and maybe start to build your own work-flow.
 
-# Get Ready
+## Get Ready
 
 Before you can start with your automated work-flow you need to install some softwares.
 
@@ -32,17 +31,17 @@ The npm different dependences levels are
 |optianaldependencies|             | . |
 |bundledependencies  |             | . |
 
-# Gulpfile
+## Gulpfile
 
-# Bibliography
+## Bibliography
 
-## Gulp.js
+### Gulp.js
 * [Introduction to Gulp.js](http://stefanimhoff.de/2014/gulp-tutorial-1-intro-setup/)
 * [Recipes of the gulpjs repository](http://gulpjs.org/recipes/automate-release-workflow.html)
 * [How to Modularize HTML Using Template Engines and Gulp](http://zellwk.com/blog/nunjucks-with-gulp/)
 * [A delicious blend of gulp tasks combined into a configurable asset pipeline and static site builder](https://github.com/vigetlabs/gulp-starter)
 
-## npm
+### npm
 
 * [npm automated workflow](https://github.com/xNok/Cssb/tree/master/documentation/npm_automated_workflow.md) - ME
 * [npm-script](https://docs.npmjs.com/misc/scripts) - official documentation
