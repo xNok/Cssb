@@ -21,7 +21,7 @@ gitbook_sample    = "./gitbook"
 # define the documentation directory stucture
 exports.path_docs =
   in:
-    src:      project_doc + '/' 
+    src:      project_doc
   out:
     pdf:      project_doc + 'Book/pdf/'
     website:  project_doc + 'Book/web/'

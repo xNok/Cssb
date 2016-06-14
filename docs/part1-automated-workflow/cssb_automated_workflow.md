@@ -3,16 +3,27 @@ Programming with the automated __CSSB__ work-flow
 
 # Introduction
 
-  Using a automated work-flow start by running some command lines by definition. I asume that you have install [git](https://git-scm.com/) en [node.js](https://nodejs.org/)
+Using an automated work-flow start by running some command lines. I asume that you have install [git](https://git-scm.com/) and [node.js](https://nodejs.org/)
 
-Download the project
-> git clone https://github.com/xNok/Cssb
+1. Download the project the last stable version
 
-Install dependencies
-> npm install
+  > git clone https://github.com/xNok/Cssb/v0.4
 
-Prepare your workspace
-> gulp init
+  __OR__ the current work in progress version
+
+  > git clone https://github.com/xNok/Cssb
+
+2. Install dependencies - don't pay attention the the __WARN__ messages 
+
+  > npm install
+
+3. Configure your project
+
+  The project is already configured. See the following section to configure the project by yourself.
+  
+4. Prepare your workspace
+
+  > gulp init
 
 # Directory structure
 
@@ -20,13 +31,17 @@ I recommend that you use the Cssb project as a [submodule](https://git-scm.com/d
 
 ```
 +-- Cssb                // CSSB folder
-+-- app                 // your dev folder
-+-- www                 // your production folder
++-- docs                // documentation markdown files
++-- docsBook            // Published gitbook
++-- frontdev            // your frontdev folder
++-- www                 // Published frontdev files
 ```
 
-I recommend that you use following structure inside the __www__ folder, but you can easily changed that configuration with the config.coffee file. To simplifies organizing large websites CSSB support by default a single level subdirectory.
+## Frontdev
 
-I recommend keeping a simple lvl of subdirectory, because it is much simple to navigate into your project. This is one reason why I choose to prefix assets with **assets__** rather than using a directory.
+I recommend that you use following structure inside the __frontdev__ folder, but you can easily changed that configuration with the config.coffee file. To simplifies organizing large websites CSSB support by default a single level subdirectory.
+
+Keeping a simple lvl of subdirectory let navigate so easily into your project. This is one reason why I choose to prefix assets folders with **assets__** rather than using a directory.
 
 ```
 +-- assets__css     // CSS, SCSS, SASS resources
@@ -46,7 +61,7 @@ First, Open the file *config.coffee* and define your project structure :
 ```coffeescript
 # directory where you want to publish the project
 project_src       = "../www"
-# your frontend developement directory
+# your frontend development directory
 project_frontdev  = "../frontdev"
 # your project documentation directory
 project_doc       = "../docs"

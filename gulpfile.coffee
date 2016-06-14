@@ -189,10 +189,18 @@ gulp.task 'gitbook', 'Publish pdf gitbook' , ->
   cmd = _.find(gitbook.commands, (_cmd) ->
       return _.first(_cmd.name.split(" ")) == "build";
   )
+  args = [path_docs.in.src, path_docs.out.website]
+  kwargs = { log: 'info', format: 'website', timing: false }
+  cmd.exec(args, kwargs)
 
-  args = ['../docs', '../docsBook']
-  kwargs = { log: 'debug', format: 'website', timing: false }
-
+gulp.task 'gitbook-pdf', 'Publish pdf gitbook' , ->
+  cmd = _.find(gitbook.commands, (_cmd) ->
+      return _.first(_cmd.name.split(" ")) == "pdf";
+  )
+  
+  console.log cmd
+  args = [path_docs.in.src, path_docs.out.website]
+  kwargs = { log: 'info', format: 'website', timing: false }
   cmd.exec(args, kwargs)
 
 #--------------------------------
