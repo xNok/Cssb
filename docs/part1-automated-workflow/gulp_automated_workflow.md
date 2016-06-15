@@ -33,6 +33,19 @@ The npm different dependences levels are
 
 ## Gulpfile
 
+### Devide your gulpfile
+
+'Divide and rule'. A good process could be to divide your gulpfile into smaller part. So you can share your woks and some part of your automated work-flow
+
+The first thing to do is installing `require-dir` and reference it into your gulpfile. Then require the directories where are stored your task.
+
+``` javascript
+var requireDir = require('require-dir');
+requireDir('./gulptasks', { recurse: true });
+```
+
+This is a very widespread method, but I desagree on that point because most off the tasks are 3~4 lines or a list of task with [runSequence](). That why I prefer import that way only the tasks that I called [helpers](). The other task can stay in your gulpfile as a cookBook with all the recipes and for each the list of the ingredient.
+
 ## Bibliography
 
 ### Gulp.js

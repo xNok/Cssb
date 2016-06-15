@@ -48,6 +48,7 @@
     "gulp-yaml": "^1.0.1",
     "lodash": "^4.13.1",
     "path": "^0.12.7",
+    "require-dir": "^0.3.0",
     "run-sequence": "^1.2.1",
     "yargs": "^4.7.1"
   },

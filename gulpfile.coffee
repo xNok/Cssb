@@ -1,6 +1,13 @@
 #--------------------------------
 #------ Imports -----------------
 #--------------------------------
+#%%%%% Primary Tools %%%%%
+_               = require('lodash')
+argv            = require('yargs').argv
+fs              = require('fs')
+path            = require('path')
+requireDir      = require('require-dir')
+
 #%%%%% Config Information %%%%%
 config          = require('./config.coffee')
 # Path
@@ -21,10 +28,6 @@ gutil           = require('gulp-util')
 changed         = require('gulp-changed')
 runSequence     = require('run-sequence')
 deleteEmpty     = require('delete-empty')
-_               = require('lodash')
-fs              = require('fs')
-filepath        = require('path')
-argv            = require('yargs').argv
 gulpif          = require('gulp-if')
 
 #%%%%% frontend dev %%%%%
@@ -51,20 +54,14 @@ cleanCSS        = require('gulp-clean-css')
 ghPages         = require('gulp-gh-pages')
 gitbook         = require('gitbook')
 
+#%%%%% helpers %%%%%
+helpers         = requireDir('./helpers', { recurse: true })
+
 #--------------------------------
 #------ Functions definition ----
 #--------------------------------
-getFolders = (dir) ->
-  return fs.readdirSync(dir)
-    .filter( (file) ->
-      return fs.statSync(filepath.join(dir, file)).isDirectory()
-    )
-
-getFiles = (dir, filter) ->
-  return fs.readdirSync(dir)
-    .filter( (file)->
-      return file.match(filter)
-    )
+getFolders = require('./helpers/helper-files.js').getFolders
+getFiles   = require('./helpers/helper-files.js').getFiles
 
 #--------------------------------
 #------ Tasks definition --------
@@ -85,7 +82,7 @@ gulp.task 'compile:swig','Built pages with swig template engine', ->
     files = getFiles path_IN.data.src, '.json'
     jsons = {}
     files.map( (file)->
-      json = JSON.parse(fs.readFileSync(filepath.join(path_IN.data.src, file)))
+      json = JSON.parse(fs.readFileSync(path.join(path_IN.data.src, file)))
       jsons[file.replace(".json","")] = json
     )
     return JSON.parse(JSON.stringify(jsons))
@@ -140,7 +137,7 @@ gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
 gulp.task 'merge:json', 'merge Json files under a folder to one json file with the folder name', ->
   folders = getFolders path_IN.data.src
   folders.map( (folder) ->
-      return gulp.src filepath.join(path_IN.data.src, folder, '/**/*.json')
+      return gulp.src path.join(path_IN.data.src, folder, '/**/*.json')
       .pipe plumber()
       .pipe mergeJson(folder + '.json')
       .pipe gulp.dest path_IN.data.src
@@ -185,20 +182,19 @@ gulp.task 'gh-pages','Publish gh-pages', ->
   return gulp.src path_OUT.ghpage.src
   .pipe ghPages()
 
-gulp.task 'gitbook', 'Publish pdf gitbook' , ->
-  cmd = _.find(gitbook.commands, (_cmd) ->
-      return _.first(_cmd.name.split(" ")) == "build";
+gitbookGetCMD = (cmdString) ->
+  return _.find(gitbook.commands, (_cmd) ->
+      return _.first(_cmd.name.split(" ")) == cmdString;
   )
+
+gulp.task 'gitbook', 'Publish pdf gitbook' , ->
+  cmd = gitbookGetCMD("build")
   args = [path_docs.in.src, path_docs.out.website]
   kwargs = { log: 'info', format: 'website', timing: false }
   cmd.exec(args, kwargs)
 
 gulp.task 'gitbook-pdf', 'Publish pdf gitbook' , ->
-  cmd = _.find(gitbook.commands, (_cmd) ->
-      return _.first(_cmd.name.split(" ")) == "pdf";
-  )
-  
-  console.log cmd
+  cmd = _gitbookGetCMD("pdf")
   args = [path_docs.in.src, path_docs.out.website]
   kwargs = { log: 'info', format: 'website', timing: false }
   cmd.exec(args, kwargs)

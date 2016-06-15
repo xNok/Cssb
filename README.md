@@ -148,6 +148,7 @@ Thus you can update the cssb project easly and you can create your own git on th
 * [yards](https://www.npmjs.com/package/yargs) - Allow to add arguments to gulp task
 * [runSequence](https://www.npmjs.com/package/run-sequence) - Run a series of dependent gulp tasks in order
 * [q](https://www.npmjs.com/package/q) - A library for promises
+* [require-dir](https://www.npmjs.com/package/require-dir)
 
 ## Recommendations
 

@@ -9,7 +9,6 @@ project_frontdev  = "../frontdev"
 # your project documentation directory
 project_doc       = "../docs"
 
-
 # sample code directory
 frontdev_sample   = "./frontdev"
 gitbook_sample    = "./gitbook"
@@ -22,6 +21,7 @@ gitbook_sample    = "./gitbook"
 exports.path_docs =
   in:
     src:      project_doc
+    watch:    project_doc + '/**/*.md'
   out:
     pdf:      project_doc + 'Book/pdf/'
     website:  project_doc + 'Book/web/'
