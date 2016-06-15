@@ -1,5 +1,4 @@
-# Programming with the automated __CSSB__ work-flow
-
+# Programming with __CSSB__
 
 ## Introduction
 
@@ -116,6 +115,9 @@ export.path_frontdev =
   out:
     *****
 ```
+
+## Starting a new project
+
 ## Tasks
 
 ## Helpers

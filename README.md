@@ -57,36 +57,36 @@ Thus you can update the cssb project easly and you can create your own git on th
 
 1. The project uses Gulp to run tasks. Thus start by intall gulp with [node.js](https://nodejs.org/en/) (I use v5.6.0)
 
-> npm install -g gulp
+  > npm install -g gulp
 
 2. then install dependencies
 
-> npm install
+  > npm install
 
 3 Copy the sample app to your project_dev directory
 
-> gulp init
+  > gulp init
 
 4. finally run the gulp application
 
-> gulp
+  > gulp
 
 ## Tasks List
 
 ### Main tasks
 
 1. Starting a project
-* **init**:          Copy paste the app folder into the project_dev folder
-* **gitbook-init**:  Copy paste gitbook folder into your doc folder
+  * **init**:          Copy paste the app folder into the project_dev folder
+  * **gitbook-init**:  Copy paste gitbook folder into your doc folder
 
 2. Developing
-* **default**:       Run devs tasks
-* **lint**:          Run linters
-* **dist**:          Build production files
+  * **default**:       Run devs tasks
+  * **lint**:          Run linters
+  * **dist**:          Build production files
 
 3. Publishing
-* **gh-pages**:      Publish gh-pages
-* **gitbook**:       
+  * **gh-pages**:      Publish gh-pages
+  * **gitbook**:       
 
 ### Sub tasks
 

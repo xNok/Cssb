@@ -2,7 +2,9 @@
 
 * [Introduction](README.md)
 * [Automated work-flows](part1-automated-workflow/README.md)
-    * [Programming with __Cssb__ automated work-flow ](part1-automated-workflow/cssb_automated_workflow.md)
+    * [Programming with __Cssb__](part1-automated-workflow/1_cssb_automated_workflow.md)
+    * [Front-end development with __Cssb__](part1-automated-workflow/2_cssb_frontdev.md)
+    * [Documenting your work with __Cssb__](part1-automated-workflow/3_cssb_documentation.md)
     * [Automate work-flow with __gulp__](part1-automated-workflow/gulp_automated_workflow.md)
     * [Automated work-flow with __npm__](part1-automated-workflow/npm_automated_workflow.md)
 * [Technology tutorials](part2-technologies-tutorials/README.md)
