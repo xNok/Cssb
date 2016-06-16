@@ -69,7 +69,7 @@ exports.path_ghpage =
 exports.path_init =
   website: [
     frontdev_sample + "/**",
-    "!" + frontdev_sample + "/js/*/**",
+    "!" + frontdev_sample + "/assets__js/*/**",
     "!" + frontdev_sample + "/pages/*/**",
     "!" + frontdev_sample + "/partials/*/**",
   ]
