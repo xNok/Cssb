@@ -207,7 +207,7 @@ copy_directories_out = "/"
 copy_directories_in = "/"
 #%%%%% Init tasks %%%%%
 gulp.task 'init', 'Copy paste the app folder into the project_dev folder', ->
-  copy_directories_out = path_OUT.scr
+  copy_directories_out = path_IN.src
   copy_directories_in  = path_init.website
   runSequence('copy-directories','delete-empty-directories')
 
