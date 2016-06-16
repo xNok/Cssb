@@ -1,3 +1,22 @@
 {
-    
+    "gitbook": ">= 3.1.1",
+    "title": "Thinxtra mobile application",
+    "description": "For purpose of testing the network and your devices",
+    "author": "Alexandre COUEDELO",
+    "isbn": "",
+    "published": "16/06/2016",
+    "copyright": "Alexandre COUEDELO &copy; 2016",
+    "website": "http://www.thinxtra.com/",
+    "keywords": "",
+    "language": "en",
+    "language": "",
+    "plugins": ["regexplace"],
+    "pluginsConfig": {
+        "regexplace": {
+            "substitutes": [
+                {"pattern": "<!-- nopb -->", "flags": "g", "substitute": "<div class=\"nopb\">"},
+                {"pattern": "<!-- endnopb -->", "flags": "g", "substitute": "</div>"}
+            ]
+        }
+    }
 }

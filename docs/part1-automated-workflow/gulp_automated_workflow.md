@@ -17,6 +17,7 @@ Node.js comes with a very interesting tool witch is __npm__ a package manager. Y
 
 Lets install your first package with __npm__. You may have already find the name of this package.
 
+> npm init
 > npm install gulp --save-dev
 
 The flag `--save-dev` will register _gulp_ as a `devDependencies` into your [package.json]() file, the file in charged of collecting all the information about your project. For the dependencies essential for the production mode of your project use the flag `--save`.
@@ -31,9 +32,23 @@ The npm different dependences levels are
 |optianaldependencies|             | . |
 |bundledependencies  |             | . |
 
+Note that you can also install gulp globaly.
+
+> npm install -g gulp
+
 ## Gulpfile
 
-### Devide your gulpfile
+### Define a tasks
+
+```javascript
+var gulp = require('gulp');
+
+gulp.task('task:name', function() {
+   //do something 
+});
+```
+
+### Divide your gulpfile
 
 'Divide and rule'. A good process could be to divide your gulpfile into smaller part. So you can share your woks and some part of your automated work-flow
 
