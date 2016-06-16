@@ -194,8 +194,8 @@ gulp.task 'gitbook', 'Publish pdf gitbook' , ->
   cmd.exec(args, kwargs)
 
 gulp.task 'gitbook-pdf', 'Publish pdf gitbook' , ->
-  cmd = _gitbookGetCMD("pdf")
-  args = [path_docs.in.src, path_docs.out.website]
+  cmd = gitbookGetCMD("pdf")
+  args = [path_docs.in.src, path_docs.out.pdf]
   kwargs = { log: 'info', format: 'website', timing: false }
   cmd.exec(args, kwargs)
 

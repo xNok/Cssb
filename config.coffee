@@ -23,10 +23,10 @@ exports.path_docs =
     src:      project_doc
     watch:    project_doc + '/**/*.md'
   out:
-    pdf:      project_doc + 'Book/pdf/'
+    pdf:      project_doc + 'Book/book.pdf'
     website:  project_doc + 'Book/web/'
-    ePub:     project_doc + 'Book/ePub/'
-    mobi:     project_doc + 'Book/mobi/'
+    ePub:     project_doc + 'Book/book.epub'
+    mobi:     project_doc + 'Book/book.mobi'
 
 # define the frontend Output directory structure
 exports.path_frontdev =
