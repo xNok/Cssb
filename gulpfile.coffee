@@ -55,13 +55,19 @@ ghPages         = require('gulp-gh-pages')
 gitbook         = require('gitbook')
 
 #%%%%% helpers %%%%%
-helpers         = requireDir('./helpers', { recurse: true })
+helpers         = requireDir('./helpers__tasks', { recurse: true })
 
 #--------------------------------
 #------ Functions definition ----
 #--------------------------------
-getFolders = require('./helpers/helper-files.js').getFolders
-getFiles   = require('./helpers/helper-files.js').getFiles
+getFolders  = require('./helpers__functions/helper-files.js').getFolders
+getFiles    = require('./helpers__functions/helper-files.js').getFiles
+getJsons    = require('./helpers__functions/helper-data.js').getJsons
+
+gitbookGetCMD = (cmdString) ->
+  return _.find(gitbook.commands, (_cmd) ->
+      return _.first(_cmd.name.split(" ")) == cmdString;
+  )
 
 #--------------------------------
 #------ Tasks definition --------
@@ -78,15 +84,7 @@ gulp.task 'compile:sass','Build the css assets', ->
 gulp.task 'compile:swig','Built pages with swig template engine', ->
   gulp.src path_IN.swig.dev
   .pipe plumber()
-  .pipe data( (file)->
-    files = getFiles path_IN.data.src, '.json'
-    jsons = {}
-    files.map( (file)->
-      json = JSON.parse(fs.readFileSync(path.join(path_IN.data.src, file)))
-      jsons[file.replace(".json","")] = json
-    )
-    return JSON.parse(JSON.stringify(jsons))
-  )
+  .pipe data( getJsons path_IN.data.src )
   .pipe swig({defaults: { cache: false }})
   .pipe gulp.dest(path_OUT.src)
 
@@ -181,11 +179,6 @@ gulp.task 'dist','Build production files', taskBundle.dist
 gulp.task 'gh-pages','Publish gh-pages', ->
   return gulp.src path_OUT.ghpage.src
   .pipe ghPages()
-
-gitbookGetCMD = (cmdString) ->
-  return _.find(gitbook.commands, (_cmd) ->
-      return _.first(_cmd.name.split(" ")) == cmdString;
-  )
 
 gulp.task 'gitbook', 'Publish pdf gitbook' , ->
   cmd = gitbookGetCMD("build")

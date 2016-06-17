@@ -2,8 +2,8 @@ gulp            = require('gulp-help')(require('gulp'))
 _               = require('lodash')
 config          = require('../config.coffee')
 path_docs       = config.path_docs
-getFolders      = require('./helper-files.js').getFolders
-getFiles        = require('./helper-files.js').getFiles
+getFolders      = require('../helpers__functions/helper-files.js').getFolders
+getFiles        = require('../helpers__functions/helper-files.js').getFiles
 path            = require('path')
 
 gulp.task 'helper:gitbook', 'helper for gitbook' , ->
