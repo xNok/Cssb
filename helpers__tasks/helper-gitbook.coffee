@@ -1,6 +1,6 @@
 gulp            = require('gulp-help')(require('gulp'))
 _               = require('lodash')
-config          = require('../config.coffee')
+config          = require('../_config/paths.coffee')
 path_docs       = config.path_docs
 getFolders      = require('../helpers__functions/helper-files.js').getFolders
 getFiles        = require('../helpers__functions/helper-files.js').getFiles

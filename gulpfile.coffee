@@ -9,17 +9,18 @@ path            = require('path')
 requireDir      = require('require-dir')
 
 #%%%%% Config Information %%%%%
-config          = require('./config.coffee')
 # Path
-path_OUT        = config.path_frontdev.out
-path_IN         = config.path_frontdev.in
-path_docs       = config.path_docs
-path_init       = config.path_init
+configPath      = require('./_config/paths.coffee')
+path_OUT        = configPath.path_frontdev.out
+path_IN         = configPath.path_frontdev.in
+path_docs       = configPath.path_docs
+path_init       = configPath.path_init
 # module config
-browser_support = config.browser_support
-images_config   = config.images_config
+configTasks     = require('./_config/tasks.coffee')
+browser_support = configTasks.browser_support
+images_config   = configTasks.images_config
 # task config
-taskBundle      = config.taskBundle
+taskBundle      = require('./_config/taskBundles.coffee')
 
 #%%%%% Project tools %%%%%
 gulp            = require('gulp-help')(require('gulp'))
@@ -72,54 +73,59 @@ gitbookGetCMD = (cmdString) ->
 #--------------------------------
 #------ Tasks definition --------
 #--------------------------------
+frontdevCompile = require('./tasks__frontdev/compile.coffee')
+frontdevMinify  = require('./tasks__frontdev/minify.coffee')
+
 #%%%%% frontend dev %%%%%
+
+###
+@plugin : changed, sass, autoprfixer, browsersync
+@input  : pathIN, pathOUT, options
+@options: autoprfixer
+###
 gulp.task 'compile:sass','Build the css assets', ->
-  gulp.src path_IN.scss.dev
-  .pipe changed(path_OUT.src)
-  .pipe sass().on('error', sass.logError)
-  .pipe autoprefixer(browsers: browser_support)
-  .pipe gulp.dest(path_OUT.css)
-  .pipe stream()
+  frontdevCompile.sass2Css path_IN.scss.dev, path_OUT.src, {autoprefixer:{browsers: browser_support}}
 
+###
+@plugin : plumber, data, swig, getJsons
+@input  : pathIN, pathOUT, pathDATA, options
+@options: swig
+###
 gulp.task 'compile:swig','Built pages with swig template engine', ->
-  gulp.src path_IN.swig.dev
-  .pipe plumber()
-  .pipe data( getJsons path_IN.data.src )
-  .pipe swig({defaults: { cache: false }})
-  .pipe gulp.dest(path_OUT.src)
+  frontdevCompile.swig2html path_IN.swig.dev, path_IN.data.src, path_OUT.src, {swig: {defaults: { cache: false }}}
 
+###
+@plugin : changed, plumber, babel
+@input  : pathIN, pathOUT, options
+@options: babel
+###
 gulp.task 'compile:js', 'Build JS files from ES6', ->
-  gulp.src [path_IN.js.watch, "!"+path_IN.js.ignore]
-  .pipe changed(path_OUT.js)
-  .pipe plumber()
-  .pipe babel({"presets": [es2015]})
-  .pipe gulp.dest(path_OUT.js)
-  .pipe stream()
+  frontdevCompile.babel2js [path_IN.js.watch, "!"+path_IN.js.ignore], path_OUT.js, {babel: {"presets": [es2015]}}
 
+###
+@plugin : changed, image
+@input  : pathIN, pathOUT, options
+@options: image
+###
 gulp.task 'minify:image','Optimise images', ->
-  gulp.src path_IN.image.dev
-  .pipe changed(path_OUT.images)
-  .pipe image(images_config)
-  .pipe gulp.dest(path_OUT.images)
-  .pipe stream()
+  frontdevMinify.images path_IN.image.dev,path_OUT.images, {image: images_config}
 
 #%%%%% frontend post-dev %%%%%
+###
+@plugin : changed, babel, uglify
+@input  : pathIN, pathOUT, options
+@options: babel
+###
 gulp.task 'minify:js','Build minified JS files and addapte ES6', ->
-  gulp.src [path_IN.js.watch, '!'+path_IN.js.ignore]
-  .pipe plumber()
-  .pipe babel({"presets": [es2015]})
-  .pipe uglify().on('error', gutil.log)
-  .pipe gulp.dest(path_OUT.js)
+  frontdevMinify.js [path_IN.js.watch, '!'+path_IN.js.ignore], path_OUT.js, {babel: {"presets": [es2015]}}
 
+###
+@plugin : sass, autoprefixer, cleanCss
+@input  : pathIN, pathOUT, options
+@options: autoprefixer, cleanCSS
+###
 gulp.task 'minify:css','Build minified CSS files and addapte SCSS', ->
-  gulp.src path_IN.scss.dev
-  .pipe sass()
-  .pipe autoprefixer(browsers: browser_support)
-  .pipe cleanCSS({debug: true}, (details) ->
-        console.log("[INFO] minify-css-> " + details.name + ': ' + details.stats.originalSize)
-        console.log("[INFO] minify-css-> " + details.name + ': ' + details.stats.minifiedSize)
-      )
-  .pipe gulp.dest(path_OUT.css)
+path_IN.scss.dev, path_OUT.css , {autoprfixer: {browsers: browser_support}, cleanCSS: {debug: true}}
 
 gulp.task 'copy:vendors','Copy past your vendors without treatment', ->
   gulp.src path_IN.vendors

@@ -1,5 +1,5 @@
 #--------------------------------
-#----- Project definition -------
+#----- Folder definition  -------
 #--------------------------------
 
 # directory where you want to publish the project
@@ -13,20 +13,19 @@ project_doc       = "../docs"
 frontdev_sample   = "./frontdev"
 gitbook_sample    = "./gitbook"
 
-#--------------------------------
-#------ Path configuration ------
-#--------------------------------
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Table of Content
+# 
+# 1. Front dev Paths
+# 2. Documentation
+# 3. Pulishing
+# 4. Sample configuration
+# 
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 
-# define the documentation directory stucture
-exports.path_docs =
-  in:
-    src:      project_doc
-    watch:    project_doc + '/**/*.md'
-  out:
-    pdf:      project_doc + 'Book/book.pdf'
-    website:  project_doc + 'Book/web/'
-    ePub:     project_doc + 'Book/book.epub'
-    mobi:     project_doc + 'Book/book.mobi'
+#--------------------------------
+#-----1. Front dev Paths ---------
+#--------------------------------
 
 # define the frontend Output directory structure
 exports.path_frontdev =
@@ -43,7 +42,7 @@ exports.path_frontdev =
       watch: [
         project_frontdev + "/partials/**/*.html",
         project_frontdev + "/pages/**/*.html",
-        project_frontdev + "/layout/*.html"
+        project_frontdev + "/layouts/*.html"
       ]
     image:
       dev:    project_frontdev + '/assets__img/*'
@@ -60,12 +59,32 @@ exports.path_frontdev =
     images: project_src + '/img/'
     vendors:project_src + '/vendors'  
 
+#--------------------------------
+#-----2. Documentation -----------
+#--------------------------------
+
+# define the documentation directory stucture
+exports.path_docs =
+  in:
+    src:      project_doc
+    watch:    project_doc + '/**/*.md'
+  out:
+    pdf:      project_doc + 'Book/book.pdf'
+    website:  project_doc + 'Book/web/'
+    ePub:     project_doc + 'Book/book.epub'
+    mobi:     project_doc + 'Book/book.mobi'
+
+#--------------------------------
+#-----3. Pulishing ---------------
+#--------------------------------
+
 exports.path_ghpage =
   in: project_src + '/**/*'
 
 #--------------------------------
-#------ Init configuration ------
+#-----4. Sample configuration ----
 #--------------------------------
+
 exports.path_init =
   website: [
     frontdev_sample + "/**",
@@ -74,61 +93,3 @@ exports.path_init =
     "!" + frontdev_sample + "/partials/*/**",
   ]
   gitbook: gitbook_sample + "/**/**"
-
-#--------------------------------
-#------ Task Bundle -------------
-#--------------------------------
-
-exports.taskBundle =
-  watch: [
-    'watch:browserSync'
-    'watch:sass'
-    'watch:swig'
-    'watch:js'
-    'watch:json'
-    'watch:image'
-  ]
-  run: [
-    'compile:swig'
-    'compile:sass'
-    'compile:js'
-    'copy:vendors'
-    'minify:image'
-    'watch'
-  ]
-  lint: ['lint:Json']
-  dist: [
-    'compile:swig'
-    'minify:css'
-    'minify:js'
-    'minify:image'
-  ]
-
-#--------------------------------
-#------ Support definition ------
-#--------------------------------
-
-# Config for browserSync
-exports.browser_support = [
-  "ie >= 9"
-  "ie_mob >= 10"
-  "ff >= 30"
-  "chrome >= 34"
-  "safari >= 7"
-  "opera >= 23"
-  "ios >= 7"
-  "android >= 4.4"
-  "bb >= 10"
-]
-
-# Config for
-exports.images_config =
-  pngquant:       true
-  optipng:        true
-  zopflipng:      true
-  advpng:         true
-  jpegRecompress: true
-  jpegoptim:      true
-  mozjpeg:        true
-  gifsicle:       true
-  svgo:           true
