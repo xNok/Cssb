@@ -75,6 +75,8 @@ gitbookGetCMD = (cmdString) ->
 #--------------------------------
 frontdevCompile = require('./tasks__frontdev/compile.coffee')
 frontdevMinify  = require('./tasks__frontdev/minify.coffee')
+frontdevMerge   = require('./tasks__frontdev/merge.coffee')
+frontdevLint    = require('./tasks__frontdev/lint.coffee')
 
 #%%%%% frontend dev %%%%%
 
@@ -125,53 +127,49 @@ gulp.task 'minify:js','Build minified JS files and addapte ES6', ->
 @options: autoprefixer, cleanCSS
 ###
 gulp.task 'minify:css','Build minified CSS files and addapte SCSS', ->
-path_IN.scss.dev, path_OUT.css , {autoprfixer: {browsers: browser_support}, cleanCSS: {debug: true}}
+  frontdevMerge.jsons path_IN.scss.dev, path_OUT.css , {autoprfixer: {browsers: browser_support}, cleanCSS: {debug: true}}
 
+###
+@plugin : changed
+@input  : pathIN, pathOUT
+@options:
+###
 gulp.task 'copy:vendors','Copy past your vendors without treatment', ->
   gulp.src path_IN.vendors
   .pipe changed(path_OUT.vendors)
   .pipe gulp.dest(path_OUT.vendors)
 
 #%%%%% Content/Data Management %%%%%
-gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
-  gulp.src path_IN.data.yaml
-  .pipe yaml({ schema: 'DEFAULT_SAFE_SCHEMA' })
-  .pipe gulp.dest( path_IN.data.src )
 
+###
+@plugin : yaml
+@input  : pathIN, pathOUT, options
+@options: yaml
+###
+gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
+  frontdev.yaml2json path_IN.data.yaml, path_IN.data.src, {yaml: { schema: 'DEFAULT_SAFE_SCHEMA' }}
+
+###
+@plugin : plumber, mergeJson
+@input  : pathIN, pathOUT, options
+@options:
+###
 gulp.task 'merge:json', 'merge Json files under a folder to one json file with the folder name', ->
-  folders = getFolders path_IN.data.src
-  folders.map( (folder) ->
-      return gulp.src path.join(path_IN.data.src, folder, '/**/*.json')
-      .pipe plumber()
-      .pipe mergeJson(folder + '.json')
-      .pipe gulp.dest path_IN.data.src
-  )
+path_IN.data.src, path_IN.data.src
 
 #%%%%% frontend watch %%%%%
-gulp.task 'watch:browserSync','run browserSync server', ->
+gulp.task 'watch:frontdev','run browserSync server', ->
   browserSync server: {baseDir: path_OUT.src}
-
-gulp.task 'watch:sass', 'Watch scss files', ->
   gulp.watch path_IN.scss.watch, ['compile:sass']
-
-gulp.task 'watch:swig', 'Watch html/swig files', ->
   gulp.watch path_IN.swig.watch, ['compile:swig', reload]
-
-gulp.task 'watch:js', 'Watch js/babel files', ->
-  gulp.watch path_IN.js.watch, ['compile:js']
-
-gulp.task 'watch:json', 'Watch data/content files', ->
   gulp.watch path_IN.data.json, (event) ->
     runSequence('lint:json','merge:json' ,'compile:swig', reload)
-
-gulp.task 'watch:image', 'Watch images', ->
-  gulp.watch path_IN.image.dev, ['minify:image']
+  gulp.watch path_IN.image.dev, ['minify:image']  
 
 #%%%%% Linting Tasks %%%%%
 gulp.task 'lint:json', 'lint JSON files', ->
-  gulp.src path_IN.data.json
-  .pipe jsonlint()
-  .pipe jsonlint.reporter()
+path_IN.data.json
+
 #--------------------------------
 #------ Main tasks --------------
 #--------------------------------
@@ -205,12 +203,12 @@ gulp.task 'gitbook-pdf', 'Publish pdf gitbook' , ->
 copy_directories_out = "/"
 copy_directories_in = "/"
 #%%%%% Init tasks %%%%%
-gulp.task 'init', 'Copy paste the app folder into the project_dev folder', ->
+gulp.task 'init:front', 'Copy paste the app folder into the project_dev folder', ->
   copy_directories_out = path_IN.src
   copy_directories_in  = path_init.website
   runSequence('copy-directories','delete-empty-directories')
 
-gulp.task 'gitbook-init', 'Copy paste gitbook template in the project_doc directory' , ->
+gulp.task 'init:gitbook', 'Copy paste gitbook template in the project_doc directory' , ->
   copy_directories_out = path_docs.in.src
   copy_directories_in  = path_init.gitbook
   runSequence('copy-directories','delete-empty-directories')

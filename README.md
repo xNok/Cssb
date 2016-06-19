@@ -82,8 +82,8 @@ Thus you can update the cssb project easly and you can create your own git on th
 ### Main tasks
 
 1. Starting a project
-  * **init**:          Copy paste the app folder into the project_dev folder
-  * **gitbook-init**:  Copy paste gitbook folder into your doc folder
+  * **init:front**:          Copy paste the app folder into the project_dev folder
+  * **init:gitbook**:  Copy paste gitbook folder into your doc folder
 
 2. Developing
   * **default**:       Run devs tasks
@@ -108,12 +108,12 @@ Thus you can update the cssb project easly and you can create your own git on th
 * **copy:vendors**:       Copy your project_scr/vendors folder to the project_dist/vendors
 
 #### watch
-* **watch:browserSync**:  Watch assets and templates for build on change
-* **watch:sass**:         Watch scss files
-* **watch:swig**:         Watch html/swig files
-* **watch:js**:           Watch js/babel files
-* **watch:json**:         Watch data/content files
-* **watch:image**:        Watch imagesS
+* **watch:frontdev**:  Watch assets and templates for build on change
+  * Watch scss files
+  * Watch html/swig files
+  * Watch js/babel files
+  * Watch data/content files
+  * Watch imagesS
 
 #### Data & Content management
 * **merge:json**:         merge Json files under a folder to one json file with the folder name

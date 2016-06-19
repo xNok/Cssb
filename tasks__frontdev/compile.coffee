@@ -39,3 +39,14 @@ exports.babel2js = (pathIN, pathOUT, options) ->
   .pipe babel(options.babel)
   .pipe gulp.dest(pathOUT)
   .pipe stream()
+
+###
+@plugin : yaml
+@input  : pathIN, pathOUT, options
+@options: yaml
+###
+exports.yaml2json = (pathIN, pathOUT, options) ->
+  return () -> 
+    gulp.src pathIN
+  .pipe yaml(options.yaml)
+  .pipe gulp.dest(pathOUT)
