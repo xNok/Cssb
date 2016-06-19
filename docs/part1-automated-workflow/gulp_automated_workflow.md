@@ -52,6 +52,8 @@ gulp.task('task:name', function() {
 
 'Divide and rule'. A good process could be to divide your gulpfile into smaller part. So you can share your woks and some part of your automated work-flow
 
+#### First methode
+
 The first thing to do is installing `require-dir` and reference it into your gulpfile. Then require the directories where are stored your task.
 
 ``` javascript
@@ -61,6 +63,40 @@ requireDir('./gulptasks', { recurse: true });
 
 This is a very widespread method, but I desagree on that point because most off the tasks are 3~4 lines or a list of task with [runSequence](). That why I prefer import that way only the tasks that I called [helpers](). The other task can stay in your gulpfile as a cookBook with all the recipes and for each the list of the ingredient.
 
+#### Second methode
+
+This method keep the definition of your task in your gulpfile, but `require` a function that you stored in an other file. This is very useful to keep this idea or cookbook but also for running unit tests.
+
+I have files containing the structure of the task for example :
+
+```coffeescript
+###
+@plugin : test
+@input  : pathIN, pathOUT, options
+@options: test
+###
+exports.myFunction = (pathIN, pathOUT, options) ->
+  return () -> 
+      gulp.src pathIN
+      .pipe test(options.test)
+      .pipe gulp.dest(pathOUT)
+```
+
+Now, you can use it in your gulpfile as following :
+
+``` coffeescript
+frontdevCompile = require('./tasks__frontdev/compile.coffee')
+
+###
+@plugin : test
+@input  : pathIN, pathOUT, options
+@options: test
+###
+gulp.task 'compile:sass','Build the css assets', ->
+  frontdevCompile.test pathIN, pathOUT, options
+
+```
+
 ## Bibliography
 
 ### Gulp.js
@@ -68,6 +104,7 @@ This is a very widespread method, but I desagree on that point because most off 
 * [Recipes of the gulpjs repository](http://gulpjs.org/recipes/automate-release-workflow.html)
 * [How to Modularize HTML Using Template Engines and Gulp](http://zellwk.com/blog/nunjucks-with-gulp/)
 * [A delicious blend of gulp tasks combined into a configurable asset pipeline and static site builder](https://github.com/vigetlabs/gulp-starter)
+* [Simple functional tests for gulp task](https://duske.me/simple-functional-tests-for-gulp-tasks)
 
 ### npm
 
