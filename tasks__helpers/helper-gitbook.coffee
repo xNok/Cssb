@@ -6,14 +6,20 @@ getFolders      = require('../helpers__functions/helper-files.js').getFolders
 getFiles        = require('../helpers__functions/helper-files.js').getFiles
 path            = require('path')
 
-gulp.task 'helper:gitbook', 'helper for gitbook' , ->
-  folders = getFolders(path_docs.in.src)
+###
+@plugin : _ , getFolders, getFiles, path
+@input  : pathIN
+@options:
+###
+exports.generateSummary = (pathIN) ->
+  return () -> 
+  folders = getFolders(pathIN)
   filesString = "\n"
 
   _(folders).forEach((folder) ->
     folderREADME = false
 
-    files = getFiles path.join(path_docs.in.src, folder), '.md'
+    files = getFiles path.join(pathIN, folder), '.md'
 
     _.remove(files, (n) ->
       folderREADME = true;
@@ -27,6 +33,6 @@ gulp.task 'helper:gitbook', 'helper for gitbook' , ->
     )
   )
 
-  fs.appendFile(path_docs.in.src + "/SUMMARY.md", filesString,  (err) ->
+  fs.appendFile(pathIN + "/SUMMARY.md", filesString,  (err) ->
     console.log(err)
   )

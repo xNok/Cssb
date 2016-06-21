@@ -61,24 +61,38 @@ helpers         = requireDir('./helpers__tasks', { recurse: true })
 #--------------------------------
 #------ Functions definition ----
 #--------------------------------
-getFolders  = require('./helpers__functions/helper-files.js').getFolders
-getFiles    = require('./helpers__functions/helper-files.js').getFiles
-getJsons    = require('./helpers__functions/helper-data.js').getJsons
-
-gitbookGetCMD = (cmdString) ->
-  return _.find(gitbook.commands, (_cmd) ->
-      return _.first(_cmd.name.split(" ")) == cmdString;
-  )
+getFolders  = require('./tasks__helpers/helper-files.js').getFolders
+getFiles    = require('./tasks__helpers/helper-files.js').getFiles
+getJsons    = require('./tasks__helpers/helper-data.js').getJsons
 
 #--------------------------------
 #------ Tasks definition --------
 #--------------------------------
+
+#%%%%% 1.frontdev %%%%%
 frontdevCompile = require('./tasks__frontdev/compile.coffee')
 frontdevMinify  = require('./tasks__frontdev/minify.coffee')
 frontdevMerge   = require('./tasks__frontdev/merge.coffee')
 frontdevLint    = require('./tasks__frontdev/lint.coffee')
+#%%%%% 2.documentation %%%%%
+docsGitbook     = require('./tasks__docs/gitbook.coffee')
+#%%%%% 3.publish %%%%%
+publishGhPage   = require('./tasks__publish/ghPage.coffee')
+#%%%%% 4.helpers %%%%%
+helperGitbook   = require('./tasks__helpers/helper-gitbook.coffee')
 
-#%%%%% frontend dev %%%%%
+#--------------------------------
+#------ 1.frontdev --------------
+#--------------------------------
+# 1.1 frontend dev
+# 1.2 frontend post-dev
+# 1.3 frontend Content/Data Management
+# 1.4 linting Tasks
+# 1.5 frontend watch
+# 1.6 main tasks
+#--------------------------------
+
+#%%%%% 1.1 frontend dev %%%%%
 
 ###
 @plugin : changed, sass, autoprfixer, browsersync
@@ -86,7 +100,9 @@ frontdevLint    = require('./tasks__frontdev/lint.coffee')
 @options: autoprfixer
 ###
 gulp.task 'compile:sass','Build the css assets', ->
-  frontdevCompile.sass2Css path_IN.scss.dev, path_OUT.src, {autoprefixer:{browsers: browser_support}}
+  frontdevCompile.sass2Css path_IN.scss.dev, path_OUT.src, {autoprefixer:
+    {browsers: browser_support}
+  }
 
 ###
 @plugin : plumber, data, swig, getJsons
@@ -94,7 +110,9 @@ gulp.task 'compile:sass','Build the css assets', ->
 @options: swig
 ###
 gulp.task 'compile:swig','Built pages with swig template engine', ->
-  frontdevCompile.swig2html path_IN.swig.dev, path_IN.data.src, path_OUT.src, {swig: {defaults: { cache: false }}}
+  frontdevCompile.swig2html path_IN.swig.dev, path_IN.data.src, path_OUT.src, {
+    swig: {defaults: { cache: false }}
+  }
 
 ###
 @plugin : changed, plumber, babel
@@ -102,7 +120,9 @@ gulp.task 'compile:swig','Built pages with swig template engine', ->
 @options: babel
 ###
 gulp.task 'compile:js', 'Build JS files from ES6', ->
-  frontdevCompile.babel2js [path_IN.js.watch, "!"+path_IN.js.ignore], path_OUT.js, {babel: {"presets": [es2015]}}
+  frontdevCompile.babel2js [path_IN.js.watch, "!"+path_IN.js.ignore], path_OUT.js, {
+    babel: {"presets": [es2015]}
+  }
 
 ###
 @plugin : changed, image
@@ -112,14 +132,16 @@ gulp.task 'compile:js', 'Build JS files from ES6', ->
 gulp.task 'minify:image','Optimise images', ->
   frontdevMinify.images path_IN.image.dev,path_OUT.images, {image: images_config}
 
-#%%%%% frontend post-dev %%%%%
+#%%%%% 1.2 frontend post-dev %%%%%
 ###
 @plugin : changed, babel, uglify
 @input  : pathIN, pathOUT, options
 @options: babel
 ###
 gulp.task 'minify:js','Build minified JS files and addapte ES6', ->
-  frontdevMinify.js [path_IN.js.watch, '!'+path_IN.js.ignore], path_OUT.js, {babel: {"presets": [es2015]}}
+  frontdevMinify.js [path_IN.js.watch, '!'+path_IN.js.ignore], path_OUT.js, {
+    babel: {"presets": [es2015]}
+  }
 
 ###
 @plugin : sass, autoprefixer, cleanCss
@@ -127,7 +149,10 @@ gulp.task 'minify:js','Build minified JS files and addapte ES6', ->
 @options: autoprefixer, cleanCSS
 ###
 gulp.task 'minify:css','Build minified CSS files and addapte SCSS', ->
-  frontdevMerge.jsons path_IN.scss.dev, path_OUT.css , {autoprfixer: {browsers: browser_support}, cleanCSS: {debug: true}}
+  frontdevMerge.jsons path_IN.scss.dev, path_OUT.css , {
+    autoprfixer: {browsers: browser_support},
+    cleanCSS: {debug: true}
+  }
 
 ###
 @plugin : changed
@@ -139,7 +164,7 @@ gulp.task 'copy:vendors','Copy past your vendors without treatment', ->
   .pipe changed(path_OUT.vendors)
   .pipe gulp.dest(path_OUT.vendors)
 
-#%%%%% Content/Data Management %%%%%
+#%%%%% 1.3 frontend Content/Data Management %%%%%
 
 ###
 @plugin : yaml
@@ -147,7 +172,9 @@ gulp.task 'copy:vendors','Copy past your vendors without treatment', ->
 @options: yaml
 ###
 gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
-  frontdev.yaml2json path_IN.data.yaml, path_IN.data.src, {yaml: { schema: 'DEFAULT_SAFE_SCHEMA' }}
+  frontdev.yaml2json path_IN.data.yaml, path_IN.data.src, {
+    yaml: { schema: 'DEFAULT_SAFE_SCHEMA' }
+  }
 
 ###
 @plugin : plumber, mergeJson
@@ -157,7 +184,18 @@ gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
 gulp.task 'merge:json', 'merge Json files under a folder to one json file with the folder name', ->
 path_IN.data.src, path_IN.data.src
 
-#%%%%% frontend watch %%%%%
+#%%%%% 1.4 linting Tasks %%%%%
+
+###
+@plugin : jsonlint, mergeJson
+@input  : pathIN
+@options:
+###
+gulp.task 'lint:json', 'lint JSON files', ->
+  frontdevLint.jsons path_IN.data.json
+
+#%%%%% 1.5 frontend watch %%%%%
+
 gulp.task 'watch:frontdev','run browserSync server', ->
   browserSync server: {baseDir: path_OUT.src}
   gulp.watch path_IN.scss.watch, ['compile:sass']
@@ -166,35 +204,48 @@ gulp.task 'watch:frontdev','run browserSync server', ->
     runSequence('lint:json','merge:json' ,'compile:swig', reload)
   gulp.watch path_IN.image.dev, ['minify:image']  
 
-#%%%%% Linting Tasks %%%%%
-gulp.task 'lint:json', 'lint JSON files', ->
-path_IN.data.json
+#%%%%% 1.6 main tasks %%%%%
 
-#--------------------------------
-#------ Main tasks --------------
-#--------------------------------
 gulp.task 'watch', "Watch assets and templates for build on change", taskBundle.watch
 gulp.task 'default', 'Run dev tasks', taskBundle.run
 gulp.task 'lint', 'Run linters', taskBundle.lint
 gulp.task 'dist','Build production files', taskBundle.dist
+
 #--------------------------------
 #------ Publication tools -------
 #--------------------------------
+
+###
+@plugin : ghPages
+@input  : pathIN
+@options:
+###
 gulp.task 'gh-pages','Publish gh-pages', ->
-  return gulp.src path_OUT.ghpage.src
-  .pipe ghPages()
+  publishGhPage.publish path_OUT.ghpage.src
 
+###
+@plugin : gitbook
+@input  : pathIN, pathOUT, options
+@options: log: info/debug , format: website, timing: false
+###
 gulp.task 'gitbook', 'Publish pdf gitbook' , ->
-  cmd = gitbookGetCMD("build")
-  args = [path_docs.in.src, path_docs.out.website]
-  kwargs = { log: 'info', format: 'website', timing: false }
-  cmd.exec(args, kwargs)
+  docsGitbook.website path_docs.in.src, path_docs.out.website, { log: 'info', format: 'website', timing: false }
 
+###
+@plugin : gitbook
+@input  : pathIN, pathOUT, options
+@options: log: info/debug , format: website, timing: false
+###
 gulp.task 'gitbook-pdf', 'Publish pdf gitbook' , ->
-  cmd = gitbookGetCMD("pdf")
-  args = [path_docs.in.src, path_docs.out.pdf]
-  kwargs = { log: 'info', format: 'website', timing: false }
-  cmd.exec(args, kwargs)
+  docsGitbook.pdf path_docs.in.src, path_docs.out.pdf, { log: 'info', format: 'ebook', timing: false 
+
+###
+@plugin : _, getFolders, getFiles, path
+@input  : pathIN
+@options:
+###
+gulp.task 'helper:gitbook', 'helper for gitbook' , ->
+  helperGitbook.generateSummary path_docs.in.src
 
 #--------------------------------
 #------ Starter Config ----------
@@ -219,3 +270,4 @@ gulp.task 'copy-directories', ->
 
 gulp.task 'delete-empty-directories', ->
   return deleteEmpty.sync(copy_directories_out, {force: true})
+
