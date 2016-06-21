@@ -270,4 +270,3 @@ gulp.task 'copy-directories', ->
 
 gulp.task 'delete-empty-directories', ->
   return deleteEmpty.sync(copy_directories_out, {force: true})
-
