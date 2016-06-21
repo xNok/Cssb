@@ -6,7 +6,6 @@ _               = require('lodash')
 argv            = require('yargs').argv
 fs              = require('fs')
 path            = require('path')
-requireDir      = require('require-dir')
 
 #%%%%% Config Information %%%%%
 # Path
@@ -55,9 +54,6 @@ cleanCSS        = require('gulp-clean-css')
 ghPages         = require('gulp-gh-pages')
 gitbook         = require('gitbook')
 
-#%%%%% helpers %%%%%
-helpers         = requireDir('./helpers__tasks', { recurse: true })
-
 #--------------------------------
 #------ Functions definition ----
 #--------------------------------
@@ -91,6 +87,13 @@ helperGitbook   = require('./tasks__helpers/helper-gitbook.coffee')
 # 1.5 frontend watch
 # 1.6 main tasks
 #--------------------------------
+
+gulp.task 'tasks','Display All tasks', ->
+  stream = fs.createWriteStream("tasks.json")
+  stream.once('open', (fd) ->
+      stream.write JSON.stringify(gulp.tasks)
+      stream.end
+  );
 
 #%%%%% 1.1 frontend dev %%%%%
 
@@ -182,7 +185,7 @@ gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
 @options:
 ###
 gulp.task 'merge:json', 'merge Json files under a folder to one json file with the folder name', ->
-path_IN.data.src, path_IN.data.src
+ frontdevMerge.jsons path_IN.data.src, path_IN.data.src
 
 #%%%%% 1.4 linting Tasks %%%%%
 
@@ -206,7 +209,7 @@ gulp.task 'watch:frontdev','run browserSync server', ->
 
 #%%%%% 1.6 main tasks %%%%%
 
-gulp.task 'watch', "Watch assets and templates for build on change", taskBundle.watch
+gulp.task 'watch', "Watch assets and templates for build on change", ["watch:frontdev"]
 gulp.task 'default', 'Run dev tasks', taskBundle.run
 gulp.task 'lint', 'Run linters', taskBundle.lint
 gulp.task 'dist','Build production files', taskBundle.dist
@@ -237,7 +240,7 @@ gulp.task 'gitbook', 'Publish pdf gitbook' , ->
 @options: log: info/debug , format: website, timing: false
 ###
 gulp.task 'gitbook-pdf', 'Publish pdf gitbook' , ->
-  docsGitbook.pdf path_docs.in.src, path_docs.out.pdf, { log: 'info', format: 'ebook', timing: false 
+  docsGitbook.pdf path_docs.in.src, path_docs.out.pdf, { log: 'info', format: 'ebook', timing: false }
 
 ###
 @plugin : _, getFolders, getFiles, path
@@ -254,7 +257,7 @@ gulp.task 'helper:gitbook', 'helper for gitbook' , ->
 copy_directories_out = "/"
 copy_directories_in = "/"
 #%%%%% Init tasks %%%%%
-gulp.task 'init:front', 'Copy paste the app folder into the project_dev folder', ->
+gulp.task 'init:frontdev', 'Copy paste the app folder into the project_dev folder', ->
   copy_directories_out = path_IN.src
   copy_directories_in  = path_init.website
   runSequence('copy-directories','delete-empty-directories')
@@ -264,9 +267,9 @@ gulp.task 'init:gitbook', 'Copy paste gitbook template in the project_doc direct
   copy_directories_in  = path_init.gitbook
   runSequence('copy-directories','delete-empty-directories')
 
-gulp.task 'copy-directories', ->
+gulp.task 'copy-directories', 'copy directories to another loaction' ,->
   return gulp.src copy_directories_in
   .pipe gulp.dest(copy_directories_out)
 
-gulp.task 'delete-empty-directories', ->
+gulp.task 'delete-empty-directories', 'cleanup empty directories',->
   return deleteEmpty.sync(copy_directories_out, {force: true})

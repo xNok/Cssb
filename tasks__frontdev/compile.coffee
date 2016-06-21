@@ -19,12 +19,12 @@ exports.sass2Css = (pathIN, pathOUT, options) ->
 ###
 exports.swig2html = (pathIN, pathOUT, pathDATA, options) ->
   return () -> 
-  gulp.src pathIN
-  .pipe changed(pathOUT)
-  .pipe plumber()
-  .pipe data( getJsons pathDATA )
-  .pipe swig(options.swig)
-  .pipe gulp.dest(pathOUT)
+    gulp.src pathIN
+    .pipe changed(pathOUT)
+    .pipe plumber()
+    .pipe data( getJsons pathDATA )
+    .pipe swig(options.swig)
+    .pipe gulp.dest(pathOUT)
 
 ###
 @plugin : changed, plumber, babel
@@ -33,12 +33,12 @@ exports.swig2html = (pathIN, pathOUT, pathDATA, options) ->
 ###
 exports.babel2js = (pathIN, pathOUT, options) ->
   return () -> 
-  gulp.src pathIN
-  .pipe changed(pathOUT)
-  .pipe plumber()
-  .pipe babel(options.babel)
-  .pipe gulp.dest(pathOUT)
-  .pipe stream()
+    gulp.src pathIN
+    .pipe changed(pathOUT)
+    .pipe plumber()
+    .pipe babel(options.babel)
+    .pipe gulp.dest(pathOUT)
+    .pipe stream()
 
 ###
 @plugin : yaml
@@ -48,5 +48,5 @@ exports.babel2js = (pathIN, pathOUT, options) ->
 exports.yaml2json = (pathIN, pathOUT, options) ->
   return () -> 
     gulp.src pathIN
-  .pipe yaml(options.yaml)
-  .pipe gulp.dest(pathOUT)
+    .pipe yaml(options.yaml)
+    .pipe gulp.dest(pathOUT)

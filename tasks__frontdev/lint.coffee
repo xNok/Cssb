@@ -5,6 +5,6 @@
 ###
 exports.jsons = (pathIN) ->
   return () -> 
-      gulp.src pathIN
+    gulp.src pathIN
     .pipe jsonlint()
     .pipe jsonlint.reporter()

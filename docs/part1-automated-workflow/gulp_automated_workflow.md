@@ -32,7 +32,7 @@ The npm different dependences levels are
 |optianaldependencies|             | . |
 |bundledependencies  |             | . |
 
-Note that you can also install gulp globaly.
+Note that you can also install gulp globally.
 
 > npm install -g gulp
 
@@ -40,11 +40,59 @@ Note that you can also install gulp globaly.
 
 ### Define a tasks
 
+Now that you have install gulp and all the dependencies, you can start your gulp file with the first task.
+
 ```javascript
 var gulp = require('gulp');
 
 gulp.task('task:name', function() {
    //do something 
+});
+```
+
+This task is very useless but you can test it :
+> gulp task:name
+
+Now that your task is working we can make something useful such as compiling you sass files into css.
+
+first add __gulp-sass__ :
+> npm i gulp-sass -D
+
+```javascript
+var gulp = require('gulp');
+var sass = require('gulp-sass');            //the sass module
+
+gulp.task('task:name', function() {
+  gulp.src(pathIN)                          //select our files
+  .pipe(sass().on('error', sass.logError))  //go thought the sass function
+  .pipe(gulp.dest(pathOUT))                 //go out
+});
+```
+
+A task is always construct as following :
+    1. you get the files you need with `gulp.scr` - it is the sources
+    2. you files go thought function with the function `pipe`
+    3. the you write the computed files where you when with `gulp.src`
+
+See this task like a flow of water, our files go thought pipes, are modified by the current en then or pushing out.
+
+Now let's create an even more complicated task :
+    1. compile sass
+    2. add cross-browser tags
+
+first add __autoprefixer__ :
+> npm i autoprefixer -D
+
+```javascript
+var gulp = require('gulp');
+var sass = require('gulp-sass');            //the sass module
+var autoprefixer = require('autoprefixer'); //the autoprefixer module
+
+gulp.task('task:name', function() {
+  gulp.src(pathIN)                          //select our files
+  .pipe(sass().on('error', sass.logError))  //go thought the sass function
+  .pipe(autoprefixer(options.autoprefixer)) //go thought the sass function
+  .pipe(gulp.dest(pathOUT))                 //go out
 });
 ```
 
@@ -61,7 +109,7 @@ var requireDir = require('require-dir');
 requireDir('./gulptasks', { recurse: true });
 ```
 
-This is a very widespread method, but I desagree on that point because most off the tasks are 3~4 lines or a list of task with [runSequence](). That why I prefer import that way only the tasks that I called [helpers](). The other task can stay in your gulpfile as a cookBook with all the recipes and for each the list of the ingredient.
+This is a very widespread method, but I disagree on that point because most off the tasks are 3~4 lines or a list of task with [runSequence](). That why I prefer import that way only the tasks that I called [helpers](). The other task can stay in your gulpfile as a cookBook with all the recipes and for each the list of the ingredient.
 
 #### Second methode
 
@@ -97,6 +145,10 @@ gulp.task 'compile:sass','Build the css assets', ->
 
 ```
 
+## testing your task
+
+
+
 ## Bibliography
 
 ### Gulp.js
@@ -105,10 +157,4 @@ gulp.task 'compile:sass','Build the css assets', ->
 * [How to Modularize HTML Using Template Engines and Gulp](http://zellwk.com/blog/nunjucks-with-gulp/)
 * [A delicious blend of gulp tasks combined into a configurable asset pipeline and static site builder](https://github.com/vigetlabs/gulp-starter)
 * [Simple functional tests for gulp task](https://duske.me/simple-functional-tests-for-gulp-tasks)
-
-### npm
-
-* [npm automated workflow](https://github.com/xNok/Cssb/tree/master/documentation/npm_automated_workflow.md) - ME
-* [npm-script](https://docs.npmjs.com/misc/scripts) - official documentation
-* [How to Use npm as a Build Tool](http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/) - Andrew Burgess
-* [Why I Left Gulp and Grunt for npm Scripts](https://medium.freecodecamp.com/why-i-left-gulp-and-grunt-for-npm-scripts-3d6853dd22b8#.tym949kgf) - Cory House
+* [Small Sips of Gulp.js: 4 Steps to Reduce Complexity](https://teamgaslight.com/blog/small-sips-of-gulp-dot-js-4-steps-to-reduce-complexity)

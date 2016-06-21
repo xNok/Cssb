@@ -19,7 +19,7 @@
   "scripts": {
     "start": "gulp",
     "dist": "gulp dist",
-    "test": "node cli_test.js"
+    "test": "node cli_tests.js"
   },
   "dependencies": {
     "autoprefixer": "^6.0.3",
@@ -50,7 +50,6 @@
     "gulp-yaml": "^1.0.1",
     "lodash": "^4.13.1",
     "path": "^0.12.7",
-    "require-dir": "^0.3.0",
     "run-sequence": "^1.2.1",
     "yargs": "^4.7.1"
   },
@@ -64,5 +63,11 @@
     "scss",
     "swig",
     "es2015"
-  ]
+  ],
+  "devDependencies": {
+    "bash-color": "0.0.4",
+    "child-process-promise": "^2.0.3",
+    "immutable": "^3.8.1",
+    "is": "^3.1.0"
+  }
 }
