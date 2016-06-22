@@ -10,10 +10,6 @@ exports.run = [
     'watch'
   ]
 
-exports.lint = [
-  'lint:Json'
-]
-
 exports.dist = [
     'compile:swig'
     'minify:css'

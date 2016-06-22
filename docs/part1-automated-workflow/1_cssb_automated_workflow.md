@@ -49,4 +49,14 @@ I recommend that you use the Cssb project as a [submodule](https://git-scm.com/d
 
 ## Tasks
 
+Two tasks are very important 
+
+The first let you compile all your files
+
+> gulp dist
+
+The seconde one let you use the live relaod, this means your files are compile whenerer you changed them
+
+> gulp
+
 ## Helpers

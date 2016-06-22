@@ -14,6 +14,7 @@ path_OUT        = configPath.path_frontdev.out
 path_IN         = configPath.path_frontdev.in
 path_docs       = configPath.path_docs
 path_init       = configPath.path_init
+path_ghpage     = configPath.path_ghpage
 # module config
 configTasks     = require('./_config/tasks.coffee')
 browser_support = configTasks.browser_support
@@ -78,6 +79,18 @@ publishGhPage   = require('./tasks__publish/ghPage.coffee')
 helperGitbook   = require('./tasks__helpers/helper-gitbook.coffee')
 
 #--------------------------------
+#------ 0.dev -------------------
+#--------------------------------
+
+gulp.task 'tasks','Display gulp.tasks and create a resport tasks.json', ->
+  console.log gulp.tasks
+  stream = fs.createWriteStream("tasks.json")
+  stream.once('open', (fd) ->
+      stream.write JSON.stringify(gulp.tasks)
+      stream.end
+  );
+
+#--------------------------------
 #------ 1.frontdev --------------
 #--------------------------------
 # 1.1 frontend dev
@@ -87,13 +100,6 @@ helperGitbook   = require('./tasks__helpers/helper-gitbook.coffee')
 # 1.5 frontend watch
 # 1.6 main tasks
 #--------------------------------
-
-gulp.task 'tasks','Display All tasks', ->
-  stream = fs.createWriteStream("tasks.json")
-  stream.once('open', (fd) ->
-      stream.write JSON.stringify(gulp.tasks)
-      stream.end
-  );
 
 #%%%%% 1.1 frontend dev %%%%%
 
@@ -175,7 +181,7 @@ gulp.task 'copy:vendors','Copy past your vendors without treatment', ->
 @options: yaml
 ###
 gulp.task 'compile:yaml2json', 'Convert YAML to JSON', ->
-  frontdev.yaml2json path_IN.data.yaml, path_IN.data.src, {
+  frontdevCompile.yaml2json path_IN.data.yaml, path_IN.data.src, {
     yaml: { schema: 'DEFAULT_SAFE_SCHEMA' }
   }
 
@@ -211,7 +217,6 @@ gulp.task 'watch:frontdev','run browserSync server', ->
 
 gulp.task 'watch', "Watch assets and templates for build on change", ["watch:frontdev"]
 gulp.task 'default', 'Run dev tasks', taskBundle.run
-gulp.task 'lint', 'Run linters', taskBundle.lint
 gulp.task 'dist','Build production files', taskBundle.dist
 
 #--------------------------------
@@ -224,7 +229,7 @@ gulp.task 'dist','Build production files', taskBundle.dist
 @options:
 ###
 gulp.task 'gh-pages','Publish gh-pages', ->
-  publishGhPage.publish path_OUT.ghpage.src
+  publishGhPage.publish path_ghpage.in
 
 ###
 @plugin : gitbook
@@ -254,8 +259,8 @@ gulp.task 'helper:gitbook', 'helper for gitbook' , ->
 #------ Starter Config ----------
 #--------------------------------
 #%%%%% Init var %%%%%
-copy_directories_out = "/"
-copy_directories_in = "/"
+copy_directories_out = "./"
+copy_directories_in = "../"
 #%%%%% Init tasks %%%%%
 gulp.task 'init:frontdev', 'Copy paste the app folder into the project_dev folder', ->
   copy_directories_out = path_IN.src

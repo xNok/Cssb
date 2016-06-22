@@ -10,8 +10,8 @@ project_frontdev  = "../frontdev"
 project_doc       = "../docs"
 
 # sample code directory
-frontdev_sample   = "./frontdev"
-gitbook_sample    = "./gitbook"
+frontdev_sample   = "._samples/frontdev"
+gitbook_sample    = "._samples/gitbook"
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Table of Content

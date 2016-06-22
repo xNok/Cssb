@@ -18,19 +18,22 @@ The main enhancements that bring this project are :
 
 ## Documentation
 
-* [Automated work-flows](doss/part1-automated-workflow/README.md)
-    * [Programming with __Cssb__](doss/part1-automated-workflow/1_cssb_automated_workflow.md)
-    * [Front-end development with __Cssb__](doss/part1-automated-workflow/2_cssb_frontdev.md)
-    * [Documenting your work with __Cssb__](doss/part1-automated-workflow/3_cssb_documentation.md)
-    * [Automate work-flow with __gulp__](doss/part1-automated-workflow/gulp_automated_workflow.md)
-    * [Automated work-flow with __npm__](doss/part1-automated-workflow/npm_automated_workflow.md)
-* [Technology tutorials](doss/part2-technologies-tutorials/README.md)
-    * [__Git__ and project management work-flows](doss/part2-technologies-tutorials/git_workflow.md)
-    * [Programming an __Apache Cordova__ hybrid mobile application](doss/part2-technologies-tutorials/apache_cordova.md)
-* [Frontend development](doss/part3-frontend-development/README.md)
-    * [STEP 1 : Constructing a web page](doss/part3-frontend-development/step1_constructing_a_web_page.md)
-    * [STEP 2 : Improving your development](doss/part3-frontend-development/step2_improving_your_development.md)
-    * [STEP 3 : Improving the user experience](doss/part3-frontend-development/step3_improving_the_user_experience.md)
+* [Automated work-flows](https://github.com/xNok/Cssb/blob/master/part1-automated-workflow/README.md)
+    * [Programming with __Cssb__](https://github.com/xNok/Cssb/blob/master/part1-automated-workflow/1_cssb_automated_workflow.md)
+    * [Front-end development with __Cssb__](https://github.com/xNok/Cssb/blob/master/part1-automated-workflow/2_cssb_frontdev.md)
+    * [Documenting your work with __Cssb__](https://github.com/xNok/Cssb/blob/master/part1-automated-workflow/3_cssb_documentation.md)
+    * [esting your work with _Cssb__](https://github.com/xNok/Cssb/blob/master/part1-automated-workflow/4_cssb_tests.md)
+    * [Automated work-flow with __gulp__](https://github.com/xNok/Cssb/blob/master/part1-automated-workflow/gulp_automated_workflow.md)
+    * [Automated work-flow with __npm__](https://github.com/xNok/Cssb/blob/master/part1-automated-workflow/npm_automated_workflow.md)
+* [Technology tutorials](https://github.com/xNok/Cssb/blob/master/part2-technologies-tutorials/README.md)
+    * [__Git__ and project management work-flows](https://github.com/xNok/Cssb/blob/master/part2-technologies-tutorials/git_workflow.md)
+    * [Programming an __Apache Cordova__ hybrid mobile application](https://github.com/xNok/Cssb/blob/master/part2-technologies-tutorials/apache_cordova.md)
+* [Frontend development](https://github.com/xNok/Cssb/blob/master/part3-frontend-development/README.md)
+    * [STEP 1 : Constructing a web page](https://github.com/xNok/Cssb/blob/master/part3-frontend-development/step1_constructing_a_web_page.md)
+    * [STEP 2 : Improving your development](https://github.com/xNok/Cssb/blob/master/part3-frontend-development/step2_improving_your_development.md)
+    * [STEP 3 : Improving the user experience](https://github.com/xNok/Cssb/blob/master/part3-frontend-development/step3_improving_the_user_experience.md)
+* [Node.js development](https://github.com/xNok/Cssb/blob/master/part4-nodejs-development/README.md)
+    * [Advanced javascript](https://github.com/xNok/Cssb/blob/master/part4-nodejs-development/2_advanced_javascript.md)
 
 ----
 
