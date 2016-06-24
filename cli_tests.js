@@ -2,21 +2,19 @@
 * @Author: Alexandre-COUEDELO
 * @Date:   2016-06-21 11:31:36
 * @Last Modified by:   Alexandre-COUEDELO
-* @Last Modified time: 2016-06-22 14:29:17
+* @Last Modified time: 2016-06-24 09:52:29
 */
 
 var fs     = require('fs');
 var exec   = require('child-process-promise').exec;
-var Logger = require('./logger');
-var log    = Logger();
+var log = require('./logger')();
 
 var ignore = [
     'gulp default',
     'gulp watch:frontdev',
-    'gulp watch'
 ]
 
-var timeout = 30000;
+var timeout = 60000;
 
 //Run gulp task
 //gulp task generate a task.json file with the information of the task in the gulp file
@@ -38,6 +36,7 @@ exec("gulp tasks")
     log.debug.ln(gulpTasks);
 
     //run test
+    log.warn.ln(ignore.length + ' Tasks ignored')
     log.warn.ln(ignore + ' Tasks ignored')
     runGulpTests(gulpTasks);
 })

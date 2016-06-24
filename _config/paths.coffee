@@ -10,8 +10,8 @@ project_frontdev  = "../frontdev"
 project_doc       = "../docs"
 
 # sample code directory
-frontdev_sample   = "._samples/frontdev"
-gitbook_sample    = "._samples/gitbook"
+frontdev_sample   = "./_samples/frontdev"
+gitbook_sample    = "./_samples/gitbook"
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Table of Content
@@ -27,6 +27,40 @@ gitbook_sample    = "._samples/gitbook"
 #-----1. Front dev Paths ---------
 #--------------------------------
 
+### Dev directory structure
+
+ +-- assets__css
+ |`+-- base
+ | +-- modules
+ | +-- themes
+ | +-- app.css
+ +-- assets__img
+ | +-- [] subdirectories
+ +-- assets__js
+ |`+-- [] subdirectories
+ +-- contents
+ |`+-- app.json
+ | +-- [] subdirectories
+ +-- layouts
+ +-- pages
+ |`+-- [] subdirectories
+ +-- partials
+ |`+-- [] subdirectories
+ +-- vendors
+ |`+-- [] subdirectories
+###
+
+### Prod directory stryctures
+
+ +-- css
+ +-- img
+ | +-- [] subdirectories
+ +-- js
+ +-- vendors
+ |`+-- [] subdirectories
+ +-- [] *.html
+###
+
 # define the frontend Output directory structure
 exports.path_frontdev =
   in:
@@ -40,8 +74,8 @@ exports.path_frontdev =
     swig:
       dev:    project_frontdev + '/pages/**/*.html'
       watch: [
-        project_frontdev + "/partials/**/*.html",
-        project_frontdev + "/pages/**/*.html",
+        project_frontdev + "/partials/**/*.html"
+        project_frontdev + "/pages/**/*.html"
         project_frontdev + "/layouts/*.html"
       ]
     image:
