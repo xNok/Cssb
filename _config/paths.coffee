@@ -1,11 +1,10 @@
 #--------------------------------
 #----- Folder definition  -------
 #--------------------------------
-
 # directory where you want to publish the project
-project_src       = "../www"
+frontdev_outputdir       = "../www"
 # your frontend developement directory
-project_frontdev  = "../frontdev"
+frontdev_inputdir  = "../frontdev"
 # your project documentation directory
 project_doc       = "../docs"
 
@@ -26,6 +25,8 @@ gitbook_sample    = "./_samples/gitbook"
 #--------------------------------
 #-----1. Front dev Paths ---------
 #--------------------------------
+
+exports.path_frontdev = {}
 
 ### Dev directory structure
 
@@ -49,6 +50,41 @@ gitbook_sample    = "./_samples/gitbook"
  +-- vendors
  |`+-- [] subdirectories
 ###
+exports.path_frontdev.in =
+  src:      frontdev_inputdir + "/"
+  css:
+    src:    frontdev_inputdir + "/assets__css/"
+    dev:    frontdev_inputdir + '/assets__css/*.scss'
+    watch:  frontdev_inputdir + '/assets__css/**/*.scss'
+  img:
+    src:    frontdev_inputdir + "/assets__img/"
+    dev:    frontdev_inputdir + '/assets__img/*'
+  js:
+    src:    frontdev_inputdir + "/assets__js/"
+    dev:    frontdev_inputdir + '/assets__js/**/*.js'
+    watch:  frontdev_inputdir + '/assets__js/**/*.js'
+  contents:
+    src:    frontdev_inputdir + '/contents/'
+    app:    frontdev_inputdir + '/contents/app.json'
+    json:   frontdev_inputdir + '/contents/**/*.json'
+    yaml:   frontdev_inputdir + '/contents/**/*.yml'
+  html:
+    layouts:
+      src:    frontdev_inputdir + "/layouts/"
+      dev:    frontdev_inputdir + "/layouts/*.html"
+    pages:
+      src:    frontdev_inputdir + "/pages/"
+      dev:    frontdev_inputdir + "/pages/**/*.html"
+    partials:
+      src:    frontdev_inputdir + '/pages/**/*.html'
+      dev:    frontdev_inputdir + '/pages/**/*.html'
+    watch: [
+      frontdev_inputdir + "/partials/**/*.html"
+      frontdev_inputdir + "/pages/**/*.html"
+      frontdev_inputdir + "/layouts/*.html"
+    ]
+  vendors:
+    src:    frontdev_outputdir + '/vendors/'  
 
 ### Prod directory stryctures
 
@@ -62,36 +98,13 @@ gitbook_sample    = "./_samples/gitbook"
 ###
 
 # define the frontend Output directory structure
-exports.path_frontdev =
-  in:
-    src:      project_frontdev + "/"
-    scss:
-      dev:    project_frontdev + '/assets__css/*.scss'
-      watch:  project_frontdev + '/assets__css/**/*.scss'
-    js:
-      watch:  project_frontdev + '/assets__js/**/*.js'
-      ignore: project_frontdev + '/assets__js/vendors/**/*'
-    swig:
-      dev:    project_frontdev + '/pages/**/*.html'
-      watch: [
-        project_frontdev + "/partials/**/*.html"
-        project_frontdev + "/pages/**/*.html"
-        project_frontdev + "/layouts/*.html"
-      ]
-    image:
-      dev:    project_frontdev + '/assets__img/*'
-    data:
-      src:    project_frontdev + '/contents/'
-      app:    project_frontdev + '/contents/app.json'
-      json:   project_frontdev + '/contents/**/*.json'
-      yaml:   project_frontdev + '/contents/**/*.yml'
-    vendors:  project_frontdev + '/vendors/**'
-  out:
-    src:    project_src + '/'
-    css:    project_src + '/css/'
-    js:     project_src + '/js/'
-    images: project_src + '/img/'
-    vendors:project_src + '/vendors'  
+exports.path_frontdev.out =
+  src:      frontdev_outputdir + '/'
+  css:      frontdev_outputdir + '/css/'
+  img:      frontdev_outputdir + '/img/'
+  js:       frontdev_outputdir + '/js/'
+  html:     frontdev_outputdir + '/'
+  vendors:  frontdev_outputdir + '/vendors/'  
 
 #--------------------------------
 #-----2. Documentation -----------
@@ -113,7 +126,7 @@ exports.path_docs =
 #--------------------------------
 
 exports.path_ghpage =
-  in: project_src + '/**/*'
+  in: frontdev_outputdir + '/**/*'
 
 #--------------------------------
 #-----4. Sample configuration ----
