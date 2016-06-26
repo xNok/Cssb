@@ -121,14 +121,14 @@ gulp.task 'init:frontdev', 'Copy paste the app folder into the project_dev folde
 #%%%%% 2.1 frontend watch %%%%%
 
 gulp.task 'watch:frontdev','run browserSync server', ->
-  $.browserSync server: {baseDir: path_OUT.src}
+  $.browserSync server: {baseDir: frontdev_OUT.src}
   gulp.watch frontdev_IN.css.watch, ['frontdev:compile:sass2css']
   gulp.watch frontdev_IN.html.watch, ['frontdev:compile:swig2html', $.browserSync.reload]
   gulp.watch frontdev_IN.js.watch, ['frontdev:compile:babel2js']
   gulp.watch frontdev_IN.contents.json, (event) ->
     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...')
     runSequence('frontdev:merge:jsons' ,'frontdev:compile:swig2html', $.browserSync.reload)
-  gulp.watch path_IN.image.dev, ['frontdev:minify:images']  
+  gulp.watch frontdev_IN.img.dev, ['frontdev:minify:images']  
 
 #%%%%% 2.2 main tasks %%%%%
 
