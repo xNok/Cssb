@@ -46,9 +46,9 @@ gitbook         = require('gitbook')
 #--------------------------------
 #------ Functions definition ----
 #--------------------------------
-getFolders  = require('./tasks__helpers/helper-files.js').getFolders
-getFiles    = require('./tasks__helpers/helper-files.js').getFiles
-getJsons    = require('./tasks__helpers/helper-files.js').getJsons
+getFolders  = require('./tasks/helpers/helper-files.js').getFolders
+getFiles    = require('./tasks/helpers/helper-files.js').getFiles
+getJsons    = require('./tasks/helpers/helper-files.js').getJsons
 #--------------------------------
 #------ 0.dev -------------------
 #--------------------------------
@@ -80,7 +80,7 @@ getTask = (task, input, options) ->
   name = task.currentRunTaskName
   log.debug.ln('getTask >> ' + name)
   nameArray = name.split(':') # expected mainCat:subCat:name
-  reqStrg = './tasks__' + nameArray[0] + '/' + nameArray[1] + '.coffee' #expected ./task__mainCat/subCat
+  reqStrg = './tasks/' + nameArray[0] + '/' + nameArray[1] + '.coffee' #expected ./task__mainCat/subCat
   return require(reqStrg)[nameArray[2]](gulp, $, input, options)()
 
 #--------------------------------

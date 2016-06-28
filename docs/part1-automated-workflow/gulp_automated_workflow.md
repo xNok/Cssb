@@ -147,8 +147,6 @@ gulp.task 'compile:sass','Build the css assets', ->
 
 ## testing your task
 
-
-
 ## Bibliography
 
 ### Gulp.js
