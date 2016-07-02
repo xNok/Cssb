@@ -2,27 +2,30 @@
 * @Author: Alexandre-COUEDELO
 * @Date:   2016-06-26 18:23:34
 * @Last Modified by:   Alexandre-COUEDELO
-* @Last Modified time: 2016-06-26 20:06:04
+* @Last Modified time: 2016-07-02 17:21:27
 */
 
 'use strict';
 
-var assert = require('chai').assert;
-var exec   = require('child-process-promise').exec;
-var fs     = require('fs');
+var chai    = require('chai');
+var assert  = chai.assert;
+var expect  = chai.expect;
 
-describe('init:frontdev', function () {
+var exec    = require('child-process-promise').exec;
+var fs      = require('fs');
+var dirTree = require('directory-tree');
+
+describe('frontdev', function () {
+
+  //cli
+
+  describe('init:frontdev', function () {
     before(function(done) {
 
-        this.timeout(5000);
+        this.timeout(50000);
 
         exec("gulp init:frontdev")
           .then(function (result) {
-              // var stdout = result.stdout;
-              // var stderr = result.stderr;
-
-              // console.log(stdout);
-              // console.log(stderr);
               done();
           })
           .catch(function (err) {
@@ -31,9 +34,9 @@ describe('init:frontdev', function () {
           });
     });
 
-    it('should return -1 when the value is not present', function () {
-      assert.equal(-1, [1,2,3].indexOf(5));
-      assert.equal(-1, [1,2,3].indexOf(0));
+    it('it Should provide a valid frontdev directory-tree', function () {
+        let frontdevDirTree =  JSON.stringify(JSON.parse(fs.readFileSync('tests/lib/dirTree/frontdev.json')));
+        expect(JSON.stringify(dirTree('../frontdev/'))).to.equal(frontdevDirTree);
     });
-
+  });
 });

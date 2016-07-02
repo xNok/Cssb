@@ -29,3 +29,34 @@ exports.pdf = (pathIN, pathOUT, options) ->
       args = [pathIN, pathOUT]
       kwargs = options
       cmd.exec(args, kwargs)
+
+###
+@plugin : _ , getFolders, getFiles, path
+@input  : pathIN
+@options:
+###
+exports.generateSummary = (gulp, $, inputs, options) ->
+  return () -> 
+  folders = options.getFolders(inputs.pathIN)
+  filesString = "\n"
+
+  _(folders).forEach((folder) ->
+    folderREADME = false
+
+    files = getFiles options.path.join(pathIN, folder), '.md'
+
+    _.remove(files, (n) ->
+      folderREADME = true;
+      return n == 'README.md'
+    )
+
+    filesString += if folderREADME then "[](" + folder + "/README.md)" + "\n"  else "### " + folder + "\n"  
+
+    _(files).forEach( (file) ->
+      filesString += '  * []('+ folder + '/' + file + ')' + "\n"
+    )
+  )
+
+  fs.appendFile(inputs.pathIN + "/SUMMARY.md", filesString,  (err) ->
+    console.log(err)
+  )

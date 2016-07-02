@@ -37,3 +37,4 @@ Now you are have a simple way to test your `gulp task` for example.
 * [child-process]()
 * [child-process-promise]()
 * [mocha](https://mochajs.org/)
+* [Setting Up an End-to-End Testing Workflow with Gulp, Mocha, and WebdriverIO](https://semaphoreci.com/community/tutorials/setting-up-an-end-to-end-testing-workflow-with-gulp-mocha-and-webdriverio)

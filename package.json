@@ -19,7 +19,8 @@
   "scripts": {
     "start": "gulp",
     "dist": "gulp dist",
-    "test": "node cli_tests.js"
+    "cli-tests": "node cli_tests.js",
+    "test": "mocha --compilers js:babel-core/register --recursive tests/*.js"
   },
   "dependencies": {
     "autoprefixer": "^6.0.3",
@@ -69,6 +70,7 @@
     "bash-color": "0.0.4",
     "chai": "^3.5.0",
     "child-process-promise": "^2.0.3",
+    "directory-tree": "^1.0.0",
     "immutable": "^3.8.1",
     "is": "^3.1.0",
     "mocha": "^2.5.3"

@@ -7,6 +7,7 @@ argv            = require('yargs').argv
 fs              = require('fs')
 path            = require('path')
 log             = require('./logger')()
+dirTree         = require('directory-tree')
 
 #%%%%% Config Information %%%%%
 # Path
@@ -66,6 +67,15 @@ gulp.Gulp.prototype._runTask = (task) ->
     _runTask.apply(this, arguments);
 
 # create a report about this gulp file
+gulp.task 'dirTree','Display gulp.tasks and create a resport tasks.json', ->
+  taskReport = {}
+  stream = fs.createWriteStream("dirTree.json")
+  stream.once('open', (fd) ->
+      stream.write JSON.stringify(dirTree('../frontdev/'))
+      stream.end
+  );
+
+# create a report about the directory structure
 gulp.task 'tasks','Display gulp.tasks and create a resport tasks.json', ->
   taskReport = {}
   log.info.ln(gulp.tasks)
