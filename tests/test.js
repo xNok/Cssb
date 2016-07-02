@@ -2,7 +2,7 @@
 * @Author: Alexandre-COUEDELO
 * @Date:   2016-06-26 18:23:34
 * @Last Modified by:   Alexandre-COUEDELO
-* @Last Modified time: 2016-07-02 17:54:09
+* @Last Modified time: 2016-07-02 18:12:15
 */
 
 'use strict';
@@ -63,5 +63,25 @@ describe('frontdev', function () {
       expect(fs.existsSync('../www/css/maps/app.css.map')).to.equal(true);
     });
   });
+
+  describe('frontdev:compile:swig2html', function () {
+    before(function(done) {
+
+        this.timeout(50000);
+
+        exec("gulp frontdev:compile:swig2html")
+          .then(function (result) {
+              done();
+          })
+          .catch(function (err) {
+              console.log(err);
+              done();
+          });
+    });
+
+    it('it Should create the default index.html', function () {
+      expect(fs.existsSync('../www/index.html')).to.equal(true);
+    });
+  });  
 
 });

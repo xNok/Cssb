@@ -116,9 +116,9 @@
         "children": [{
             "path": "..\\frontdev\\pages\\index.html",
             "name": "index.html",
-            "size": 768
+            "size": 609
         }],
-        "size": 768
+        "size": 609
     }, {
         "path": "..\\frontdev\\partials",
         "name": "partials",
@@ -165,5 +165,5 @@
         }],
         "size": 8747
     }],
-    "size": 43408
+    "size": 43249
 }

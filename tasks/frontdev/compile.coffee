@@ -24,7 +24,7 @@ exports.swig2html = (gulp, $, inputs, options) ->
     gulp.src inputs.pathIN
     #.pipe $.changed(inputs.pathOUT)
     .pipe $.plumber()
-    .pipe $.data( options.getJsons inputs.pathDATA )
+    .pipe $.data(options.getJsons inputs.pathDATA )
     .pipe $.swig(options.swig)
     .pipe gulp.dest(inputs.pathOUT)
 
