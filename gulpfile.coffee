@@ -156,15 +156,16 @@ gulp.task 'default', 'Run dev tasks', [
 #%%%%% 2.3 frontend dev %%%%%
 
 ###
-@plugin : changed, sass, autoprfixer, browsersync
+@plugin : changed, sass, autoprfixer, browsersync, sourcemaps
 @input  : pathIN, pathOUT
-@options: autoprfixer
+@options: autoprfixer, sass
 ###
 gulp.task 'frontdev:compile:sass2css','Build the css assets', ->
   getTask(this,
     {
       pathIN:  frontdev_IN.css.dev
       pathOUT: frontdev_OUT.css
+      sass: {outputStyle: 'compressed'}
       argv: argv
     },{
       autoprfixer: {browsers: browser_support}

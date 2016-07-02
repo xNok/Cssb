@@ -1,14 +1,16 @@
 ###
 @plugin : changed, sass, autoprfixer, browsersync
 @input  : pathIN, pathOUT, options
-@options: autoprfixer
+@options: autoprfixer, sass
 ###
 exports.sass2css = (gulp, $, inputs, options) ->
   return () -> 
       gulp.src inputs.pathIN
       .pipe $.changed(inputs.pathOUT)
-      .pipe $.sass().on('error', $.sass.logError)
+      .pipe $.sourcemaps.init()
+      .pipe $.sass(options.sass).on('error', $.sass.logError)
       .pipe $.autoprefixer(options.autoprefixer)
+      .pipe $.sourcemaps.write('./maps')
       .pipe gulp.dest(inputs.pathOUT)
       .pipe $.browserSync.stream()
 
