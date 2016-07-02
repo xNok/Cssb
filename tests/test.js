@@ -2,7 +2,7 @@
 * @Author: Alexandre-COUEDELO
 * @Date:   2016-06-26 18:23:34
 * @Last Modified by:   Alexandre-COUEDELO
-* @Last Modified time: 2016-07-02 17:21:27
+* @Last Modified time: 2016-07-02 17:54:09
 */
 
 'use strict';
@@ -39,4 +39,29 @@ describe('frontdev', function () {
         expect(JSON.stringify(dirTree('../frontdev/'))).to.equal(frontdevDirTree);
     });
   });
+
+  describe('frontdev:compile:sass2css', function () {
+    before(function(done) {
+
+        this.timeout(50000);
+
+        exec("gulp frontdev:compile:sass2css")
+          .then(function (result) {
+              done();
+          })
+          .catch(function (err) {
+              console.log(err);
+              done();
+          });
+    });
+
+    it('it Should provide a valid css/app.css file', function () {
+      expect(fs.existsSync('../www/css/app.css')).to.equal(true);
+    });
+
+    it('it Should provide a .map file', function () {
+      expect(fs.existsSync('../www/css/maps/app.css.map')).to.equal(true);
+    });
+  });
+
 });
