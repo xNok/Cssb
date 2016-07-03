@@ -2,11 +2,11 @@
 * @Author: Alexandre-COUEDELO
 * @Date:   2016-06-17 10:12:13
 * @Last Modified by:   Alexandre-COUEDELO
-* @Last Modified time: 2016-06-24 12:13:52
+* @Last Modified time: 2016-06-26 19:58:40
 */
 
 var fs   = require('fs');
-var log  = require('../logger')();
+var log  = require('../../logger')();
 var path = require('path')
 
 /**

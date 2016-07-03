@@ -4,6 +4,10 @@ Have you ever heard about test driven programming ?
 
 ## CLI test
 
+The purpose of this test is to know if the command line works. Then you add integration tests to check of everything append as expected.
+
+__Child process__ let you execute command line via node.js. I recommend to use the [promise]() version fare more easy to use.
+
 ```javascript
 var exec   = require('child-process-promise').exec;
 
@@ -24,7 +28,13 @@ If you don't know yet what [stdin, stdout, stderr]() are, you should probably ha
 
 Now you are have a simple way to test your `gulp task` for example.
 
+## Integration test
+
+> npm install -g mocha
+
 ## bibliography
 
 * [child-process]()
 * [child-process-promise]()
+* [mocha](https://mochajs.org/)
+* [Setting Up an End-to-End Testing Workflow with Gulp, Mocha, and WebdriverIO](https://semaphoreci.com/community/tutorials/setting-up-an-end-to-end-testing-workflow-with-gulp-mocha-and-webdriverio)

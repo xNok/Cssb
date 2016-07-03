@@ -79,3 +79,5 @@ $RECYCLE.BIN/
 .publish
 _book
 *.pdf
+dirTree.json
+tasks.json

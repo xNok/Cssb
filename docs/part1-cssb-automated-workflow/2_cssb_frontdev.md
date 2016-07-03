@@ -11,7 +11,7 @@ Keeping a simple lvl of subdirectory let navigate so easily into your project. T
 +-- assets__img     // images resources
 +-- assets__js      // JS resources
 +-- content         // JSON, text, HTML, Markdown blocks that can be edited separately from the page or layout
-+-- layout          // All page scaffolds
++-- layouts          // All page scaffolds
 +-- pages           // Web pages
 +-- partials        // contain reusable HTML that an be include or used as a macro
 +-- vendors         // external libraries
@@ -63,4 +63,64 @@ export.path_frontdev =
     *****
   out:
     *****
+```
+
+## HTML
+
+for the HTML developement the __cli__ to remember is :
+
+> gulp frontdev:compile:swig2html
+> OR ...
+> gulp swig
+
+With Cssb you can use the power of the [Swig]() template engine. In this part we would focus ont the 4 folders that you can use for store your html and build your pages.
+
+```java
+ +-- contents
+ |`+-- app.json
+ | +-- [] subdirectories
+ +-- layouts
+ +-- pages
+ |`+-- index.html
+ | +-- [] subdirectories
+ +-- partials
+ |`+-- [] subdirectories
+```
+
+### Layout
+
+The first step is to create one or several layout for your site pages.
+
+```html
+<!DOCTYPE html>
+<html>
+
+{% include "../partials/head.html" %}
+
+<body>
+    <div id="l-container">
+        <header id="l-header">
+            {% include "../partials/header.html" %}
+        </header>
+
+        <main id="l-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer id="l-footer">
+            {% include "../partials/footer.html" %}
+        </footer>
+    </div>
+
+    {% include "../partials/js.html" %}
+</body>
+
+</html>
+```
+
+```html
+{% extends '..\layouts\main.html' %}
+{% block content %}
+
+{% endblock %}
 ```
