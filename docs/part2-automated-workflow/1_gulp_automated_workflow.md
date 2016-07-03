@@ -151,3 +151,5 @@ gulp.task 'compile:sass','Build the css assets', ->
 * [Small Sips of Gulp.js: 4 Steps to Reduce Complexity](https://teamgaslight.com/blog/small-sips-of-gulp-dot-js-4-steps-to-reduce-complexity)
 * [Splitting a gulpfile into multiple files](http://macr.ae/article/splitting-gulpfile-multiple-files.html)
 * [Automatically Load Gulp Plugins with gulp-load-plugins](http://andy-carter.com/blog/automatically-load-gulp-plugins-with-gulp-load-plugins)
+* [Gulp for Beginners](https://css-tricks.com/gulp-for-beginners/)
+* [Automate Your Tasks Easily with Gulp.js](https://scotch.io/tutorials/automate-your-tasks-easily-with-gulp-js)
