@@ -6,36 +6,56 @@
 exports.images = (gulp, $, inputs, options) ->
   return () -> 
     gulp.src inputs.pathIN
-    .pipe $.changed(inputs.pathOUT)
-    .pipe $.image(options.image)
+    .pipe $.cache($.image(options.image))
     .pipe gulp.dest(inputs.pathOUT)
     .pipe $.browserSync.stream()
 
 ###
 @plugin : changed, babel, uglify
 @input  : pathIN, pathOUT, options
-@options: babel
+@options
 ###
 exports.js = (gulp, $, inputs, options) ->
   return () -> 
     gulp.src inputs.pathIN
     .pipe $.plumber()
-    .pipe $.babel(options.babel)
-    .pipe $.uglify().on('error', gutil.log)
+    .pipe $.uglify()
+    .pipe $.rename({ extname: '.min.js' })
     .pipe gulp.dest(inputs.pathOUT)
 
 ###
 @plugin : sass, autoprefixer, cleanCss
-@input  : pathIN, pathOUT, options
-@options: autoprefixer, cleanCSS
+@input  : pathIN, pathOUT
+@options:
 ###
 exports.css = (gulp, $, inputs, options) ->
   return () -> 
     gulp.src inputs.pathIN
-    .pipe $.sass()
-    .pipe $.autoprefixer(options.autoprefixer)
-    .pipe $.cleanCSS(options.cleanCSS, (details) ->
-          console.log("[INFO] minify-css-> " + details.name + ': ' + details.stats.originalSize)
-          console.log("[INFO] minify-css-> " + details.name + ': ' + details.stats.minifiedSize)
-        )
+    .pipe $.cleanCss(options.cleanCSS)
+    .pipe $.rename({ extname: '.min.css' })
     .pipe gulp.dest(inputs.pathOUT)
+
+
+###
+@plugin : useref, gulpif, uglify, cleanCss
+@input  : pathIN, pathOUT
+@options: cleanCss
+###
+exports.useref = (gulp, $, inputs, options) ->
+  return () -> 
+    gulp.src inputs.pathIN
+      .pipe $.useref()
+      .pipe $.if('*.js', $.uglify())
+      .pipe $.if('*.css', $.cleanCss(options.cleanCSS))
+      .pipe gulp.dest(inputs.pathOUT)
+
+###
+@plugin : del
+@input  : pathIN
+@options: 
+###
+exports.cleanUp = (gulp, $, inputs, options) ->
+  return () -> 
+    return  $.del(inputs.pathIN,{
+      force: true
+    })

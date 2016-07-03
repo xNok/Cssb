@@ -94,6 +94,9 @@ exports.path_frontdev.in =
  +-- js
  +-- vendors
  |`+-- [] subdirectories
+ +-- maps
+ |`+-- app.css.map
+ |`+-- app.js.map
  +-- [] *.html
 ###
 
@@ -104,7 +107,8 @@ exports.path_frontdev.out =
   img:      frontdev_outputdir + '/img/'
   js:       frontdev_outputdir + '/js/'
   html:     frontdev_outputdir + '/'
-  vendors:  frontdev_outputdir + '/vendors/'  
+  vendors:  frontdev_outputdir + '/vendors/'
+  maps:     '../maps/'
 
 #--------------------------------
 #-----2. Documentation -----------

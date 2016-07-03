@@ -29,7 +29,7 @@ gulp            = require('gulp-help')(require('gulp'),{
 
 $               = require('gulp-load-plugins')({
     DEBUG: false, # when set to true, the plugin will log info to console. Useful for bug reporting and issue debugging 
-    pattern: ['gulp-*', 'gulp.*', 'browser-sync', 'babel-preset-es2015'], # the glob(s) to search for 
+    pattern: ['gulp-*', 'gulp.*', 'browser-sync', 'babel-preset-es2015', 'vinyl-paths', 'del'], # the glob(s) to search for 
     #config: 'package.json', # where to find the plugins, by default searched up from process.cwd() 
     scope: ['dependencies', 'devDependencies', 'peerDependencies'], # which keys in the config to look within 
     replaceString: /^gulp(-|\.)/, # what to remove from the name of the module when adding it to the context 
@@ -113,9 +113,9 @@ gulp.task 'delete-empty-directories', 'cleanup empty directories',->
 # 2.0 Init tasks
 # 2.1 frontend watch
 # 2.2 main tasks
-# 2.3 frontend dev
-# 2.4 frontend post-dev
-# 2.5 frontend Content/Data Management
+# 2.3 compilation tasks
+# 2.4 linting Tasks
+# 2.5 minify tasks
 # 2.6 linting Tasks
 #--------------------------------
 
@@ -153,18 +153,19 @@ gulp.task 'default', 'Run dev tasks', [
 
 # gulp.task 'dist','Build production files', taskBundle.dist
 
-#%%%%% 2.3 frontend dev %%%%%
+#%%%%% 2.3 compilation tasks %%%%%
 
 ###
 @plugin : changed, sass, autoprfixer, browsersync, sourcemaps
-@input  : pathIN, pathOUT
+@input  : pathIN, pathOUT,pathMAPS
 @options: autoprfixer, sass
 ###
 gulp.task 'frontdev:compile:sass2css','Build the css assets', ->
   getTask(this,
     {
-      pathIN:  frontdev_IN.css.dev
-      pathOUT: frontdev_OUT.css
+      pathIN:   frontdev_IN.css.dev
+      pathOUT:  frontdev_OUT.css
+      pathMAPS: frontdev_OUT.maps
       sass: {outputStyle: 'compressed'}
       argv: argv
     },{
@@ -213,6 +214,7 @@ gulp.task 'frontdev:compile:babel2js', 'Build JS files from ES6', ->
     {
       pathIN:   frontdev_IN.js.dev
       pathOUT:  frontdev_OUT.js
+      pathMAPS: frontdev_OUT.maps
       argv: argv
     },{
       babel: {"presets": [$.es2015]}
@@ -224,6 +226,52 @@ gulp.task 'frontdev:compile:babel2js', 'Build JS files from ES6', ->
     'env=dev' : ''
   }
 }
+
+#%%%%% 2.4 linting Tasks %%%%%
+
+###
+@plugin : jsonlint
+@input  : pathIN
+@options:
+###
+gulp.task 'frontdev:lint:json','Optimise images', ->
+  getTask this,
+    {
+      pathIN:   frontdev_IN.contents.json
+      argv: argv
+    },{
+
+    }
+,{
+  aliases: ['lint:jsons'],
+  options: {
+    'env=prod': ''
+    'env=dev' : ''
+  }
+}
+
+###
+@plugin : jshint
+@input  : pathIN
+@options:
+###
+gulp.task 'frontdev:lint:js','Optimise images', ->
+  getTask this,
+    {
+      pathIN:   frontdev_IN.js.src + '/app.js'
+      argv: argv
+    },{
+
+    }
+,{
+  aliases: ['lint:js'],
+  options: {
+    'env=prod': ''
+    'env=dev' : ''
+  }
+}
+
+#%%%%% 2.5 minify tasks %%%%%
 
 ###
 @plugin : changed, image
@@ -247,30 +295,96 @@ gulp.task 'frontdev:minify:images','Optimise images', ->
   }
 }
 
-# #%%%%% 2.4 frontend post-dev %%%%%
- 
-# TODO complite refactoring 
+###
+@plugin : changed, babel, uglify
+@input  : pathIN, pathOUT
+@options
+###
+gulp.task 'frontdev:minify:js','Minify js files', ->
+  getTask this,
+    {
+      pathIN:   [frontdev_OUT.js + '/*.js', '!' + frontdev_OUT.js + '/*.min.js']
+      pathOUT:  frontdev_OUT.js
+      argv: argv
+    },{
 
-# ###
-# @plugin : changed, babel, uglify
-# @input  : pathIN, pathOUT, options
-# @options: babel
-# ###
-# gulp.task 'minify:js','Build minified JS files and addapte ES6', ->
-#   frontdevMinify.js [path_IN.js.watch, '!'+path_IN.js.ignore], path_OUT.js, {
-#     babel: {"presets": [es2015]}
-#   }
+    }
+,{
+  aliases: ['minify:js'],
+  options: {
+    'env=prod': ''
+    'env=dev' : ''
+  }
+}
 
-# ###
-# @plugin : sass, autoprefixer, cleanCss
-# @input  : pathIN, pathOUT, options
-# @options: autoprefixer, cleanCSS
-# ###
-# gulp.task 'minify:css','Build minified CSS files and addapte SCSS', ->
-#   frontdevMerge.jsons path_IN.scss.dev, path_OUT.css , {
-#     autoprfixer: {browsers: browser_support},
-#     cleanCSS: {debug: true}
-#   }
+###
+@plugin : changed, babel, uglify
+@input  : pathIN, pathOUT, options
+@options
+###
+gulp.task 'frontdev:minify:css','Minify css files', ->
+  getTask this,
+    {
+      pathIN:   [frontdev_OUT.css + '/*.css', '!' + frontdev_OUT.css + '/*.min.css']
+      pathOUT:  frontdev_OUT.css
+      argv: argv
+    },{
+
+    }
+,{
+  aliases: ['minify:css'],
+  options: {
+    'env=prod': ''
+    'env=dev' : ''
+  }
+}
+
+###
+@plugin : useref, gulpif, uglify, cleanCss
+@input  : pathIN, pathOUT
+@options: cleanCss
+###
+gulp.task 'frontdev:minify:useref','Concat assets dedicated to a single html page', ->
+  getTask this,
+    {
+      pathIN:   frontdev_OUT.html + 'index.html'
+      pathOUT:  frontdev_OUT.html
+      argv: argv
+    },{
+
+    }
+,{
+  aliases: ['minify:useref', 'useref'],
+  options: {
+    'env=prod': ''
+    'env=dev' : ''
+  }
+}
+
+###
+@plugin : del
+@input  : pathIN
+@options: 
+###
+gulp.task 'frontdev:minify:cleanUp','Remove non minify files', ->
+  getTask this,
+    {
+      pathIN:   [frontdev_OUT.css + '/*.css', '!' + frontdev_OUT.css + '/*.min.css',
+                 frontdev_OUT.js + '/*.js', '!' + frontdev_OUT.js + '/*.min.js']
+      pathOUT:  frontdev_OUT.html
+      argv: argv
+    },{
+
+    }
+,{
+  aliases: ['minify:cleanup'],
+  options: {
+    'env=prod': ''
+    'env=dev' : ''
+  }
+}
+
+#%%%%% 2.4 frontend Content/Data Management %%%%%
 
 ###
 @plugin : changed
@@ -282,7 +396,7 @@ gulp.task 'frontdev:copy:vendors','Copy past your vendors without treatment', ->
   .pipe $.changed(frontdev_IN.vendors.src)
   .pipe gulp.dest(frontdev_OUT.vendors)
 
-# #%%%%% 2.4 frontend Content/Data Management %%%%%
+
 
 ###
 @plugin : plumber, mergeJson
@@ -317,15 +431,6 @@ gulp.task 'frontdev:merge:jsons', 'merge Json files under a folder to one json f
 #     yaml: { schema: 'DEFAULT_SAFE_SCHEMA' }
 #   }
 
-# #%%%%% 2.5 linting Tasks %%%%%
-
-# ###
-# @plugin : jsonlint, mergeJson
-# @input  : pathIN
-# @options:
-# ###
-# gulp.task 'lint:json', 'lint JSON files', ->
-#   frontdevLint.jsons path_IN.data.json
 
 
 #--------------------------------
@@ -371,4 +476,3 @@ gulp.task 'init:gitbook', 'Copy paste gitbook template in the project_doc direct
 # ###
 # gulp.task 'helper:gitbook', 'helper for gitbook' , ->
 #   helperGitbook.generateSummary path_docs.in.src
-
