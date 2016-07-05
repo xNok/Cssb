@@ -1,0 +1,60 @@
+{
+    "path": "../docs/",
+    "name": "docs",
+    "children": [{
+        "path": "..\\docs\\book.json",
+        "name": "book.json",
+        "size": 8
+    }, {
+        "path": "..\\docs\\chapter-1",
+        "name": "chapter-1",
+        "children": [{
+            "path": "..\\docs\\chapter-1\\README.md",
+            "name": "README.md",
+            "size": 14
+        }, {
+            "path": "..\\docs\\chapter-1\\something.md",
+            "name": "something.md",
+            "size": 11
+        }],
+        "size": 25
+    }, {
+        "path": "..\\docs\\chapter-2",
+        "name": "chapter-2",
+        "children": [{
+            "path": "..\\docs\\chapter-2\\README.md",
+            "name": "README.md",
+            "size": 14
+        }, {
+            "path": "..\\docs\\chapter-2\\something.md",
+            "name": "something.md",
+            "size": 12
+        }],
+        "size": 26
+    }, {
+        "path": "..\\docs\\cover.jpg",
+        "name": "cover.jpg",
+        "size": 50384
+    }, {
+        "path": "..\\docs\\cover.xcf",
+        "name": "cover.xcf",
+        "size": 17916
+    }, {
+        "path": "..\\docs\\cover_small.jpg",
+        "name": "cover_small.jpg",
+        "size": 1166
+    }, {
+        "path": "..\\docs\\cover_small.xcf",
+        "name": "cover_small.xcf",
+        "size": 1014
+    }, {
+        "path": "..\\docs\\README.md",
+        "name": "README.md",
+        "size": 16
+    }, {
+        "path": "..\\docs\\SUMMARY.md",
+        "name": "SUMMARY.md",
+        "size": 170
+    }],
+    "size": 70725
+}

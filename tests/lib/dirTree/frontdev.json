@@ -103,18 +103,18 @@
         "children": [{
             "path": "..\\frontdev\\layouts\\main.html",
             "name": "main.html",
-            "size": 559
+            "size": 1275
         }],
-        "size": 559
+        "size": 1275
     }, {
         "path": "..\\frontdev\\pages",
         "name": "pages",
         "children": [{
             "path": "..\\frontdev\\pages\\index.html",
             "name": "index.html",
-            "size": 609
+            "size": 637
         }],
-        "size": 609
+        "size": 637
     }, {
         "path": "..\\frontdev\\partials",
         "name": "partials",
@@ -129,7 +129,7 @@
         }, {
             "path": "..\\frontdev\\partials\\head.html",
             "name": "head.html",
-            "size": 703
+            "size": 726
         }, {
             "path": "..\\frontdev\\partials\\header.html",
             "name": "header.html",
@@ -155,7 +155,7 @@
             "name": "table.html",
             "size": 581
         }],
-        "size": 8474
+        "size": 8497
     }],
-    "size": 42590
+    "size": 43357
 }

@@ -1,8 +1,10 @@
+_ = require('lodash')
+
 ###
 get the gitbook commande line
 ###
-gitbookGetCMD = (cmdString) ->
-  return _.find(gitbook.commands, (_cmd) ->
+gitbookGetCMD = (cmdString, $) ->
+  return _.find($.gitbook.commands, (_cmd) ->
       return _.first(_cmd.name.split(" ")) == cmdString;
   )
 
@@ -11,10 +13,10 @@ gitbookGetCMD = (cmdString) ->
 @input  : pathIN, pathOUT, options
 @options: log: info/debug , format: website, timing: false
 ###
-exports.website = (pathIN, pathOUT, options) ->
+exports.website = (gulp, $, inputs, options) ->
   return () -> 
-      cmd = gitbookGetCMD("build")
-      args = [pathIN, pathOUT]
+      cmd = gitbookGetCMD("build", $)
+      args = [inputs.pathIN, inputs.pathOUT]
       kwargs = options
       cmd.exec(args, kwargs)
 
@@ -23,10 +25,10 @@ exports.website = (pathIN, pathOUT, options) ->
 @input  : pathIN, pathOUT, options
 @options: log: info/debug , format: website, timing: false
 ###
-exports.pdf = (pathIN, pathOUT, options) ->
+exports.pdf = (gulp, $, inputs, options) ->
   return () -> 
-      cmd = gitbookGetCMD("pdf")
-      args = [pathIN, pathOUT]
+      cmd = gitbookGetCMD("pdf", $)
+      args = [inputs.pathIN, inputs.pathOUT]
       kwargs = options
       cmd.exec(args, kwargs)
 
