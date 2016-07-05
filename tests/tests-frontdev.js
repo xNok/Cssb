@@ -2,7 +2,7 @@
 * @Author: Alexandre-COUEDELO
 * @Date:   2016-06-26 18:23:34
 * @Last Modified by:   Alexandre-COUEDELO
-* @Last Modified time: 2016-07-03 21:32:17
+* @Last Modified time: 2016-07-05 16:59:24
 */
 
 'use strict';
@@ -42,8 +42,8 @@ describe('frontdev', function () {
     });
 
     it('it Should provide a valid frontdev directory-tree', function () {
-        let frontdevDirTree =  JSON.stringify(JSON.parse(fs.readFileSync('tests/lib/dirTree/frontdev.json')));
-        expect(JSON.stringify(dirTree('../frontdev/'))).to.equal(frontdevDirTree);
+        let frontdevDirTree =  JSON.parse(fs.readFileSync('tests/lib/dirTree/frontdev.json'));
+        expect(dirTree('../frontdev/')).deep.to.equal(frontdevDirTree);
     });
   });
 

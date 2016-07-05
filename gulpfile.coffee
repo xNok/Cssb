@@ -12,24 +12,28 @@ dirTree         = require('directory-tree')
 #%%%%% Config Information %%%%%
 # Path
 configPath      = require('./_config/paths.coffee')
-path_docs       = configPath.path_docs
-path_init       = configPath.path_init
-path_ghpage     = configPath.path_ghpage
 # module config
 configTasks     = require('./_config/tasks.coffee')
 browser_support = configTasks.browser_support
 images_config   = configTasks.images_config
 
 #%%%%% Plugins %%%%%
-gulp            = require('gulp-help')(require('gulp'),{
+gulp = require('gulp-help')(require('gulp'),{
   aliases: ['h']
   hideEmpty: true
   hideDepsMessage: true
 })
 
-$               = require('gulp-load-plugins')({
+$ = require('gulp-load-plugins')({
     DEBUG: false, # when set to true, the plugin will log info to console. Useful for bug reporting and issue debugging 
-    pattern: ['gulp-*', 'gulp.*', 'browser-sync', 'babel-preset-es2015', 'vinyl-paths', 'del'], # the glob(s) to search for 
+    pattern: ['gulp-*', 'gulp.*',
+    'browser-sync',
+    'babel-preset-es2015',
+    'vinyl-paths',
+    'del',
+    'gitbook',
+    'delete-empty',
+    'run-sequence'], # the glob(s) to search for 
     #config: 'package.json', # where to find the plugins, by default searched up from process.cwd() 
     scope: ['dependencies', 'devDependencies', 'peerDependencies'], # which keys in the config to look within 
     replaceString: /^gulp(-|\.)/, # what to remove from the name of the module when adding it to the context 
@@ -39,10 +43,6 @@ $               = require('gulp-load-plugins')({
       'babel-preset-es2015': 'es2015'
     }, # a mapping of plugins to rename 
 })
-
-runSequence     = require('run-sequence')
-deleteEmpty     = require('delete-empty')
-gitbook         = require('gitbook')
 
 #--------------------------------
 #------ Functions definition ----
@@ -71,7 +71,7 @@ gulp.task 'dirTree','Display gulp.tasks and create a resport tasks.json', ->
   taskReport = {}
   stream = fs.createWriteStream("dirTree.json")
   stream.once('open', (fd) ->
-      stream.write JSON.stringify(dirTree('../frontdev/'))
+      stream.write JSON.stringify(dirTree('../docsBook/web'))
       stream.end
   );
 
@@ -105,7 +105,7 @@ gulp.task 'copy-directories', 'copy directories to another loaction' ,->
   .pipe gulp.dest(copy_directories_out)
 
 gulp.task 'delete-empty-directories', 'cleanup empty directories',->
-  return deleteEmpty.sync(copy_directories_out, {force: true})
+  return $.deleteEmpty.sync(copy_directories_out, {force: true})
 
 #--------------------------------
 #------ 2.frontdev --------------
@@ -119,14 +119,15 @@ gulp.task 'delete-empty-directories', 'cleanup empty directories',->
 # 2.6 linting Tasks
 #--------------------------------
 
-frontdev_OUT = configPath.path_frontdev.out
-frontdev_IN  = configPath.path_frontdev.in
+frontdev_OUT  = configPath.path_frontdev.out
+frontdev_IN   = configPath.path_frontdev.in
+frontdev_init = configPath.path_init.website
 
 #%%%%% 2.0 Init tasks %%%%%
 gulp.task 'init:frontdev', 'Copy paste the app folder into the project_dev folder', ->
   copy_directories_out = frontdev_IN.src
-  copy_directories_in  = path_init.website
-  runSequence('copy-directories','delete-empty-directories')
+  copy_directories_in  = frontdev_init
+  $.runSequence('copy-directories','delete-empty-directories')
 
 #%%%%% 2.1 frontend watch %%%%%
 
@@ -431,27 +432,21 @@ gulp.task 'frontdev:merge:jsons', 'merge Json files under a folder to one json f
 #     yaml: { schema: 'DEFAULT_SAFE_SCHEMA' }
 #   }
 
-
-
 #--------------------------------
 #------ 3.Documentation ---------
 #--------------------------------
 # 3.0 Init tasks
 # -------------------------------
 
+docs_OUT  = configPath.path_docs.out
+docs_IN   = configPath.path_docs.in
+docs_init = configPath.path_init.gitbook
+
 #%%%%% 2.0 Init tasks %%%%%
 gulp.task 'init:gitbook', 'Copy paste gitbook template in the project_doc directory' , ->
-  copy_directories_out = path_docs.in.src
-  copy_directories_in  = path_init.gitbook
-  runSequence('copy-directories','delete-empty-directories')
-
-# ###
-# @plugin : ghPages
-# @input  : pathIN
-# @options:
-# ###
-# gulp.task 'gh-pages','Publish gh-pages', ->
-#   publishGhPage.publish path_ghpage.in
+  copy_directories_out = docs_IN.src
+  copy_directories_in  = docs_init
+  $.runSequence('copy-directories','delete-empty-directories')
 
 # ###
 # @plugin : gitbook
@@ -459,15 +454,45 @@ gulp.task 'init:gitbook', 'Copy paste gitbook template in the project_doc direct
 # @options: log: info/debug , format: website, timing: false
 # ###
 # gulp.task 'gitbook', 'Publish pdf gitbook' , ->
-#   docsGitbook.website path_docs.in.src, path_docs.out.website, { log: 'info', format: 'website', timing: false }
+#   docsGitbook.website path_docs.in.src, path_docs.out.website, 
+gulp.task 'docs:gitbook:website', 'Publish website gitbook', ->
+  getTask this,
+    {
+      pathIN:   docs_IN.src
+      pathOUT:  docs_OUT.website
+      argv: argv
+    },{
+      log: 'info', format: 'website', timing: false
+    }
+,{
+  aliases: ['gitbook'],
+  options: {
+    'env=prod': ''
+    'env=dev' : ''
+  }
+}
 
-# ###
-# @plugin : gitbook
-# @input  : pathIN, pathOUT, options
-# @options: log: info/debug , format: website, timing: false
-# ###
-# gulp.task 'gitbook-pdf', 'Publish pdf gitbook' , ->
-#   docsGitbook.pdf path_docs.in.src, path_docs.out.pdf, { log: 'info', format: 'ebook', timing: false }
+###
+@plugin : gitbook
+@input  : pathIN, pathOUT, options
+@options: log: info/debug , format: website, timing: false
+###
+gulp.task 'docs:gitbook:pdf', 'Publish website gitbook', ->
+  getTask this,
+    {
+      pathIN:   docs_IN.src
+      pathOUT:  docs_OUT.pdf
+      argv: argv
+    },{
+      log: 'info', format: 'ebook', timing: false
+    }
+,{
+  aliases: ['gitbook:pdf', 'doc:pdf', 'pdf'],
+  options: {
+    'env=prod': ''
+    'env=dev' : ''
+  }
+}
 
 # ###
 # @plugin : _, getFolders, getFiles, path
@@ -476,3 +501,11 @@ gulp.task 'init:gitbook', 'Copy paste gitbook template in the project_doc direct
 # ###
 # gulp.task 'helper:gitbook', 'helper for gitbook' , ->
 #   helperGitbook.generateSummary path_docs.in.src
+
+# ###
+# @plugin : ghPages
+# @input  : pathIN
+# @options:
+# ###
+# gulp.task 'gh-pages','Publish gh-pages', ->
+#   publishGhPage.publish path_ghpage.in

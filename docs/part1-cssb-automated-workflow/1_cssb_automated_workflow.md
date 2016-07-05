@@ -6,7 +6,7 @@ Using an automated work-flow start by running some command lines. I asume that y
 
 1. Download the project the last stable version
 
-  > git clone https://github.com/xNok/Cssb/v0.4
+  > git clone https://github.com/xNok/Cssb/v0.5.1
 
   __OR__ the current work in progress version
 
@@ -58,5 +58,3 @@ The first let you compile all your files
 The seconde one let you use the live relaod, this means your files are compile whenerer you changed them
 
 > gulp
-
-## Helpers
