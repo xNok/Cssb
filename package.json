@@ -19,7 +19,12 @@
   "scripts": {
     "start": "gulp",
     "dist": "gulp dist",
+<<<<<<< Updated upstream
     "test": "node cli_tests.js"
+=======
+    "cli-tests": "node ./lib/cli_tests.js",
+    "test": "mocha --compilers js:babel-core/register --recursive tests/*.js"
+>>>>>>> Stashed changes
   },
   "dependencies": {
     "autoprefixer": "^6.0.3",

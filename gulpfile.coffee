@@ -6,6 +6,7 @@ _               = require('lodash')
 argv            = require('yargs').argv
 fs              = require('fs')
 path            = require('path')
+<<<<<<< Updated upstream
 log             = require('./logger')()
 
 #%%%%% Config Information %%%%%
@@ -14,8 +15,16 @@ configPath      = require('./_config/paths.coffee')
 path_docs       = configPath.path_docs
 path_init       = configPath.path_init
 path_ghpage     = configPath.path_ghpage
+=======
+log             = require('./lib/logger')()
+dirTree         = require('directory-tree')
+
+#%%%%% Config Information %%%%%
+# Path
+configPath      = require('./_configs/paths.coffee')
+>>>>>>> Stashed changes
 # module config
-configTasks     = require('./_config/tasks.coffee')
+configTasks     = require('./_configs/tasks.coffee')
 browser_support = configTasks.browser_support
 images_config   = configTasks.images_config
 
@@ -46,9 +55,15 @@ gitbook         = require('gitbook')
 #--------------------------------
 #------ Functions definition ----
 #--------------------------------
+<<<<<<< Updated upstream
 getFolders  = require('./tasks__helpers/helper-files.js').getFolders
 getFiles    = require('./tasks__helpers/helper-files.js').getFiles
 getJsons    = require('./tasks__helpers/helper-files.js').getJsons
+=======
+getFolders  = require('./lib/helper-files.js').getFolders
+getFiles    = require('./lib/helper-files.js').getFiles
+getJsons    = require('./lib/helper-files.js').getJsons
+>>>>>>> Stashed changes
 #--------------------------------
 #------ 0.dev -------------------
 #--------------------------------
@@ -69,7 +84,7 @@ gulp.Gulp.prototype._runTask = (task) ->
 gulp.task 'tasks','Display gulp.tasks and create a resport tasks.json', ->
   taskReport = {}
   log.info.ln(gulp.tasks)
-  stream = fs.createWriteStream("tasks.json")
+  stream = fs.createWriteStream("./.temp/tasks.json")
   stream.once('open', (fd) ->
       stream.write JSON.stringify(gulp.tasks)
       stream.end

@@ -1,0 +1,29 @@
+{% extends '..\layouts\main.html' %}
+{% block content %}
+
+<!-- Sample Sidebar with existing templates -->
+<aside id="defaultnav">
+
+</aside>
+<!-- Sample Content to Plugin to Template -->
+<section>
+	<!-- Headings -->
+	{% include "../partials/headings.html" %}
+	<hr />
+	<!-- Paragraphs -->
+	{% include "../partials/paragraph.html" %}
+	<hr />
+	{% include "../partials/misc_stuff.html" %}
+	<hr />
+	<!-- Lists -->
+	{% include "../partials/lists.html" %}
+	<hr />
+	<!-- Forms -->
+	{% include "../partials/form.html" %}
+	<hr />
+	<!-- Tables -->
+	{% include "../partials/form.html" %}
+	<hr />
+</section>
+
+{% endblock %}
