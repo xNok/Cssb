@@ -2,7 +2,7 @@
 
 Frontend tools automating your workflow with [gulp](http://gulpjs.com/).
 
-The project provide a set of pre-programmed command. These commandes will help you to simplify and impove your developement process. Use it or [learn how to build your own automated workflow](https://github.com/xNok/Cssb/blob/master/docs/part1-automated-workflow/gulp_automated_workflow.md).
+The project provide a set of pre-programmed command. These commands will help you to simplify and improve your development process. Use it or [learn how to build your own automated workflow](https://github.com/xNok/Cssb/blob/master/docs/part1-automated-workflow/gulp_automated_workflow.md).
 
 The main enhancements that bring this project are :
 
